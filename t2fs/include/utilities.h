@@ -12,3 +12,5 @@ int inodes_bitmap_size;
 int inodes_area_size;
 int sectors_per_block;
 int total_sectors_count;
+
+int readSuperBlock();
