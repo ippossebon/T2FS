@@ -15,8 +15,11 @@ BIN_DIR=./bin/
 SRC_DIR=./src/
 FLAGS= -g -Wall
 
-all: $(BIN_DIR)t2fs.o $(LIB_DIR)apidisk.o $(LIB_DIR)bitmap2.o
-	ar crs $(LIB_DIR)libt2fs.a $(BIN_DIR)t2fs.o $(LIB_DIR)apidisk.o $(LIB_DIR)bitmap2.o
+all: t2fs utilities $(LIB_DIR)apidisk.o $(LIB_DIR)bitmap2.o
+	ar crs $(LIB_DIR)libt2fs.a $(BIN_DIR)t2fs.o $(LIB_DIR)apidisk.o $(LIB_DIR)bitmap2.o $(BIN_DIR)utilities.o
+
+utilities: t2fs $(SRC_DIR)utilities.c
+	$(CC) -I$(INC_DIR) -o $(BIN_DIR)utilities.o -c $(SRC_DIR)utilities.c $(FLAGS)
 
 t2fs: $(SRC_DIR)t2fs.c
 	$(CC) -I$(INC_DIR) -o $(BIN_DIR)/t2fs.o -c $(SRC_DIR)/t2fs.c $(FLAGS)

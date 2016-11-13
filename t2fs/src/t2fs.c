@@ -1,4 +1,5 @@
-s#include <stdlib.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "t2fs.h"
 
 #define MAX_OPENED_FILES 20
@@ -7,8 +8,8 @@ int initialized = 0;
 int opened_files_count = 0;
 int opened_dirs_count = 0;
 
-FILE2 opened_files = [20];
-DIR2 opened_dirs = [20];
+FILE2 opened_files [20];
+DIR2 opened_dirs [20];
 
 
 void initialize_data(){
@@ -18,13 +19,23 @@ void initialize_data(){
 }
 
 int identify2 (char *name, int size){
-    char students[] = "Camila Primieri - 00, Isadora Possebon - 00228551";
+    if(name == NULL){
+        name = malloc(sizeof(char) * size);
+    }
 
-    if (size < sizeof(students)){
+    if(size <= 0){
+        printf("[cidentify] Erro: o tamanho não pode ser negativo.\n");
         return -1;
     }
 
-    strncpy2(name, students, sizeof(students));
+    char students[] = "Camila Primieri - 00 \nIsadora Pedrini Possebon - 00228551 \n";
+    int i = 0;
+
+    while (i < size && i < sizeof(students)){
+        name[i] = students[i];
+        i++;
+    }
+
     return 0;
 }
 
