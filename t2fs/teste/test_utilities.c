@@ -4,12 +4,12 @@
 
 int main()
 {
-    int ret;
+  int ret;
 	ret = readSuperBlock();
 
-    if (ret == -1){
-        printf("ERRO em readSuperBlock\n");
-    }
+  if (ret == -1){
+    printf("ERRO em readSuperBlock\n");
+  }
 
-    return 0;
+  return 0;
 }
