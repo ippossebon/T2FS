@@ -5,12 +5,12 @@ INC_DIR=../include
 BIN_DIR=../bin
 SRC_DIR=../src
 CFLAGS= -Wall -c
-OBJETOS= test_utilities
+OBJETOS= test_initialize
 
-all: test_utilities
+all: test_initialize
 
-test_utilities: test_utilities.c $(LIB_DIR)/libt2fs.a
-	$(CC) -g -o test_utilities test_utilities.c -L../lib/ -lt2fs -I$(INC_DIR) -lm -Wall
+test_initialize: test_initialize.c $(LIB_DIR)libt2fs.a
+	$(CC) -g -o test_initialize test_initialize.c -L$(LIB_DIR) -lt2fs -I$(INC_DIR) -lm -Wall
 
 clean:
 	rm -rf $(OBJETOS)
