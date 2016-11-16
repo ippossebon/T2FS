@@ -109,6 +109,13 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o handle d
 	Em caso de erro, deve ser retornado um valor negativo
 -----------------------------------------------------------------------------*/
 FILE2 open2 (char *filename){
+    // Encontrar o i-node relativo ao arquivo (pesquisa nos diretórios da partição -> lookup)
+    // Se o arquivo não existe: return -1
+    // Senão, verifica se o arquivo já está aberto (procura por ele na tabela dos descritores de arquivos abertos)
+    // Se o arquivo já está aberto: fim
+    // Senão, aloca uma entrada livre na tabela TDAA e copia o i-node/descritor do arquivo para essa entrada (obs.: inicializar os campos adicionais)
+    // (talvez) verificar se as permissões são satisfeitas
+
     return -1;
 }
 
