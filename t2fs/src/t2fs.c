@@ -1,30 +1,37 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "apidisk.h"
-#include "bitmap2.h"
-#include "t2fs.h"
-#include "utilities.h"
+
+#include "../include/apidisk.h"
+#include "../include/bitmap2.h"
+#include "../include/t2fs.h"
+#include "../include/utilities.h"
 
 #define MAX_OPENED_FILES 20
 
 int initialized = 0;
 int opened_files_count = 0;
 int opened_dirs_count = 0;
-t2fs_superbloco superblock;
+
+struct t2fs_superbloco superblock;
 
 FILE2 opened_files [20];
 DIR2 opened_dirs [20];
 
 
-void initialize_data(){
+/* Retorna 0 com sucesso. -1 em caso contrário*/
+int initialize_data(){
     int aux;
 
     if(initialized == 0){
         // Lê o super bloco com as informações necessárias e inicializa os dados
         aux = readSuperBlock(&superblock);
+        if (aux < 0){
+            return -1;
+        }
 
         initialized = 1;
     }
+    return 0;
 }
 
 int identify2 (char *name, int size){
@@ -69,6 +76,21 @@ FILE2 create2 (char *filename){
     if (opened_files_count >= MAX_OPENED_FILES){
         return -1;
     }
+
+/*
+    if (existsFile(filename)){
+        return -1;
+    }
+*/
+    /*
+    Na criação de
+um arquivo, todos os diretórios intermediários da raiz até ao diretório corrente já devem existir. Se não existirem, a
+primitiva de criação deverá retornar com erro. Por exemplo, ao criar o arqx com o caminho /a/b/c/d/arqx todos os
+diretórios do caminho já devem existir (a, b, c e d).
+    */
+
+
+
     /* Cria um novo arquivo no disco. */
     // Procurar bloco livre
     // Adicionar registro/entrada no diretório
@@ -76,6 +98,8 @@ FILE2 create2 (char *filename){
     //
 
     // cria nome do arquivo com o caminho necessário
+    //t2fs_record record;
+    //record = createRecord(1, );
 
     return -1;
 }
@@ -224,6 +248,7 @@ int mkdir2 (char *pathname){
     // Deve ser vazio, exceto por . e ..
     // newBlock()
 
+    // createRecord(2, ...);
 
     return -1;
 }

@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
+
 #include "../include/apidisk.h"
 #include "../include/bitmap2.h"
 #include "../include/t2fs.h"
@@ -10,12 +12,11 @@ int readSuperBlock(struct t2fs_superbloco *superblock){
     unsigned char buffer_sector[256];
     unsigned char word_buffer[2];
     unsigned char dword_buffer[4];
-    unsigned int s = 0;
     int i;
 
     if (read_sector(0, &buffer_sector[0]) != 0){
-        printf("Erro ao ler setor\n");
-        return ERRO;
+        printf("Erro ao ler setor 0\n");
+        return -1;
     }
 
     for(i = 0; i < 4; i++){
@@ -68,3 +69,32 @@ int readSuperBlock(struct t2fs_superbloco *superblock){
 
     return 0;
 }
+
+
+/* Cria um registro com os parâmetros especificados. Retorna um ponteiro para este registro,
+em caso de sucesso. Caso contrário, retorna NULL. */
+struct t2fs_record* createRecord(BYTE type, char* name, DWORD file_size_in_blocks, DWORD file_size_in_bytes, int inode_number){
+
+    struct t2fs_record* record;
+    record = malloc(sizeof(struct t2fs_record));
+
+    if (strlen(name) > 32){
+        printf("[createRecord] tamanho do arquivo não pode ser maior do que 32 bytes. Tamanho enviado: %d\n", strlen(name));
+        return NULL;
+    }
+
+    record->TypeVal = type;
+    strcpy(record->name, name);
+    record->blocksFileSize = file_size_in_blocks;
+    record->bytesFileSize = file_size_in_bytes;
+    record->inodeNumber = inode_number;
+
+    return record;
+}
+
+/* Retorna 0 se arquivo não existe; 1, caso contrário.*/
+/*
+int existsFile(char* filename){
+
+}
+*/
