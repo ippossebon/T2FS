@@ -1,3 +1,8 @@
+/* 	Arquivo de Código da Biblioteca t2fs.c
+Implementado por Camila Haas Primieri e Isadora Pedrini Possebon
+Sistemas Operacionais I - N
+Universidade Federal do Rio Grande do Sul - UFRGS */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "../include/apidisk.h"
@@ -5,12 +10,16 @@
 #include "../include/t2fs.h"
 #include "../include/utilities.h"
 
+#define MAX_OPENED_FILES 20
+#define SECTOR_SIZE 256
+#define ERRO -1
+#define SUCESSO 0
+
 /* Retorna 0 se conseguiu ler; -1, caso contrário. */
 int readSuperBlock(struct t2fs_superbloco *superblock){
-    unsigned char buffer_sector[256];
+    unsigned char buffer_sector[SECTOR_SIZE];
     unsigned char word_buffer[2];
     unsigned char dword_buffer[4];
-    unsigned int s = 0;
     int i;
 
     if (read_sector(0, &buffer_sector[0]) != 0){

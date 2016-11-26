@@ -1,9 +1,9 @@
 CC=gcc
-EXE_DIR=../exemplos
+EXE_DIR=../exemplos/
 LIB_DIR=../lib/
-INC_DIR=../include
-BIN_DIR=../bin
-SRC_DIR=../src
+INC_DIR=../include/
+BIN_DIR=../bin/
+SRC_DIR=../src/
 CFLAGS= -Wall -c
 OBJETOS= test_initialize
 
