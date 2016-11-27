@@ -10,18 +10,13 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 #include "../include/bitmap2.h"
 #include "../include/utilities.h"
 
-#define MAX_OPENED_FILES 20
-#define SECTOR_SIZE 256
-#define ERRO -1
-#define SUCESSO 0
-
 /* Globais */
 int initialized = 0;
 int opened_files_count = 0;
 int opened_dirs_count = 0;
 struct t2fs_superbloco superblock;
-FILE2 opened_files [20];
-DIR2 opened_dirs [20];
+FILE2 opened_files [MAX_OPENED_FILES];
+DIR2 opened_dirs [MAX_OPENED_FILES];
 
 /* Funções Auxiliares */
 void initialize_data();

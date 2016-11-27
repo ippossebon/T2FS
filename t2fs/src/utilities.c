@@ -10,11 +10,6 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 #include "../include/t2fs.h"
 #include "../include/utilities.h"
 
-#define MAX_OPENED_FILES 20
-#define SECTOR_SIZE 256
-#define ERRO -1
-#define SUCESSO 0
-
 /* Retorna 0 se conseguiu ler; -1, caso contrário. */
 int readSuperBlock(struct t2fs_superbloco *superblock){
     unsigned char buffer_sector[SECTOR_SIZE];
@@ -66,14 +61,14 @@ int readSuperBlock(struct t2fs_superbloco *superblock){
     }
     superblock->diskSize = *(DWORD *)dword_buffer;
 
-    printf("id = %c%c%c%c\n", superblock->id[0], superblock->id[1], superblock->id[2], superblock->id[3]);
-    printf("version = %d\n", superblock->version);
-    printf("superblockSize = %d\n", superblock->superblockSize);
-    printf("blocks_bitmap_size = %d\n", superblock->freeBlocksBitmapSize);
-    printf("inodes_bitmap_size = %d\n", superblock->freeInodeBitmapSize);
-    printf("inodes_area_size = %d\n", superblock->inodeAreaSize);
-    printf("sectors_per_block = %d\n", superblock->blockSize);
-    printf("total_sectors_count = %d\n", superblock->diskSize);
+    // printf("id = %c%c%c%c\n", superblock->id[0], superblock->id[1], superblock->id[2], superblock->id[3]);
+    // printf("version = %d\n", superblock->version);
+    // printf("superblockSize = %d\n", superblock->superblockSize);
+    // printf("blocks_bitmap_size = %d\n", superblock->freeBlocksBitmapSize);
+    // printf("inodes_bitmap_size = %d\n", superblock->freeInodeBitmapSize);
+    // printf("inodes_area_size = %d\n", superblock->inodeAreaSize);
+    // printf("sectors_per_block = %d\n", superblock->blockSize);
+    // printf("total_sectors_count = %d\n", superblock->diskSize);
 
     return 0;
 }
