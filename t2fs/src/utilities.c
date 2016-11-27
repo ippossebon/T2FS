@@ -10,8 +10,12 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 #include "../include/t2fs.h"
 #include "../include/utilities.h"
 
+int inode_start_position;
+int inode_sectors;
+int sectors_by_block;
+
 /* Retorna 0 se conseguiu ler; -1, caso contrário. */
-int readSuperBlock(struct t2fs_superbloco *superblock, int *inode_start_position, int *inode_sectors, int *block_to_sectors){
+int readSuperBlock(struct t2fs_superbloco *superblock){
     unsigned char buffer_sector[SECTOR_SIZE];
     unsigned char word_buffer[2];
     unsigned char dword_buffer[4];
@@ -61,9 +65,9 @@ int readSuperBlock(struct t2fs_superbloco *superblock, int *inode_start_position
     }
     superblock->diskSize = *(DWORD *)dword_buffer;
 
-    * inode_start_position = (int)superblock->superblockSize + (int)superblock->freeBlocksBitmapSize + (int)superblock->freeInodeBitmapSize;
-    * inode_sectors = (int)superblock->inodeAreaSize;
-    * block_to_sectors = (int)superblock->blockSize;
+    inode_start_position = (int)superblock->superblockSize + (int)superblock->freeBlocksBitmapSize + (int)superblock->freeInodeBitmapSize;
+    inode_sectors = (int)superblock->inodeAreaSize;
+    sectors_by_block = (int)superblock->blockSize;
 
     return SUCESSO;
 }
@@ -74,7 +78,7 @@ int readSuperBlock(struct t2fs_superbloco *superblock, int *inode_start_position
     - a posição inicial dos inodes em disco
     - e quantidade de setores ocupados por inodes
 Retorna 0 em caso de sucesso e -1 em caso de erro. */
-int readInode(struct t2fs_inode *actual_inode, int inode_number, int inode_start_position, int inode_sectors){
+int readInode(struct t2fs_inode *actual_inode, int inode_number){
     int sector = 0, inode_position = 0, total_inodes, i;
     unsigned char buffer_sector[SECTOR_SIZE];
     unsigned char pointer_buffer[4];
@@ -120,11 +124,43 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number, int inode_start
     }
     actual_inode->doubleIndPtr = *(int *)pointer_buffer;
 
-    printf("Dados do inode %d\n", inode_number);
-    printf("dataPtr[0] = %d\n", actual_inode->dataPtr[0]);
-    printf("dataPtr[1] = %d\n", actual_inode->dataPtr[1]);
-    printf("singleIndPtr = %d\n", actual_inode->singleIndPtr);
-    printf("doubleIndPtr = %d\n", actual_inode->doubleIndPtr);
-
     return SUCESSO;
+}
+
+/* Função para localizar um arquivo ou subdiretório em um diretório pai. Deve-se informar:
+    - identificador do diretório pai
+    - nome do arquvo ou subdiretório, sem
+*/
+int findInDir(int dir_handler, char *filename){
+    struct t2fs_inode inode;
+    int aux, file_handler;
+
+    aux = readInode(&inode, dir_handler);
+    if(aux != 0){
+        printf("Handler de diretório informado inválido\n");
+        return ERRO;
+    }
+
+    if(inode.dataPtr[0] !=	INVALID_PTR){
+        file_handler = findInBlock(inode.dataPtr[0], filename);
+        if(file_handler != ERRO){
+            return file_handler;
+        }
+    }
+    if(inode.dataPtr[1] !=	INVALID_PTR){
+        file_handler = findInBlock(inode.dataPtr[1], filename);
+        if(file_handler != ERRO){
+            return file_handler;
+        }
+    }
+    return ERRO;
+}
+
+int findInBlock(int block, char *filename){
+    int sector;
+
+    sector = inode_start_position + inode_sectors + block * sectors_by_block;
+    sector++;
+
+    return ERRO;
 }

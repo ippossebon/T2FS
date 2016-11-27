@@ -17,9 +17,6 @@ int opened_dirs_count = 0;
 
 struct t2fs_superbloco superblock;
 struct t2fs_inode actual_inode;
-int inode_start_position;
-int inode_sectors;
-int block_to_sectors;
 
 FILE2 opened_files [MAX_OPENED_FILES];
 DIR2 opened_dirs [MAX_OPENED_FILES];
@@ -31,11 +28,7 @@ void initialize_data(){
     int aux = 1;
 
     /* Lê o super bloco com as informações necessárias e inicializa os dados */
-    aux = readSuperBlock(&superblock, &inode_start_position, &inode_sectors, &block_to_sectors);
-
-    aux += readInode(&actual_inode, 0, inode_start_position, inode_sectors);
-    aux += readInode(&actual_inode, 560, inode_start_position, inode_sectors);
-    aux += readInode(&actual_inode, 1843, inode_start_position, inode_sectors);
+    aux = readSuperBlock(&superblock);
 
     if(aux == SUCESSO){
         printf("Inicialização concluída corretamente\n");
