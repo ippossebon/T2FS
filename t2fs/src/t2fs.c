@@ -77,30 +77,28 @@ FILE2 create2 (char *filename){
         return -1;
     }
 
-/*
     if (existsFile(filename)){
         return -1;
     }
-*/
-    /*
-    Na criação de
-um arquivo, todos os diretórios intermediários da raiz até ao diretório corrente já devem existir. Se não existirem, a
-primitiva de criação deverá retornar com erro. Por exemplo, ao criar o arqx com o caminho /a/b/c/d/arqx todos os
-diretórios do caminho já devem existir (a, b, c e d).
-    */
+
+    if (! isFileNameValid(filename)){
+        return -1;
+    }
+
+    /* Para cada diretório no caminho absoluto do arquivo, verifica se o diretório existe. Se algum destes diretórios
+     não existeir, retorna -1. */
+    if (! isValidPath(filename)){
+        return -1;
+    }
 
 
-
-    /* Cria um novo arquivo no disco. */
-    // Procurar bloco livre
-    // Adicionar registro/entrada no diretório
-    // newBlock()
-    //
+    // Cria novo i-node com entradas inicializadas (ponteiros inválidos)
+    // Cria novo registro, passando o número deste novo i-node e o restante dos parâmetros necessários.
 
     // cria nome do arquivo com o caminho necessário
     //t2fs_record record;
     //record = createRecord(1, );
-
+    
     return -1;
 }
 
