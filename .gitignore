@@ -1,4 +1,2 @@
-# Compiled source #
-*.exe
-*.o
-*.a
+.vagrant/
+Vagrantfile

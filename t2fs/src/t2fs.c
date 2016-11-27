@@ -1,13 +1,17 @@
+/* 	Arquivo de Código da Biblioteca t2fs.c
+Implementado por Camila Haas Primieri e Isadora Pedrini Possebon
+Sistemas Operacionais I - N
+Universidade Federal do Rio Grande do Sul - UFRGS */
+
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "../include/t2fs.h"
 #include "../include/apidisk.h"
 #include "../include/bitmap2.h"
-#include "../include/t2fs.h"
 #include "../include/utilities.h"
 
-#define MAX_OPENED_FILES 20
 
+/* Globais */
 int initialized = 0;
 int opened_files_count = 0;
 int opened_dirs_count = 0;
@@ -17,21 +21,19 @@ struct t2fs_superbloco superblock;
 FILE2 opened_files [20];
 DIR2 opened_dirs [20];
 
+/* Funções Auxiliares */
+void initialize_data();
 
-/* Retorna 0 com sucesso. -1 em caso contrário*/
-int initialize_data(){
+void initialize_data(){
     int aux;
 
-    if(initialized == 0){
-        // Lê o super bloco com as informações necessárias e inicializa os dados
-        aux = readSuperBlock(&superblock);
-        if (aux < 0){
-            return -1;
-        }
+    /* Lê o super bloco com as informações necessárias e inicializa os dados */
+       aux = readSuperBlock(&superblock);
 
-        initialized = 1;
-    }
-    return 0;
+       if(!aux){
+           printf("Inicialização concluída corretamente\n");
+           initialized = 1;
+       }
 }
 
 int identify2 (char *name, int size){
@@ -41,18 +43,17 @@ int identify2 (char *name, int size){
 
     if(size <= 0){
         printf("[cidentify] Erro: o tamanho não pode ser negativo.\n");
-        return -1;
+        return ERRO;
     }
 
-    char students[] = "Camila Primieri - 00172662 \nIsadora Pedrini Possebon - 00228551\n";
+    char students[] = "Camila Haas Primieri - 00172662 \nIsadora Pedrini Possebon - 00228551\n";
     int i = 0;
 
     while (i < size && i < sizeof(students)){
         name[i] = students[i];
         i++;
     }
-
-    return 0;
+    return SUCESSO;
 }
 
 /*-----------------------------------------------------------------------------
@@ -73,9 +74,12 @@ FILE2 create2 (char *filename){
         initialize_data();
     }
 
+    // Deve procurar espaço no disco.
+
     if (opened_files_count >= MAX_OPENED_FILES){
-        return -1;
+        return ERRO;
     }
+
 
     if (existsFile(filename)){
         return -1;
@@ -98,8 +102,9 @@ FILE2 create2 (char *filename){
     // cria nome do arquivo com o caminho necessário
     //t2fs_record record;
     //record = createRecord(1, );
-    
-    return -1;
+
+
+    return ERRO;
 }
 
 /*-----------------------------------------------------------------------------
@@ -112,7 +117,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int delete2 (char *filename){
-    return -1;
+    return ERRO;
 }
 
 
@@ -138,7 +143,8 @@ FILE2 open2 (char *filename){
     // Senão, aloca uma entrada livre na tabela TDAA e copia o i-node/descritor do arquivo para essa entrada (obs.: inicializar os campos adicionais)
     // (talvez) verificar se as permissões são satisfeitas
 
-    return -1;
+
+    return ERRO;
 }
 
 
@@ -151,7 +157,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int close2 (FILE2 handle){
-    return -1;
+    return ERRO;
 }
 
 
@@ -169,7 +175,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o número 
 	Em caso de erro, será retornado um valor negativo.
 -----------------------------------------------------------------------------*/
 int read2 (FILE2 handle, char *buffer, int size){
-    return -1;
+    return ERRO;
 }
 
 
@@ -186,7 +192,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o número 
 	Em caso de erro, será retornado um valor negativo.
 -----------------------------------------------------------------------------*/
 int write2 (FILE2 handle, char *buffer, int size){
-    return -1;
+    return ERRO;
 }
 
 
@@ -201,7 +207,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int truncate2 (FILE2 handle){
-    return -1;
+    return ERRO;
 }
 
 
@@ -219,7 +225,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int seek2 (FILE2 handle, DWORD offset){
-    return -1;
+    return ERRO;
 }
 
 
@@ -239,7 +245,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int mkdir2 (char *pathname){
-    if (! initialized){
+    if (!initialized){
         initialize_data();
     }
 
@@ -248,7 +254,7 @@ int mkdir2 (char *pathname){
 
     // createRecord(2, ...);
 
-    return -1;
+    return ERRO;
 }
 
 
@@ -269,7 +275,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int rmdir2 (char *pathname){
-    return -1;
+    return ERRO;
 }
 
 
@@ -287,7 +293,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o identifi
 	Em caso de erro, será retornado um valor negativo.
 -----------------------------------------------------------------------------*/
 DIR2 opendir2 (char *pathname){
-    return -1;
+    return ERRO;
 }
 
 
@@ -307,7 +313,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero ( e "dentry" não será válido)
 -----------------------------------------------------------------------------*/
 int readdir2 (DIR2 handle, DIRENT2 *dentry){
-    return -1;
+    return ERRO;
 }
 
 
@@ -320,5 +326,5 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int closedir2 (DIR2 handle){
-    return -1;
+    return ERRO;
 }

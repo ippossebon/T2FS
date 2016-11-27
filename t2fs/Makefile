@@ -1,13 +1,3 @@
-#
-# Makefile ESQUELETO
-#
-# DEVE ter uma regra "all" para geração da biblioteca
-# regra "clean" para remover todos os objetos gerados.
-#
-# NECESSARIO adaptar este esqueleto de makefile para suas necessidades.
-#
-#
-
 CC=gcc
 LIB_DIR=./lib/
 INC_DIR=./include/
@@ -16,13 +6,13 @@ SRC_DIR=./src/
 FLAGS= -g -Wall
 
 all: t2fs utilities $(LIB_DIR)apidisk.o $(LIB_DIR)bitmap2.o
-	ar crs $(LIB_DIR)libt2fs.a $(BIN_DIR)t2fs.o $(LIB_DIR)apidisk.o $(LIB_DIR)bitmap2.o $(BIN_DIR)utilities.o
+	ar crs $(LIB_DIR)libt2fs.a $(BIN_DIR)t2fs.o $(BIN_DIR)utilities.o $(LIB_DIR)apidisk.o $(LIB_DIR)bitmap2.o
 
-utilities: t2fs $(SRC_DIR)utilities.c
-	$(CC) -o $(BIN_DIR)utilities.o -c $(SRC_DIR)utilities.c $(FLAGS)
+utilities: $(SRC_DIR)utilities.c
+	$(CC) -I$(INC_DIR) -o $(BIN_DIR)utilities.o -c $(SRC_DIR)utilities.c $(FLAGS)
 
-t2fs: $(SRC_DIR)t2fs.c
-	$(CC) -o $(BIN_DIR)/t2fs.o -c $(SRC_DIR)/t2fs.c $(FLAGS)
+t2fs: $(SRC_DIR)t2fs.c utilities
+	$(CC) -I$(INC_DIR) -o $(BIN_DIR)t2fs.o -c $(SRC_DIR)t2fs.c $(FLAGS)
 
 clean:
 	rm -rf $(LIB_DIR)/*.a $(BIN_DIR)/*.o $(SRC_DIR)/*~ $(INC_DIR)/*~ *~
