@@ -16,6 +16,11 @@ int opened_files_count = 0;
 int opened_dirs_count = 0;
 
 struct t2fs_superbloco superblock;
+struct t2fs_inode actual_inode;
+int inode_start_position;
+int inode_sectors;
+int block_to_sectors;
+
 FILE2 opened_files [MAX_OPENED_FILES];
 DIR2 opened_dirs [MAX_OPENED_FILES];
 
@@ -23,15 +28,19 @@ DIR2 opened_dirs [MAX_OPENED_FILES];
 void initialize_data();
 
 void initialize_data(){
-    int aux;
+    int aux = 1;
 
     /* Lê o super bloco com as informações necessárias e inicializa os dados */
-       aux = readSuperBlock(&superblock);
+    aux = readSuperBlock(&superblock, &inode_start_position, &inode_sectors, &block_to_sectors);
 
-       if(!aux){
-           printf("Inicialização concluída corretamente\n");
-           initialized = 1;
-       }
+    aux += readInode(&actual_inode, 0, inode_start_position, inode_sectors);
+    aux += readInode(&actual_inode, 560, inode_start_position, inode_sectors);
+    aux += readInode(&actual_inode, 1843, inode_start_position, inode_sectors);
+
+    if(aux == SUCESSO){
+        printf("Inicialização concluída corretamente\n");
+        initialized = 1;
+    }
 }
 
 int identify2 (char *name, int size){
@@ -72,36 +81,6 @@ FILE2 create2 (char *filename){
         initialize_data();
     }
 
-    // Deve procurar espaço no disco.
-
-    if (opened_files_count >= MAX_OPENED_FILES){
-        return ERRO;
-    }
-
-
-    if (existsFile(filename)){
-        return -1;
-    }
-
-    if (! isFileNameValid(filename)){
-        return -1;
-    }
-
-    /* Para cada diretório no caminho absoluto do arquivo, verifica se o diretório existe. Se algum destes diretórios
-     não existeir, retorna -1. */
-    if (! isValidPath(filename)){
-        return -1;
-    }
-
-
-    // Cria novo i-node com entradas inicializadas (ponteiros inválidos)
-    // Cria novo registro, passando o número deste novo i-node e o restante dos parâmetros necessários.
-
-    // cria nome do arquivo com o caminho necessário
-    //t2fs_record record;
-    //record = createRecord(1, );
-
-
     return ERRO;
 }
 
@@ -140,7 +119,6 @@ FILE2 open2 (char *filename){
     // Se o arquivo já está aberto: fim
     // Senão, aloca uma entrada livre na tabela TDAA e copia o i-node/descritor do arquivo para essa entrada (obs.: inicializar os campos adicionais)
     // (talvez) verificar se as permissões são satisfeitas
-
 
     return ERRO;
 }
@@ -249,7 +227,6 @@ int mkdir2 (char *pathname){
 
     // Deve ser vazio, exceto por . e ..
     // newBlock()
-
     // createRecord(2, ...);
 
     return ERRO;

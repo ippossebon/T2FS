@@ -10,14 +10,8 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 #include "../include/t2fs.h"
 #include "../include/utilities.h"
 
-#define MAX_OPENED_FILES 20
-#define SECTOR_SIZE 256
-#define ERRO -1
-#define SUCESSO 0
-
-
 /* Retorna 0 se conseguiu ler; -1, caso contrário. */
-int readSuperBlock(struct t2fs_superbloco *superblock){
+int readSuperBlock(struct t2fs_superbloco *superblock, int *inode_start_position, int *inode_sectors, int *block_to_sectors){
     unsigned char buffer_sector[SECTOR_SIZE];
     unsigned char word_buffer[2];
     unsigned char dword_buffer[4];
@@ -67,103 +61,70 @@ int readSuperBlock(struct t2fs_superbloco *superblock){
     }
     superblock->diskSize = *(DWORD *)dword_buffer;
 
-    // printf("id = %c%c%c%c\n", superblock->id[0], superblock->id[1], superblock->id[2], superblock->id[3]);
-    // printf("version = %d\n", superblock->version);
-    // printf("superblockSize = %d\n", superblock->superblockSize);
-    // printf("blocks_bitmap_size = %d\n", superblock->freeBlocksBitmapSize);
-    // printf("inodes_bitmap_size = %d\n", superblock->freeInodeBitmapSize);
-    // printf("inodes_area_size = %d\n", superblock->inodeAreaSize);
-    // printf("sectors_per_block = %d\n", superblock->blockSize);
-    // printf("total_sectors_count = %d\n", superblock->diskSize);
+    * inode_start_position = (int)superblock->superblockSize + (int)superblock->freeBlocksBitmapSize + (int)superblock->freeInodeBitmapSize;
+    * inode_sectors = (int)superblock->inodeAreaSize;
+    * block_to_sectors = (int)superblock->blockSize;
 
-    return 0;
+    return SUCESSO;
 }
 
+/* Função para ler um inode especificado. Argumentos:
+    - um ponteiro para a estrutura inode onde será colocado o inode lido
+    - o número do inode a ser lido
+    - a posição inicial dos inodes em disco
+    - e quantidade de setores ocupados por inodes
+Retorna 0 em caso de sucesso e -1 em caso de erro. */
+int readInode(struct t2fs_inode *actual_inode, int inode_number, int inode_start_position, int inode_sectors){
+    int sector = 0, inode_position = 0, total_inodes, i;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    unsigned char pointer_buffer[4];
 
-/* Cria um registro com os parâmetros especificados. Retorna um ponteiro para este registro,
-em caso de sucesso. Caso contrário, retorna NULL. */
-struct t2fs_record* createRecord(BYTE type, char* name, DWORD file_size_in_blocks, DWORD file_size_in_bytes, int inode_number){
+    total_inodes = inode_sectors * INODE_SIZE;
 
-    struct t2fs_record* record;
-    record = malloc(sizeof(struct t2fs_record));
-
-    if (strlen(name) > 32){
-        printf("[createRecord] tamanho do arquivo não pode ser maior do que 32 bytes. Tamanho enviado: %d\n", strlen(name));
-        return NULL;
+    /* Teste se o número informado é de um inode válido */
+    if((inode_number < 0)||(inode_number >= total_inodes)){
+        return ERRO;
     }
 
-    record->TypeVal = type;
-    strcpy(record->name, name);
-    record->blocksFileSize = file_size_in_blocks;
-    record->bytesFileSize = file_size_in_bytes;
-    record->inodeNumber = inode_number;
+    /* Localiza o setor correto para a leitura */
+    sector = inode_start_position;
+    sector = sector + inode_number/INODE_SIZE;
 
-    return record;
-}
-
-/* Função utilizada tanto para arquivos regulares quanto diretórios.
-Retorna 0 se arquivo não existe; 1, caso contrário.*/
-int existsFile(char* filename){
-
-    return 0;
-}
-
-/*
-Na criação de
-um arquivo, todos os diretórios intermediários da raiz até ao diretório corrente já devem existir. Se não existirem, a
-primitiva de criação deverá retornar com erro. Por exemplo, ao criar o arqx com o caminho /a/b/c/d/arqx todos os
-diretórios do caminho já devem existir (a, b, c e d).
-*/
-int isValidPath(char* path){
-
-
-    return 0;
-}
-
-/* Retorna 1 se o nome do arquivo é válido. 0, caso contrário.
-Nomes de arquivos só podem conter letras, números e o caractere '.'. */
-int isFileNameValid(char* filename){
-
-    for(int i = 0; i < strlen(filename); i++){
-        if (!(filename[i] == 46
-        || 46 < filename[i]  <= 57
-        || 65 <= filename[i] <= 90
-        || 97 <==filename[i] <= 122)){
-            return 0;
-        }
-    }
-    return 1;
-}
-
-/* Aloca um novo i-node. Em caso de sucesso, retorna o índice do i-node alocado; -1, em caso de erro.*/
-int createINode(){
-    /* Procura por um i-node livre. Parâmetro 0 indica que vai procurar por i-nodes.
-    Valor 1 indica que procura por um i-node LIVRE. */
-    int	inode_index;
-    inode_index = searchBitmap2 (0, 1);
-
-    if (inode_index <= 0){
-        printf("[createINode] Não foi encontrado nenhum i-node disponível.\n");
-        return -1;
+    if (read_sector(sector, &buffer_sector[0]) != 0){
+        printf("Erro ao ler setor %d\n", sector);
+        return ERRO;
     }
 
-    // Aloca-se o i-node em questão
-    if(setBitmap2(0, inode_index, 0) != 0){
-        printf("[createINode] Erro ao setar i-node %d\n", inode_index);
-        return -1;
+    /* Seleciona a posição dos bytes do inode certo dentro do setor lido */
+    inode_position = inode_number % INODE_SIZE;
+    inode_position = inode_position * 16;
+
+    /* Seleciona os bytes do inode desejado e coloca as informações no ponteiro do inode */
+    for(i = inode_position; i < inode_position + 4; i++){
+        pointer_buffer[i - inode_position] = buffer_sector[i];
     }
+    actual_inode->dataPtr[0] = *(int *)pointer_buffer;
 
-    // Inicialia entradas do i-node
-    // Procura pelo i-node em questão em inodeArea (Leitura do disco)
-    // Precisamos definir qual é a área em que estão localizados os bitmaps.
-    unsigned char* buffer;
-
-
-    if (read_sector() != 0){
-        printf("[createINode] Erro ao ler setor\n");
-        return -1;
+    for(i = inode_position + 4; i < inode_position + 8; i++){
+        pointer_buffer[i - inode_position - 4] = buffer_sector[i];
     }
+    actual_inode->dataPtr[1] = *(int *)pointer_buffer;
 
+    for(i = inode_position + 8; i < inode_position + 12; i++){
+        pointer_buffer[i - inode_position - 8] = buffer_sector[i];
+    }
+    actual_inode->singleIndPtr = *(int *)pointer_buffer;
 
-    return inode_index;
+    for(i = inode_position + 12; i < inode_position + 16; i++){
+        pointer_buffer[i - inode_position - 12] = buffer_sector[i];
+    }
+    actual_inode->doubleIndPtr = *(int *)pointer_buffer;
+
+    printf("Dados do inode %d\n", inode_number);
+    printf("dataPtr[0] = %d\n", actual_inode->dataPtr[0]);
+    printf("dataPtr[1] = %d\n", actual_inode->dataPtr[1]);
+    printf("singleIndPtr = %d\n", actual_inode->singleIndPtr);
+    printf("doubleIndPtr = %d\n", actual_inode->doubleIndPtr);
+
+    return SUCESSO;
 }
