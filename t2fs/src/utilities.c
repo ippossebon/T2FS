@@ -129,18 +129,20 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number){
 
 /* Função para localizar um arquivo ou subdiretório em um diretório pai. Deve-se informar:
     - identificador do diretório pai
-    - nome do arquvo ou subdiretório, sem
-*/
-int findInDir(int dir_handler, char *filename){
+    - nome do arquvo ou subdiretório, sem o caminho absoluto
+    Retorna o número do inode do arquivo ou -1 em caso de erro */
+int findInDir(int dir_handler, char filename[31]){
     struct t2fs_inode inode;
     int aux, file_handler;
 
+    /* Lê o i-node do diretório-pai */
     aux = readInode(&inode, dir_handler);
     if(aux != 0){
-        printf("Handler de diretório informado inválido\n");
+        printf("Handler de diretório inválido\n");
         return ERRO;
     }
 
+    /* Tenta localizar o arquivos nos blocos apontados por ponteiros diretos */
     if(inode.dataPtr[0] !=	INVALID_PTR){
         file_handler = findInBlock(inode.dataPtr[0], filename);
         if(file_handler != ERRO){
@@ -153,14 +155,66 @@ int findInDir(int dir_handler, char *filename){
             return file_handler;
         }
     }
+    /* Tenta localizar o arquivos nos blocos apontados por indireção simples e dupla */
+    // if(inode.singleIndPtr != INVALID_PTR){
+    //     file_handler = findInBlock(inode.singleIndPtr, filename);
+    //     if(file_handler != ERRO){
+    //         return file_handler;
+    //     }
+    // }
+    // if(inode.doubleIndPtr != INVALID_PTR){
+    //     file_handler = findInBlock(inode.doubleIndPtr, filename);
+    //     if(file_handler != ERRO){
+    //         return file_handler;
+    //     }
+    // }
     return ERRO;
 }
 
-int findInBlock(int block, char *filename){
-    int sector;
+/* Funçao auxiliar que recebe um endereço para um bloco de dados de um diretório e um nome do arquivo.
+    Irá procurar um arquivo com o mesmo nome. Encontrando, devolve o número do inode do arquivo, senão retorna -1 */
+int findInBlock(int block, char filename[31]){
+    int sector, i, j, k, handler;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    unsigned char buffer_name[31];
+    unsigned char buffer_inode_number[4];
 
     sector = inode_start_position + inode_sectors + block * sectors_by_block;
-    sector++;
 
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("Erro ao ler setor %d\n", sector);
+            return ERRO;
+        }
+
+        /* Cada setor possui quatro entrada para registros de arquivos e subdiretórios */
+        for(j=0; j < 4; j++){
+
+            /* Primeiro testa se o registro é válido */
+            if(((int)buffer_sector[j*DIR_SIZE] == 1)||((int)buffer_sector[j*DIR_SIZE] == 2)){
+                for(k = 1 + j*DIR_SIZE; k < 32 + j*DIR_SIZE; k++){
+                    buffer_name[k - 1 - j*DIR_SIZE] = buffer_sector[k];
+                }
+                for(k = 40 + j*DIR_SIZE; k < 44 + j*DIR_SIZE; k++){
+                    buffer_inode_number[k - 40 - j*DIR_SIZE] = buffer_sector[k];
+                }
+                handler = *(int *)buffer_inode_number;
+
+                printf("Teste: nome do arquivo = %s\n", buffer_name);
+                printf("Teste: handler do arquivo = %d\n", handler);
+
+                /* Compara os nomes dos arquivos. */
+                for(k=0; k<31; k++){
+                    if(filename[k] != buffer_name[k]){
+                        break;
+                    }
+                    else if(filename[k] == '\0'){
+                        return handler;
+                    }
+                }
+            }
+        }
+    }
     return ERRO;
 }

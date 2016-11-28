@@ -25,7 +25,7 @@ DIR2 opened_dirs [MAX_OPENED_FILES];
 void initialize_data();
 
 void initialize_data(){
-    int aux = 1;
+    int aux;
 
     /* Lê o super bloco com as informações necessárias e inicializa os dados */
     aux = readSuperBlock(&superblock);
