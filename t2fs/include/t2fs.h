@@ -9,6 +9,12 @@
 
 #define	INVALID_PTR	-1
 
+#define MAX_OPENED_FILES 20
+#define SECTOR_SIZE 256
+#define INODE_SIZE 16
+#define ERRO -1
+#define SUCESSO 0
+
 typedef int FILE2;
 typedef int DIR2;
 
@@ -271,7 +277,5 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int closedir2 (DIR2 handle);
-
-int initialize_data();
 
 #endif

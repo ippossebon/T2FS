@@ -10,30 +10,65 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 #include "../include/bitmap2.h"
 #include "../include/utilities.h"
 
-
 /* Globais */
 int initialized = 0;
 int opened_files_count = 0;
 int opened_dirs_count = 0;
 
 struct t2fs_superbloco superblock;
+struct t2fs_inode actual_inode;
+int inode_start_position;
+int inode_sectors;
+int block_to_sectors;
 
-FILE2 opened_files [20];
-DIR2 opened_dirs [20];
+FILE2 opened_files [MAX_OPENED_FILES];
+DIR2 opened_dirs [MAX_OPENED_FILES];
 
 /* Funções Auxiliares */
 void initialize_data();
 
+
 void initialize_data(){
-    int aux;
+    printf("dentro da initizalie\n");
+    int aux = 1;
 
     /* Lê o super bloco com as informações necessárias e inicializa os dados */
-       aux = readSuperBlock(&superblock);
+    aux = readSuperBlock(&superblock, &inode_start_position, &inode_sectors, &block_to_sectors);
 
-       if(!aux){
-           printf("Inicialização concluída corretamente\n");
-           initialized = 1;
-       }
+    //aux += readInode(&actual_inode, 0, inode_start_position, inode_sectors);
+    //aux += readInode(&actual_inode, 560, inode_start_position, inode_sectors);
+    //aux += readInode(&actual_inode, 1843, inode_start_position, inode_sectors);
+
+    if(aux == SUCESSO){
+        printf("Inicialização concluída corretamente\n");
+        initialized = 1;
+    }
+
+
+}
+
+/* Cria e inicializa o diretório raiz do sistema. Retorna 0 em caso de sucesso, -1 em caso de erro.*/
+int initializeRootDirectory(){
+
+    /* Define i-node 0 como i-node do diretório raiz */
+    if(setBitmap2(BITMAP_INODE, 0, 1) != 0){
+        printf("[initialize_data] Erro ao setar i-node do diretório raiz.\n");
+        return ERRO;
+    }
+
+    /* ESCREVE I-NODE NO DISCO. */
+
+    char name[5] = "root";
+    struct t2fs_record* root_record;
+    root_record = createRecord(TYPEVAL_DIR, name, 1, 0, 0);
+
+    if (root_record == NULL){
+        printf("Erro ao criar diretório raiz\n");
+        return ERRO;
+    }
+
+    /* Escreve registro no disco. 0 indica que o i-node associado é o 0. */
+    return writeRecord(root_record, 0);
 }
 
 int identify2 (char *name, int size){
@@ -73,36 +108,35 @@ FILE2 create2 (char *filename){
     if(!initialized){
         initialize_data();
     }
+    int i;
+    i = findFreeINode();
 
     // Deve procurar espaço no disco.
-
+/*
     if (opened_files_count >= MAX_OPENED_FILES){
         return ERRO;
     }
 
 
     if (existsFile(filename)){
-        return -1;
+        return ERRO;
     }
 
     if (! isFileNameValid(filename)){
-        return -1;
+        return ERRO;
     }
-
+*/
     /* Para cada diretório no caminho absoluto do arquivo, verifica se o diretório existe. Se algum destes diretórios
      não existeir, retorna -1. */
-    if (! isValidPath(filename)){
-        return -1;
+/*    if (! isValidPath(filename)){
+        return ERRO;
     }
 
-
+*/
     // Cria novo i-node com entradas inicializadas (ponteiros inválidos)
     // Cria novo registro, passando o número deste novo i-node e o restante dos parâmetros necessários.
-
     // cria nome do arquivo com o caminho necessário
-    //t2fs_record record;
-    //record = createRecord(1, );
-
+    // escreve arquivo no disco
 
     return ERRO;
 }
