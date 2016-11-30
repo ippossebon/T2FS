@@ -1,4 +1,3 @@
-
 #ifndef __BITMAP2__
 #define	__BITMAP2__
 

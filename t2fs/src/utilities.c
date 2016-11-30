@@ -244,7 +244,6 @@ int writeRecord(struct t2fs_record* record){
 
 
         for (s = 0; s < 16; s++){
-            printf("no loop de sector.\n");
             if (read_sector(blocks_start_sector + (s * 256), &buffer_sector[0]) != 0){
                 printf("[writeRecord] Erro ao ler setor.\n");
                 return ERRO;
