@@ -24,29 +24,43 @@ DIR2 opened_dirs [MAX_OPENED_FILES];
 void initialize_data();
 
 void initialize_data(){
-    int aux, inodes_number;
+    int aux, block_number;
+    const int inode_number = 0;
     struct t2fs_inode inode;
 
     /* Lê o super bloco com as informações necessárias e inicializa os dados */
     aux = readSuperBlock(&superblock);
 
-    /* Lê o i-node 0 que possui as informações do diretório raiz */
-    aux += readInode(&inode, 0);
+    if(getBitmap2(BITMAP_INODE, inode_number) != OCUPADO){
+        aux += setBitmap2 (BITMAP_INODE, inode_number, OCUPADO);
+        //printf("setBitmap2 do I-node 0.\n");
+    }
 
-    inode.dataPtr[0] = -1;
+    /* Lê o i-node 0 que possui as informações do diretório raiz */
+    aux += readInode(&inode, inode_number);
 
     /* Se o i-node estiver vazio, inicializa o i-node e o bloco de dados */
     if(inode.dataPtr[0] == INVALID_PTR){
         /* Procura por um bloco livre no bitmap */
-        inodes_number = searchBitmap2 (BITMAP_DADOS, LIVRE);
+        block_number = searchBitmap2 (BITMAP_DADOS, LIVRE);
+        // printf("block_number = %d\n", block_number);
 
-        if(inodes_number <= 0){
-            printf("Erro ao localizar bloco livrre.\n");
+        if(block_number <= 0){
+            printf("Erro ao localizar bloco livre.\n");
             aux = ERRO;
         }
+        else {
+            aux += setBitmap2 (BITMAP_DADOS, block_number, OCUPADO);
+        }
+
+        inode.dataPtr[0] = block_number;
+        inode.dataPtr[1] = INVALID_PTR;
+        inode.singleIndPtr = INVALID_PTR;
+        inode.doubleIndPtr = INVALID_PTR;
+
         /* Grava o Inode do Diretório Raiz */
-        aux += writeINode(inodes_number, inode);
-        printf("Gravado o bloco %d no i-node.\n", inodes_number);
+        aux += writeInode(inode_number, inode);
+        //printf("Gravado o i-node %d no disco, apontando para o bloco %d.\n", inode_number, block_number);
     }
 
     if(aux == SUCESSO){

@@ -5,6 +5,7 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "../include/apidisk.h"
 #include "../include/bitmap2.h"
 #include "../include/t2fs.h"
@@ -66,6 +67,15 @@ int readSuperBlock(struct t2fs_superbloco *superblock){
     }
     superblock->diskSize = *(DWORD *)dword_buffer;
 
+    // printf("id = %c%c%c%c\n", superblock->id[0], superblock->id[1], superblock->id[2], superblock->id[3]);
+    // printf("version = %d\n", superblock->version);
+    // printf("superblockSize = %d\n", superblock->superblockSize);
+    // printf("blocks_bitmap_size = %d\n", superblock->freeBlocksBitmapSize);
+    // printf("inodes_bitmap_size = %d\n", superblock->freeInodeBitmapSize);
+    // printf("inodes_area_size = %d\n", superblock->inodeAreaSize);
+    // printf("sectors_per_block = %d\n", superblock->blockSize);
+    // printf("total_sectors_count = %d\n", superblock->diskSize);
+
     inodes_start_sector = (int)superblock->superblockSize + (int)superblock->freeBlocksBitmapSize + (int)superblock->freeInodeBitmapSize;
     inode_sectors = (int)superblock->inodeAreaSize;
     blocks_start_sector = inodes_start_sector + inode_sectors;
@@ -124,65 +134,70 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number){
     }
     actual_inode->doubleIndPtr = *(int *)pointer_buffer;
 
+    // printf("actual_inode->dataPtr[0] = %d\n", actual_inode->dataPtr[0]);
+    // printf("actual_inode->dataPtr[1] = %d\n", actual_inode->dataPtr[1]);
+    // printf("actual_inode->singleIndPtr = %d\n", actual_inode->singleIndPtr);
+    // printf("actual_inode->doubleIndPtr = %d\n", actual_inode->doubleIndPtr);
+
     return SUCESSO;
 }
 
 /* Recebe o número e os dados de um i-node e grava no disco. */
-int writeINode(int inode_number, struct t2fs_inode inode){
+int writeInode(int inode_number, struct t2fs_inode inode){
     unsigned char buffer_sector[SECTOR_SIZE];
     unsigned char pointer_buffer[4];
     int inodes_by_sector, sector, position, i;
 
     inodes_by_sector = SECTOR_SIZE / INODE_SIZE;
+    printf("inodes_by_sector = %d\n", inodes_by_sector);
     if((inode_number < 0)||(inode_number >= inode_sectors * inodes_by_sector)){
         printf("Número de i-node inválido\n");
         return ERRO;
     }
 
-    sector = inode_number / inodes_by_sector;
+    sector = inode_number / inodes_by_sector + blocks_start_sector;
+    printf("sector = %d\n", sector);
     if (read_sector(sector, &buffer_sector[0]) != 0){
         printf("Erro ao ler setor %d\n", sector);
         return ERRO;
     }
 
     position = (inode_number % inodes_by_sector) * INODE_SIZE;
-    printf("2\n");
-    pointer_buffer[0] = *(unsigned char *)inode.dataPtr[0];
+    printf("position = %d\n", position);
+    memcpy(pointer_buffer, (char*)&inode.dataPtr[0], sizeof(int));
     for(i = position; i < position + 4; i++){
             buffer_sector[i] = pointer_buffer[i - position];
     }
+
     position = position + 4;
-    printf("3\n");
-    pointer_buffer[0] = *(char *)inode.dataPtr[1];
+    memcpy(pointer_buffer, (char*)&inode.dataPtr[1], sizeof(int));
     for(i = position; i < position + 4; i++){
             buffer_sector[i] = pointer_buffer[i - position];
     }
+
     position = position + 4;
-    printf("4\n");
-    pointer_buffer[0] = *(char *)inode.singleIndPtr;
+    memcpy(pointer_buffer, (char*)&inode.singleIndPtr, sizeof(int));
     for(i = position; i < position + 4; i++){
             buffer_sector[i] = pointer_buffer[i - position];
     }
+
     position = position + 4;
-    printf("5\n");
-    pointer_buffer[0] = *(char *)inode.doubleIndPtr;
+    memcpy(pointer_buffer, (char*)&inode.doubleIndPtr, sizeof(int));
     for(i = position; i < position + 4; i++){
             buffer_sector[i] = pointer_buffer[i - position];
     }
-    printf("6\n");
+
     if (write_sector(sector, &buffer_sector[0]) != 0){
         printf("Erro ao gravar setor %d\n", sector);
         return ERRO;
     }
-    printf("7\n");
     return SUCESSO;
 }
 
 /* Recebe um número de um bloco que irá ser formatado para conter registros de um diretório
     Todas as entradas TypeVal passam a ter informações inválidas - 0x00*/
 int formatDirBlock(int block){
-
-    return SUCESSO;
+    return ERRO;
 }
 
 /* Função para localizar um arquivo ou subdiretório em um diretório pai. Deve-se informar:
