@@ -15,6 +15,8 @@
 #define DIR_SIZE 64
 #define ERRO -1
 #define SUCESSO 0
+#define LIVRE 0
+#define OCUPADO 1
 
 typedef int FILE2;
 typedef int DIR2;

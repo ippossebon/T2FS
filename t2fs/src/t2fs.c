@@ -16,7 +16,6 @@ int opened_files_count = 0;
 int opened_dirs_count = 0;
 
 struct t2fs_superbloco superblock;
-struct t2fs_inode actual_inode;
 
 FILE2 opened_files [MAX_OPENED_FILES];
 DIR2 opened_dirs [MAX_OPENED_FILES];
@@ -25,14 +24,37 @@ DIR2 opened_dirs [MAX_OPENED_FILES];
 void initialize_data();
 
 void initialize_data(){
-    int aux;
+    int aux, inodes_number;
+    struct t2fs_inode inode;
 
     /* Lê o super bloco com as informações necessárias e inicializa os dados */
     aux = readSuperBlock(&superblock);
 
+    /* Lê o i-node 0 que possui as informações do diretório raiz */
+    aux += readInode(&inode, 0);
+
+    inode.dataPtr[0] = -1;
+
+    /* Se o i-node estiver vazio, inicializa o i-node e o bloco de dados */
+    if(inode.dataPtr[0] == INVALID_PTR){
+        /* Procura por um bloco livre no bitmap */
+        inodes_number = searchBitmap2 (BITMAP_DADOS, LIVRE);
+
+        if(inodes_number <= 0){
+            printf("Erro ao localizar bloco livrre.\n");
+            aux = ERRO;
+        }
+        /* Grava o Inode do Diretório Raiz */
+        aux += writeINode(inodes_number, inode);
+        printf("Gravado o bloco %d no i-node.\n", inodes_number);
+    }
+
     if(aux == SUCESSO){
         printf("Inicialização concluída corretamente\n");
         initialized = 1;
+    }
+    else{
+        printf("Erro na inicialização.\n");
     }
 }
 

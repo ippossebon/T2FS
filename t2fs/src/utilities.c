@@ -10,7 +10,8 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 #include "../include/t2fs.h"
 #include "../include/utilities.h"
 
-int inode_start_position;
+int inodes_start_sector;
+int blocks_start_sector;
 int inode_sectors;
 int sectors_by_block;
 
@@ -65,8 +66,9 @@ int readSuperBlock(struct t2fs_superbloco *superblock){
     }
     superblock->diskSize = *(DWORD *)dword_buffer;
 
-    inode_start_position = (int)superblock->superblockSize + (int)superblock->freeBlocksBitmapSize + (int)superblock->freeInodeBitmapSize;
+    inodes_start_sector = (int)superblock->superblockSize + (int)superblock->freeBlocksBitmapSize + (int)superblock->freeInodeBitmapSize;
     inode_sectors = (int)superblock->inodeAreaSize;
+    blocks_start_sector = inodes_start_sector + inode_sectors;
     sectors_by_block = (int)superblock->blockSize;
 
     return SUCESSO;
@@ -74,9 +76,7 @@ int readSuperBlock(struct t2fs_superbloco *superblock){
 
 /* Função para ler um inode especificado. Argumentos:
     - um ponteiro para a estrutura inode onde será colocado o inode lido
-    - o número do inode a ser lido
-    - a posição inicial dos inodes em disco
-    - e quantidade de setores ocupados por inodes
+    - o número do inode a ser lidos
 Retorna 0 em caso de sucesso e -1 em caso de erro. */
 int readInode(struct t2fs_inode *actual_inode, int inode_number){
     int sector = 0, inode_position = 0, total_inodes, i;
@@ -91,7 +91,7 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number){
     }
 
     /* Localiza o setor correto para a leitura */
-    sector = inode_start_position;
+    sector = inodes_start_sector;
     sector = sector + inode_number/INODE_SIZE;
 
     if (read_sector(sector, &buffer_sector[0]) != 0){
@@ -123,6 +123,64 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number){
         pointer_buffer[i - inode_position - 12] = buffer_sector[i];
     }
     actual_inode->doubleIndPtr = *(int *)pointer_buffer;
+
+    return SUCESSO;
+}
+
+/* Recebe o número e os dados de um i-node e grava no disco. */
+int writeINode(int inode_number, struct t2fs_inode inode){
+    unsigned char buffer_sector[SECTOR_SIZE];
+    unsigned char pointer_buffer[4];
+    int inodes_by_sector, sector, position, i;
+
+    inodes_by_sector = SECTOR_SIZE / INODE_SIZE;
+    if((inode_number < 0)||(inode_number >= inode_sectors * inodes_by_sector)){
+        printf("Número de i-node inválido\n");
+        return ERRO;
+    }
+
+    sector = inode_number / inodes_by_sector;
+    if (read_sector(sector, &buffer_sector[0]) != 0){
+        printf("Erro ao ler setor %d\n", sector);
+        return ERRO;
+    }
+
+    position = (inode_number % inodes_by_sector) * INODE_SIZE;
+    printf("2\n");
+    pointer_buffer[0] = *(unsigned char *)inode.dataPtr[0];
+    for(i = position; i < position + 4; i++){
+            buffer_sector[i] = pointer_buffer[i - position];
+    }
+    position = position + 4;
+    printf("3\n");
+    pointer_buffer[0] = *(char *)inode.dataPtr[1];
+    for(i = position; i < position + 4; i++){
+            buffer_sector[i] = pointer_buffer[i - position];
+    }
+    position = position + 4;
+    printf("4\n");
+    pointer_buffer[0] = *(char *)inode.singleIndPtr;
+    for(i = position; i < position + 4; i++){
+            buffer_sector[i] = pointer_buffer[i - position];
+    }
+    position = position + 4;
+    printf("5\n");
+    pointer_buffer[0] = *(char *)inode.doubleIndPtr;
+    for(i = position; i < position + 4; i++){
+            buffer_sector[i] = pointer_buffer[i - position];
+    }
+    printf("6\n");
+    if (write_sector(sector, &buffer_sector[0]) != 0){
+        printf("Erro ao gravar setor %d\n", sector);
+        return ERRO;
+    }
+    printf("7\n");
+    return SUCESSO;
+}
+
+/* Recebe um número de um bloco que irá ser formatado para conter registros de um diretório
+    Todas as entradas TypeVal passam a ter informações inválidas - 0x00*/
+int formatDirBlock(int block){
 
     return SUCESSO;
 }
@@ -179,7 +237,7 @@ int findInBlock(int block, char filename[31]){
     unsigned char buffer_name[31];
     unsigned char buffer_inode_number[4];
 
-    sector = inode_start_position + inode_sectors + block * sectors_by_block;
+    sector = blocks_start_sector + block * sectors_by_block;
 
     /* Irá varrer os setores do bloco, lendo um por vez */
     for(i=0; i < sectors_by_block; i++){
