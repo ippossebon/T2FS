@@ -16,10 +16,10 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 #define ERRO -1
 #define SUCESSO 0
 
-WORD sectors_per_block;
-WORD inodes_start_sector;
-WORD blocks_start_sector;
-WORD inodes_area_size;
+extern WORD sectors_per_block;
+extern WORD inodes_start_sector;
+extern WORD blocks_start_sector;
+extern WORD inodes_area_size;
 
 /* Retorna 0 se conseguiu ler; -1, caso contrário. */
 int readSuperBlock(struct t2fs_superbloco *superblock, int *inode_start_position, int *inode_sectors, int *block_to_sectors){
@@ -90,136 +90,39 @@ int readSuperBlock(struct t2fs_superbloco *superblock, int *inode_start_position
     return 0;
 }
 
-int writeRecord(struct t2fs_record* record, int inode){
-    /* Inicia escrita em blocks_start_sector + blocksFileSize*/
-    if (inode == 0){
-        /* Diretório raiz: Aloca um novo bloco, utilizando o i-node 0.
-        Escreve o bloco com o conteúdo "0". */
-
-        char* data[2];
-        /* Como converter os dados de record para data?? */
-
-        /* Escreve o registro no primeiro bloco de dados do disco, sabendo que um
-        registro ocupa 4 setores. */
-        return writeBlock(blocks_start_sector, &data, 4);
-    }
-    else{
-        // Escreve registro no disco no diretório pai
-
-        /* NOT IMPLEMENTED */
-        return ERRO;
-    }
-}
-
-/* Escreve i-node no disco. */
-int writeINode(t2fs_inode* inode){
-
-    /* Como converter os campos do i-node para char que vai pro disco ?*/
-
-    return ERRO;
-}
-
-/* Escreve um bloco na memória. Retorna SUCESSO ou ERRO.
-Consideramos que vamos escrever pelo menos um setor inteiro.*/
-int writeBlock(int block, char* data, int numb_sectors_to_write)
-{
-    if (block < 0){
-        return ERRO;
-
-
-    /* Exemplo: escrita no bloco 2. start_sector = 2 * 16 = 32
-    Começa a escrever no setor 32. */
-    int start_sector = block * sectors_per_block;
-
-    int i;
-    for (i = 0; i < numb_sectors_to_write; i++)
-    {
-        if(write_sector(start_sector + i, &data[i]) != 0){
-            return ERRO;
-         }
-    }
-    return SUCESSO;
-}
-
-/* Procura por um bloco livre no disco, aloca-o e escrve de volta no disco.
- Retorna o número do bloco alocado, ou, -1 em caso de erro. */
-int allocNewBlock(){
-    unsigned char block[sectors_per_block * SECTOR_SIZE];
-    int block_number;
-
-    /* 0 indica que procuramos por um bloco livre. */
-    block_number = searchBitmap2(BITMAP_DADOS, 0);
-
-    if (block_number < 0){
-        printf("[allocNewBlock] Não há blocos de dados disponíveis.\n");
-        return ERRO;
-    }
-
-    /* Marca bloco como ocupado. */
-    int aux;
-    aux = setBitmap2(BITMAP_DADOS, block_number, 1);
-    if (aux != 0){
-        printf("[allocNewBlock] Erro ao marcar bloco como ocupado.\n");
-        return ERRO;
-    }
-
-    /* Escreve bloco no disco. */
-    aux = writeBlock(block_number, data);
-    if (aux == ERRO){
-        return ERRO;
-    }
-
-    return block_number;
-}
-
-/* Função utilizada tanto para arquivos regulares quanto diretórios.
-Retorna 0 se arquivo não existe; 1, caso contrário.*/
-int existsFile(char* filename){
-
-    return 0;
-}
-
-/*
-Na criação de
-um arquivo, todos os diretórios intermediários da raiz até ao diretório corrente já devem existir. Se não existirem, a
-primitiva de criação deverá retornar com erro. Por exemplo, ao criar o arqx com o caminho /a/b/c/d/arqx todos os
-diretórios do caminho já devem existir (a, b, c e d).
-*/
-int isValidPath(char* path){
-
-
-    return 0;
-}
-
 /* Retorna 1 se o nome do arquivo é válido. 0, caso contrário.
 Nomes de arquivos só podem conter letras, números e o caractere '.'. */
 int isFileNameValid(char* filename){
     int i;
 
     for(i = 0; i < strlen(filename); i++){
-        if (!(filename[i] == 46
-        || 46 < filename[i]  || filename[i] <= 57
-        || 65 <= filename[i] || filename[i] <= 90
-        || 97 <=filename[i] || filename[i] <= 122)){
-            return 0;
+        if (filename[i] == 46){
+        }
+        else if(filename[i] >= 48 && filename[i]<= 57){
+        }
+        else if(filename[i] >= 65 && filename[i] <= 90){
+        }
+        else if(filename[i] >= 97 && filename[i] <= 122){
+        }
+        else{
+            return ERRO;
         }
     }
-    return 1;
+    return SUCESSO;
 }
 
 /* Retorna o índice do i-node livre que foi encontrado. Se não encontrou, retorna -1.*/
 int findFreeINode(){
-    /* 1: i-node ocupado
-        0: i-node livre */
+
     int	inode_number;
-    inode_number = searchBitmap2(BITMAP_INODE, 0);
+    inode_number = searchBitmap2(BITMAP_INODE, LIVRE);
 
         if (inode_number < 0){
-            printf("[searchFreeINode] Não foi encontrado nenhum i-node disponível. inode_number: %d \n", inode_number);
+            printf("[searchFreeINode] Não foi encontrado nenhum i-node disponível.\n");
             return ERRO;
         }
         else{
-            printf("[searchFreeINode] i-node livre encontrado: %d\n", inode_number);
+            //printf("[searchFreeINode] i-node livre encontrado: %d\n", inode_number);
             return inode_number;
         }
 }
@@ -238,11 +141,9 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number, int inode_start
     total_inodes = inode_sectors * INODE_SIZE;
 
     /* Teste se o número informado é de um inode válido */
-    if((inode_number < 0)||(inode_number >= total_inodes)){
-        printf("fora dos limites. inode = %d, total_inodes= %d\n", inode_number, total_inodes);
+    if((inode_number <= 0)||(inode_number >= total_inodes)){
         return ERRO;
     }
-
     /* Localiza o setor correto para a leitura */
     sector = inode_start_position;
     sector = sector + inode_number/INODE_SIZE;
@@ -256,25 +157,21 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number, int inode_start
     inode_position = inode_number % INODE_SIZE;
     inode_position = inode_position * 16;
 
-    printf("ok\n");
     /* Seleciona os bytes do inode desejado e coloca as informações no ponteiro do inode */
     for(i = inode_position; i < inode_position + 4; i++){
         pointer_buffer[i - inode_position] = buffer_sector[i];
     }
     actual_inode->dataPtr[0] = *(int *)pointer_buffer;
-    printf("ok1\n");
 
     for(i = inode_position + 4; i < inode_position + 8; i++){
         pointer_buffer[i - inode_position - 4] = buffer_sector[i];
     }
     actual_inode->dataPtr[1] = *(int *)pointer_buffer;
-    printf("ok2\n");
 
     for(i = inode_position + 8; i < inode_position + 12; i++){
         pointer_buffer[i - inode_position - 8] = buffer_sector[i];
     }
     actual_inode->singleIndPtr = *(int *)pointer_buffer;
-    printf("ok3\n");
 
     for(i = inode_position + 12; i < inode_position + 16; i++){
         pointer_buffer[i - inode_position - 12] = buffer_sector[i];
@@ -290,51 +187,108 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number, int inode_start
     return SUCESSO;
 }
 
-/* Cria um registro com os parâmetros especificados. Retorna um ponteiro para este registro,
-em caso de sucesso. Caso contrário, retorna NULL. */
-struct t2fs_record* createRecord(BYTE type, char* name, DWORD file_size_in_blocks, DWORD file_size_in_bytes, int inode_number){
+/* Cria um registro com os parâmetros especificados.
+Retorna 0 se executou corretamente; caso contrário, -1. */
+int createRecord(BYTE type, char* name, int inode_number){
 
+    /* Um registro de arquivo regular é inicializado com 1 bloco de dados e 0 bytes.*/
     struct t2fs_record* record;
-    record = malloc(sizeof(struct t2fs_record));
+    record = malloc(64);
 
     if (strlen(name) > 32){
-        printf("[createRecord] nome arquivo não pode ser maior do que 32 bytes. Tamanho enviado: %d\n", strlen(name));
-        return NULL;
+        printf("[createRecord] nome arquivo não pode ser maior do que 32 bytes.\n");
+        return ERRO;
     }
 
     record->TypeVal = type;
     strcpy(record->name, name);
-    record->blocksFileSize = file_size_in_blocks;
-    record->bytesFileSize = file_size_in_bytes;
+    record->blocksFileSize = 1;
+    record->bytesFileSize = 0;
     record->inodeNumber = inode_number;
 
-    return writeRecord(record, inode_number);
+    int aux = writeRecord(record);
+
+    if(aux == SUCESSO){
+        return SUCESSO;
+    }
+    return ERRO;
 }
 
+/*- Escreve registro no disco no diretório pai, retornando SUCESSO ou ERRO.
+    Inicia escrita em blocks_start_sector + blocksFileSize*/
+int writeRecord(struct t2fs_record* record){
 
-/* Aloca um novo i-node. Em caso de sucesso, retorna o índice do i-node alocado; -1, em caso de erro.*/
-int createINode(int inode_start_position, int inode_sectors){
-    /* Procura por um i-node livre. Parâmetro 0 indica que vai procurar por i-nodes.
-    Valor 0 indica que procura por um i-node LIVRE. */
-    int	inode_number;
-    inode_number = searchBitmap2(BITMAP_INODE, 0);
-
-    if (inode_number < 0){
-        printf("[createINode] Não foi encontrado nenhum i-node disponível. inode_number: %d \n", inode_number);
+    if (record->inodeNumber <= 0){
         return ERRO;
     }
+    else{
+        int block_index = searchBitmap2(BITMAP_DADOS, LIVRE);
 
-    // Aloca-se o i-node em questão
-    if(setBitmap2(0, inode_number, 1) != 0){
-        printf("[createINode] Erro ao setar i-node %d\n", inode_number);
-        return ERRO;
+        if(block_index <= 0){
+            printf("Indice fora dos limites: %d\n", block_index);
+            return ERRO;
+        }
+
+        /* Para cada setor de cada bloco, lê os seus 4 registros e verifica se são válidos.
+        Se encontrar algum registro inválido: escreve o novo registro neste inválido e
+        grava, no disco, todo este setor. Senão, passa para o próximo setor.
+        Se nenhum setor possuir nenhum registro inválido, aloca um novo bloco livre.*/
+
+        unsigned char buffer_sector[SECTOR_SIZE];
+        char type_buffer[2];
+        unsigned char name_buffer[32];
+        unsigned char size_in_blocks_buffer[4];
+        unsigned char size_in_bytes_buffer[4];
+        unsigned char inode_number_buffer[4];
+        int s;
+
+
+        for (s = 0; s < 16; s++){
+            printf("no loop de sector.\n");
+            if (read_sector(blocks_start_sector + (s * 256), &buffer_sector[0]) != 0){
+                printf("[writeRecord] Erro ao ler setor.\n");
+                return ERRO;
+            }
+
+            /* .
+            Um setor possui 4 registros. Lê cada um dos registros, procurando por um registro
+            inválido. Cada registro possui 64 bytes.*/
+            int i = 0;
+            for (i = 0; i < 4 ; i++){
+                /* Lê cada um dos registros do setor. */
+                type_buffer[0] = (char) buffer_sector[i * 64];
+                printf("type_buffer: %c %c\n", type_buffer[0], type_buffer[1]);
+                if (type_buffer == TYPEVAL_INVALIDO){
+                    printf("Achou registro invalido\n");
+                    // O registro é inválido, então podemos utiliza-lo.
+                    memcpy(name_buffer, (char*)&record->name, sizeof(record->name));
+                    memcpy(size_in_blocks_buffer, (char*)&record->blocksFileSize, sizeof(int));
+                    memcpy(size_in_bytes_buffer, (char*)&record->bytesFileSize, sizeof(int));
+                    memcpy(inode_number_buffer, (char*)&record->inodeNumber, sizeof(int));
+
+                    // Copia as informações de cada buffer para o buffer_sector
+                    memcpy(&buffer_sector[i * 64], &type_buffer, sizeof(type_buffer));
+                    memcpy(&buffer_sector[(i * 64) + 1], &name_buffer, sizeof(name_buffer));
+                    memcpy(&buffer_sector[(i * 64) + 32], &size_in_blocks_buffer, sizeof(size_in_blocks_buffer));
+                    memcpy(&buffer_sector[(i * 64) + 36], &size_in_bytes_buffer, sizeof(size_in_bytes_buffer));
+                    memcpy(&buffer_sector[(i * 64) + 40], &inode_number_buffer, sizeof(inode_number_buffer));
+
+                    // Escreve no disco todo o setor.
+                    if (write_sector(blocks_start_sector + (s * 256), &buffer_sector[0]) != 0){
+                        printf("[writeRecord] Erro ao escrever setor de volta no disco\n");
+                        return ERRO;
+                    }
+                    int aux = setBitmap2(BITMAP_DADOS, block_index, OCUPADO);
+
+                    if (aux == ERRO){
+                        return ERRO;
+                    }
+                    return SUCESSO;
+                }
+            }
+            /* Se chegou até aqui, é porque não há registros inválidos neste bloco.
+            Portanto, deve alocar um novo bloco. */
+        }
     }
-
-    struct t2fs_inode* inode = malloc(sizeof(struct t2fs_inode));
-
-    /* ESCREVE I-NODE NO DISCO.
-        Como separar os campos e escrevÊ-los no disco?
-    */
-
-    return inode_number;
+    return ERRO;
 }

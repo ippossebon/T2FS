@@ -12,10 +12,15 @@
 #define TYPEVAL_DIR 0x02
 #define TYPEVAL_INVALID 0x00
 
+#define LIVRE 0
+#define OCUPADO 1
+
 int readSuperBlock(struct t2fs_superbloco *superblock, int *inode_start_position, int *inode_sectors, int *block_to_sectors);
-struct t2fs_record* createRecord(BYTE type, char* name, DWORD file_size_in_blocks, DWORD file_size_in_bytes, int inode_number);
 int readInode(struct t2fs_inode *actual_inode, int inode_number, int inode_start_position, int inode_sectors);
 int findFreeINode();
 int createINode(int inode_start_position, int inode_sectors);
+int writeRecord(struct t2fs_record* record);
+int createRecord(BYTE type, char* name, int inode_number);
+int isFileNameValid(char* filename);
 
 #endif
