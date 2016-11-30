@@ -12,8 +12,12 @@
 #define MAX_OPENED_FILES 20
 #define SECTOR_SIZE 256
 #define INODE_SIZE 16
+
+#define DIR_SIZE 64
 #define ERRO -1
 #define SUCESSO 0
+#define LIVRE 0
+#define OCUPADO 1
 
 typedef int FILE2;
 typedef int DIR2;

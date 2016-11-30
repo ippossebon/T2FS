@@ -28,20 +28,52 @@ DIR2 opened_dirs [MAX_OPENED_FILES];
 /* Funções Auxiliares */
 void initialize_data();
 
-
 void initialize_data(){
-    int aux = 1;
+    int aux, block_number;
+    const int inode_number = 0;
+    struct t2fs_inode inode;
 
     /* Lê o super bloco com as informações necessárias e inicializa os dados */
-    aux = readSuperBlock(&superblock, &inode_start_position, &inode_sectors, &block_to_sectors);
+    aux = readSuperBlock(&superblock);
 
-    /* Define i-node 0 como i-node do diretório raiz */
-    aux += setBitmap2(BITMAP_INODE, 0, 1);
-    aux += readInode(&actual_inode, 0, inode_start_position, inode_sectors);
+    if(getBitmap2(BITMAP_INODE, inode_number) != OCUPADO){
+        aux += setBitmap2 (BITMAP_INODE, inode_number, OCUPADO);
+        //printf("setBitmap2 do I-node 0.\n");
+    }
+
+    /* Lê o i-node 0 que possui as informações do diretório raiz */
+    aux += readInode(&inode, inode_number);
+
+    /* Se o i-node estiver vazio, inicializa o i-node e o bloco de dados */
+    if(inode.dataPtr[0] == INVALID_PTR){
+        /* Procura por um bloco livre no bitmap */
+        block_number = searchBitmap2 (BITMAP_DADOS, LIVRE);
+        // printf("block_number = %d\n", block_number);
+
+        if(block_number <= 0){
+            printf("Erro ao localizar bloco livre.\n");
+            aux = ERRO;
+        }
+        else {
+            aux += setBitmap2 (BITMAP_DADOS, block_number, OCUPADO);
+        }
+
+        inode.dataPtr[0] = block_number;
+        inode.dataPtr[1] = INVALID_PTR;
+        inode.singleIndPtr = INVALID_PTR;
+        inode.doubleIndPtr = INVALID_PTR;
+
+        /* Grava o Inode do Diretório Raiz */
+        aux += writeInode(inode_number, inode);
+        //printf("Gravado o i-node %d no disco, apontando para o bloco %d.\n", inode_number, block_number);
+    }
 
     if(aux == SUCESSO){
         printf("Inicialização concluída corretamente\n");
         initialized = 1;
+    }
+    else{
+        printf("Erro na inicialização.\n");
     }
 }
 
@@ -72,9 +104,7 @@ Função: Criar um novo arquivo.
 	Caso já exista um arquivo ou diretório com o mesmo nome, a função deverá retornar um erro de criação.
 	A função deve retornar o identificador (handle) do arquivo.
 	Esse handle será usado em chamadas posteriores do sistema de arquivo para fins de manipulação do arquivo criado.
-
 Entra:	filename -> nome do arquivo a ser criado.
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna o handle do arquivo (número positivo).
 	Em caso de erro, deve ser retornado um valor negativo.
 -----------------------------------------------------------------------------*/
@@ -82,18 +112,6 @@ FILE2 create2 (char *filename){
     if(!initialized){
         initialize_data();
     }
-
-    /* Teste para writeRecord */
-    struct t2fs_record* record = malloc(64);
-    record->TypeVal = TYPEVAL_FILE;
-    strcpy(record->name, "teste");
-    record->blocksFileSize = 1;
-    record->bytesFileSize = 64;
-    record->inodeNumber = 1;
-
-    int i;
-    i = writeRecord(record);
-    printf("writeRecord: %d\n", i);
 
     return ERRO;
 }
@@ -133,7 +151,6 @@ FILE2 open2 (char *filename){
     // Se o arquivo já está aberto: fim
     // Senão, aloca uma entrada livre na tabela TDAA e copia o i-node/descritor do arquivo para essa entrada (obs.: inicializar os campos adicionais)
     // (talvez) verificar se as permissões são satisfeitas
-
 
     return ERRO;
 }
@@ -242,7 +259,6 @@ int mkdir2 (char *pathname){
 
     // Deve ser vazio, exceto por . e ..
     // newBlock()
-
     // createRecord(2, ...);
 
     return ERRO;
