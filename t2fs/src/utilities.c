@@ -15,6 +15,7 @@ int inodes_start_sector;
 int blocks_start_sector;
 int inode_sectors;
 int sectors_by_block;
+int blocks_total;
 
 /* Retorna 0 se conseguiu ler; -1, caso contrário. */
 int readSuperBlock(struct t2fs_superbloco *superblock){
@@ -80,6 +81,7 @@ int readSuperBlock(struct t2fs_superbloco *superblock){
     inode_sectors = (int)superblock->inodeAreaSize;
     blocks_start_sector = inodes_start_sector + inode_sectors;
     sectors_by_block = (int)superblock->blockSize;
+    blocks_total = ((int)superblock->diskSize - blocks_start_sector) / sectors_by_block;
 
     return SUCESSO;
 }
@@ -197,7 +199,35 @@ int writeInode(int inode_number, struct t2fs_inode inode){
 /* Recebe um número de um bloco que irá ser formatado para conter registros de um diretório
     Todas as entradas TypeVal passam a ter informações inválidas - 0x00*/
 int formatDirBlock(int block){
-    return ERRO;
+    int sector, i, j, position = 0;
+    unsigned char buffer_sector[SECTOR_SIZE];
+
+    if((block < 0)||(block >= blocks_total)){
+        printf("Bloco informado inválido.\n");
+        return ERRO;
+    }
+
+    /* Marca os bytes do TypeVal como TYPEVAL_INVALIDO no buffer */
+    for(j = 0; j < SECTOR_SIZE / DIR_SIZE; j++){
+        buffer_sector[position] = TYPEVAL_INVALIDO;
+        position += DIR_SIZE;
+    }
+
+    // for(j = 0; j < SECTOR_SIZE; j++){
+    //     printf("buffer_sector[%d] = %d\n", j, (int)buffer_sector[j]);
+    // }
+
+    /* Grava nos setores do bloco o buffer com TypeVal Inválido */
+    sector = blocks_start_sector + block * sectors_by_block;
+    for(i = 0; i < sectors_by_block; i++){
+        if (write_sector(sector, &buffer_sector[0]) != 0){
+            printf("Erro ao gravar setor %d\n", sector);
+            return ERRO;
+        }
+        //printf("Gravado setor #%d\n", sector);
+        sector++;
+    }
+    return SUCESSO;
 }
 
 /* Função para localizar um arquivo ou subdiretório em um diretório pai. Deve-se informar:

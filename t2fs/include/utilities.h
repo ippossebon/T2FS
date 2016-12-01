@@ -2,6 +2,9 @@
 #define __UTILITIES_H__
 
 #define	INVALID_PTR	-1
+#define TYPEVAL_INVALIDO    0x00
+#define TYPEVAL_REGULAR     0x01
+#define TYPEVAL_DIRETORIO   0x02
 
 #define MAX_OPENED_FILES 20
 #define SECTOR_SIZE 256

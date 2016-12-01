@@ -61,6 +61,9 @@ void initialize_data(){
         /* Grava o Inode do Diretório Raiz */
         aux += writeInode(inode_number, inode);
         //printf("Gravado o i-node %d no disco, apontando para o bloco %d.\n", inode_number, block_number);
+
+        /* Formata o bloco alocado para o diretório raiz */
+        aux += formatDirBlock(block_number);
     }
 
     if(aux == SUCESSO){
