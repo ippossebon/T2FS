@@ -45,10 +45,10 @@ void initialize_data(){
     aux += readInode(&inode, inode_number);
 
     /* Se o i-node estiver vazio, inicializa o i-node e o bloco de dados */
+    inode.dataPtr[0] = INVALID_PTR;
     if(inode.dataPtr[0] == INVALID_PTR){
         /* Procura por um bloco livre no bitmap */
         block_number = searchBitmap2 (BITMAP_DADOS, LIVRE);
-        // printf("block_number = %d\n", block_number);
 
         if(block_number <= 0){
             printf("Erro ao localizar bloco livre.\n");
@@ -66,6 +66,9 @@ void initialize_data(){
         /* Grava o Inode do Diretório Raiz */
         aux += writeInode(inode_number, inode);
         //printf("Gravado o i-node %d no disco, apontando para o bloco %d.\n", inode_number, block_number);
+
+        /* Formata o bloco alocado para o diretório raiz */
+        aux += formatDirBlock(block_number);
     }
 
     if(aux == SUCESSO){
@@ -112,6 +115,16 @@ FILE2 create2 (char *filename){
     if(!initialized){
         initialize_data();
     }
+
+    struct t2fs_record* record = malloc(64);
+    record->TypeVal = TYPEVAL_FILE;
+    strcpy(record->name, "testfile");
+    record->blocksFileSize = 1;
+    record->bytesFileSize = 64;
+    record->inodeNumber = 1;
+
+    int aux = writeRecord(record);
+    printf("writeRecord = %d\n", aux);
 
     return ERRO;
 }

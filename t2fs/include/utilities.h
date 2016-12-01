@@ -28,5 +28,6 @@ int isFileNameValid(char* filename);
 int formatDirBlock(int block);
 int findInBlock(int block, char filename[31]);
 int findInDir(int dir_handler, char filename[31]);
+int formatDirBlock(int block);
 
 #endif

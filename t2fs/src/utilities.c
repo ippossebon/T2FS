@@ -15,6 +15,7 @@ int inodes_area_sectors;
 int blocks_start_sector;
 int inodes_start_sector;
 int sectors_by_block;
+int blocks_total;
 
 /* Retorna 0 se conseguiu ler; -1, caso contrário. */
 int readSuperBlock(struct t2fs_superbloco *superblock){
@@ -71,6 +72,7 @@ int readSuperBlock(struct t2fs_superbloco *superblock){
     inodes_area_sectors = (int)superblock->inodeAreaSize;
     blocks_start_sector = inodes_start_sector + inodes_area_sectors;
     sectors_by_block = (int)superblock->blockSize;
+    blocks_total = ((int)superblock->diskSize - blocks_start_sector) / sectors_by_block;
 
     return SUCESSO;
 }
@@ -254,12 +256,6 @@ int writeRecord(struct t2fs_record* record){
         return ERRO;
     }
     else{
-        int block_index = searchBitmap2(BITMAP_DADOS, LIVRE);
-
-        if(block_index <= 0){
-            printf("Indice fora dos limites: %d\n", block_index);
-            return ERRO;
-        }
 
         /* Para cada setor de cada bloco, lê os seus 4 registros e verifica se são válidos.
         Se encontrar algum registro inválido: escreve o novo registro neste inválido e
@@ -267,67 +263,69 @@ int writeRecord(struct t2fs_record* record){
         Se nenhum setor possuir nenhum registro inválido, aloca um novo bloco livre.*/
 
         unsigned char buffer_sector[SECTOR_SIZE];
-        char type_buffer[2];
+        unsigned char type_buffer;
         unsigned char name_buffer[32];
         unsigned char size_in_blocks_buffer[4];
         unsigned char size_in_bytes_buffer[4];
         unsigned char inode_number_buffer[4];
-        int s;
+        int b, s;
 
-
-        for (s = 0; s < 16; s++){
-            if (read_sector(blocks_start_sector + (s * 256), &buffer_sector[0]) != 0){
-                printf("[writeRecord] Erro ao ler setor.\n");
-                return ERRO;
-            }
-
-            /* .
-            Um setor possui 4 registros. Lê cada um dos registros, procurando por um registro
-            inválido. Cada registro possui 64 bytes.*/
-            int i = 0;
-            for (i = 0; i < 4 ; i++){
-                /* Lê cada um dos registros do setor. */
-                type_buffer[0] = (char) buffer_sector[i * 64];
-                printf("type_buffer: %c %c\n", type_buffer[0], type_buffer[1]);
-                if (type_buffer == TYPEVAL_INVALIDO){
-                    printf("Achou registro invalido\n");
-                    // O registro é inválido, então podemos utiliza-lo.
-                    memcpy(name_buffer, (char*)&record->name, sizeof(record->name));
-                    memcpy(size_in_blocks_buffer, (char*)&record->blocksFileSize, sizeof(int));
-                    memcpy(size_in_bytes_buffer, (char*)&record->bytesFileSize, sizeof(int));
-                    memcpy(inode_number_buffer, (char*)&record->inodeNumber, sizeof(int));
-
-                    // Copia as informações de cada buffer para o buffer_sector
-                    memcpy(&buffer_sector[i * 64], &type_buffer, sizeof(type_buffer));
-                    memcpy(&buffer_sector[(i * 64) + 1], &name_buffer, sizeof(name_buffer));
-                    memcpy(&buffer_sector[(i * 64) + 32], &size_in_blocks_buffer, sizeof(size_in_blocks_buffer));
-                    memcpy(&buffer_sector[(i * 64) + 36], &size_in_bytes_buffer, sizeof(size_in_bytes_buffer));
-                    memcpy(&buffer_sector[(i * 64) + 40], &inode_number_buffer, sizeof(inode_number_buffer));
-
-                    // Escreve no disco todo o setor.
-                    if (write_sector(blocks_start_sector + (s * 256), &buffer_sector[0]) != 0){
-                        printf("[writeRecord] Erro ao escrever setor de volta no disco\n");
-                        return ERRO;
-                    }
-                    int aux = setBitmap2(BITMAP_DADOS, block_index, OCUPADO);
-
-                    if (aux == ERRO){
-                        return ERRO;
-                    }
-                    return SUCESSO;
+        for (b = 0; b < blocks_total; b++){
+            for (s = 0; s < 16; s++){
+                if (read_sector(blocks_start_sector + s + (b * 16), &buffer_sector[0]) != 0){
+                    printf("[writeRecord] Erro ao ler setor.\n");
+                    return ERRO;
                 }
+                /* .
+                Um setor possui 4 registros. Lê cada um dos registros, procurando por um registro
+                inválido. Cada registro possui 64 bytes.*/
+
+                int i = 0;
+                for (i = 0; i < 4 ; i++){
+                    /* Lê cada um dos registros do setor. */
+                    type_buffer = (unsigned char)buffer_sector[i * 64];
+
+                    if (type_buffer == TYPEVAL_INVALIDO){
+                        // O registro é inválido, então podemos utiliza-lo.
+                        memcpy(&type_buffer, &record->TypeVal, sizeof(unsigned char));
+                        memcpy(name_buffer, (char*)&record->name, sizeof(record->name));
+                        memcpy(size_in_blocks_buffer, (char*)&record->blocksFileSize, 4);
+                        memcpy(size_in_bytes_buffer, (char*)&record->bytesFileSize, 4);
+                        memcpy(inode_number_buffer, (char*)&record->inodeNumber, 4);
+
+                        // Copia as informações de cada buffer para o buffer_sector
+                        memcpy(&buffer_sector[i * 64], &type_buffer, sizeof(type_buffer));
+                        memcpy(&buffer_sector[(i * 64) + 1], &name_buffer, sizeof(name_buffer));
+                        memcpy(&buffer_sector[(i * 64) + 32], &size_in_blocks_buffer, sizeof(size_in_blocks_buffer));
+                        memcpy(&buffer_sector[(i * 64) + 36], &size_in_bytes_buffer, sizeof(size_in_bytes_buffer));
+                        memcpy(&buffer_sector[(i * 64) + 40], &inode_number_buffer, sizeof(inode_number_buffer));
+
+                        // Escreve no disco todo o setor.
+                        if (write_sector(blocks_start_sector + s + (b * 16), &buffer_sector[0]) != 0){
+                            printf("[writeRecord] Erro ao escrever setor de volta no disco\n");
+                            return ERRO;
+                        }
+
+                        int aux = setBitmap2(BITMAP_DADOS, b, OCUPADO);
+
+                        if (aux == ERRO){
+                            return ERRO;
+                        }
+
+                        printf("Registro escrito no bloco %d\n", b);
+                        printf("type: %d\n", (int)type_buffer);
+                        printf("name: %s\n", name_buffer);
+                        printf("size_in_blocks_buffer: %u\n", (unsigned int)size_in_blocks_buffer);
+                        printf("size_in_bytes_buffer: %u\n", (unsigned int)size_in_bytes_buffer);
+                        printf("inode_number: %d\n", (int)inode_number_buffer);
+                        return SUCESSO;
+                    }
+                }
+                /* Se chegou até aqui, é porque não há registros inválidos neste bloco.
+                Portanto, deve alocar um novo bloco. */
             }
-            /* Se chegou até aqui, é porque não há registros inválidos neste bloco.
-            Portanto, deve alocar um novo bloco. */
         }
     }
-    return ERRO;
-}
-
-
-/* Recebe um número de um bloco que irá ser formatado para conter registros de um diretório
-    Todas as entradas TypeVal passam a ter informações inválidas - 0x00*/
-int formatDirBlock(int block){
     return ERRO;
 }
 
@@ -421,4 +419,38 @@ int findInBlock(int block, char filename[31]){
         }
     }
     return ERRO;
+}
+
+/* Recebe um número de um bloco que irá ser formatado para conter registros de um diretório
+    Todas as entradas TypeVal passam a ter informações inválidas - 0x00*/
+int formatDirBlock(int block){
+    int sector, i, j, position = 0;
+    unsigned char buffer_sector[SECTOR_SIZE];
+
+    if((block < 0)||(block >= blocks_total)){
+        printf("Bloco informado inválido.\n");
+        return ERRO;
+    }
+
+    /* Marca os bytes do TypeVal como TYPEVAL_INVALIDO no buffer */
+    for(j = 0; j < SECTOR_SIZE / DIR_SIZE; j++){
+        buffer_sector[position] = TYPEVAL_INVALIDO;
+        position += DIR_SIZE;
+    }
+
+    // for(j = 0; j < SECTOR_SIZE; j++){
+    //     printf("buffer_sector[%d] = %d\n", j, (int)buffer_sector[j]);
+    // }
+
+    /* Grava nos setores do bloco o buffer com TypeVal Inválido */
+    sector = blocks_start_sector + block * sectors_by_block;
+    for(i = 0; i < sectors_by_block; i++){
+        if (write_sector(sector, &buffer_sector[0]) != 0){
+            printf("Erro ao gravar setor %d\n", sector);
+            return ERRO;
+        }
+        //printf("Gravado setor #%d\n", sector);
+        sector++;
+    }
+    return SUCESSO;
 }
