@@ -61,7 +61,7 @@ void initialize_data(){
     }
 
     if(aux == SUCESSO){
-        printf("Inicialização concluída corretamente\n");
+        //printf("Inicialização concluída corretamente\n");
         initialized = 1;
     }
     else{
@@ -103,16 +103,23 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o handle d
 FILE2 create2 (char *filename){
     int aux;
     struct record_location location;
+    struct t2fs_record parent_record;
+    struct t2fs_record record;
+    char copy[32];
+
+    strcpy(copy, filename);
 
     if(!initialized){
         initialize_data();
     }
 
     if (opened_files_count >= 20){
+        printf("Foi atingindo o máximo de arquivos abertos simultaneamente\n");
         return ERRO;
     }
 
-    if(!isFileNameValid(filename)){
+    if(isFileNameValid(filename) == ERRO){
+        printf("O nome do arquivo informado não é válido.\n");
         return ERRO;
     }
 
@@ -129,56 +136,69 @@ FILE2 create2 (char *filename){
         return ERRO;
     }
     else if(aux == 0){
-        printf("Caminho informado válido = %s\n", filename);
-        printf("Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
+        // printf("Caminho informado válido = %s\n", filename);
+        // printf("Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
     }
 
-    struct t2fs_record* parent_record = malloc(64);
-    aux = readRecord(&location, parent_record);
+    aux = readRecord(&location, &parent_record);
 
     if (aux == ERRO){
+        printf("Erro ao ler registro do diretório pai.\n");
         return ERRO;
     }
 
-    /* Tenta alocar um novo bloco */
-    /*
-    int block_number = allocNewBlock();
-    if (block_number <= 0){
-        return ERRO;
-    }
-*/
     int inode = findFreeINode();
     if (inode == ERRO){
+        printf("Não existem i-nodes livres para criar o novo arquivo.\n");
         return ERRO;
     }
-    /* Cria registro e escreve-o no disco.*/
-    struct t2fs_record* record = malloc(64);
-    record->TypeVal = TYPEVAL_REGULAR;
-    strcpy(record->name, filename);
-    record->blocksFileSize = 1;
-    record->bytesFileSize = 0;
-    record->inodeNumber = inode;
+    else{
+        aux = setBitmap2 (BITMAP_INODE, inode, OCUPADO);
+        if(aux == ERRO){
+            printf("Erro ao gravar o bitmap de i-node\n");
+            return ERRO;
+        }
+    }
 
-    /* Procura pelo diretório pai do arquivo. */
+    /* Seleciona o nome do arquivo, sem o caminho absoluto */
+    char *token = strtok(copy, "//0");
+    char name[32];
+    while(token) {
+        strcpy(name, token);
+        token = strtok(NULL, "//0");
+    }
+    // printf("name = %s\n", name);
+
+    /* Cria registro e escreve-o no disco.*/
+    record.TypeVal = TYPEVAL_REGULAR;
+    strcpy(record.name, name);
+    record.blocksFileSize = 1;
+    record.bytesFileSize = 0;
+    record.inodeNumber = inode;
+
+    /* Grava o arquivo no diretório-pai */
     struct record_location new_file_location;
-    aux = writeRecord(record, parent_record, &new_file_location);
+    aux = writeRecord(&record, &parent_record, &new_file_location);
     if (aux == ERRO){
+        printf("Erro ao gravar o registro no diretório-pai\n");
         return ERRO;
     }
 
     struct file_descriptor* descriptor;
     descriptor = malloc(sizeof(struct file_descriptor));
-    descriptor->record = record;
+    descriptor->record.TypeVal = record.TypeVal;
+    strcpy(descriptor->record.name, record.name);
+    descriptor->record.blocksFileSize = record.blocksFileSize;
+    descriptor->record.bytesFileSize = record.bytesFileSize;
+    descriptor->record.inodeNumber = record.inodeNumber;
     descriptor->current_pointer = 0;
     descriptor->sector_record = new_file_location.sector;
     descriptor->record_index_in_sector = new_file_location.position;
 
-    /* Retorna o handler (índice na lista de opened_files) do arquivo.*/
-    int handler = opened_files_count;
-    opened_files[handler] = *descriptor;
+    /* Retorna o ponteiro para o file_descriptor do arquivo e incrementa os arquivos abertos.*/
     opened_files_count++;
 
-    return handler;
+    return (int)descriptor;
 }
 
 /*-----------------------------------------------------------------------------

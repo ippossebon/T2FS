@@ -62,7 +62,7 @@ struct record_location {
 
 /* Informações de um arquivo */
 struct file_descriptor{
-    struct t2fs_record* record;      /* Registro do arquivo */
+    struct t2fs_record record;      /* Registro do arquivo */
     int current_pointer;            /* Contador de posição do arquivo */
     int sector_record;              /* Número do setor em que o arquivo foi escrito */
     int record_index_in_sector;     /* Índice do registro dentro do setor - dado que um setor possui 4 registros*/

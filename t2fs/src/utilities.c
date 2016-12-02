@@ -83,15 +83,14 @@ int isFileNameValid(char* filename){
     int i;
 
     for(i = 0; i < strlen(filename); i++){
-        if (filename[i] == 46){
-        }
-        else if(filename[i] >= 48 && filename[i]<= 57){
+        if (filename[i] >= 46 && filename[i]<= 57){
         }
         else if(filename[i] >= 65 && filename[i] <= 90){
         }
         else if(filename[i] >= 97 && filename[i] <= 122){
         }
         else{
+            printf("filename[i] = %c\n", filename[i]);
             return ERRO;
         }
     }
@@ -165,18 +164,17 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number){
 
 /* Retorna o índice do i-node livre que foi encontrado. Se não encontrou, retorna -1.*/
 int findFreeINode(){
-
     int	inode_number;
     inode_number = searchBitmap2(BITMAP_INODE, LIVRE);
 
-        if (inode_number < 0){
-            printf("[searchFreeINode] Não foi encontrado nenhum i-node disponível.\n");
-            return ERRO;
-        }
-        else{
-            //printf("[searchFreeINode] i-node livre encontrado: %d\n", inode_number);
-            return inode_number;
-        }
+    if (inode_number < 0){
+        printf("[searchFreeINode] Não foi encontrado nenhum i-node disponível.\n");
+        return ERRO;
+    }
+    else{
+        //printf("[searchFreeINode] i-node livre encontrado: %d\n", inode_number);
+        return inode_number;
+    }
 }
 
 
@@ -338,7 +336,7 @@ int findRecord(char *name, struct record_location* location){
     while(token) {
         /* Confere se os subdiretórios são de fato diretórios */
         if(dir == 0){
-            printf("Procurando o arquivo/diretório = %s no inode_number = %d\n", token, inode_number);
+            //printf("Procurando o arquivo/diretório = %s no inode_number = %d\n", token, inode_number);
             inode_number = findInDir(inode_number, token, &dir, location);
 
             token = strtok(NULL, "/");
@@ -376,10 +374,10 @@ int findInDir(int inode_number, char *name, int *dir, struct record_location* lo
         return ERRO;
     }
 
-    printf("inode->dataPtr[0] = %d\n", inode.dataPtr[0]);
-    printf("inode->dataPtr[1] = %d\n", inode.dataPtr[1]);
-    printf("inode->singleIndPtr = %d\n", inode.singleIndPtr);
-    printf("inode->doubleIndPtr = %d\n", inode.doubleIndPtr);
+    // printf("inode->dataPtr[0] = %d\n", inode.dataPtr[0]);
+    // printf("inode->dataPtr[1] = %d\n", inode.dataPtr[1]);
+    // printf("inode->singleIndPtr = %d\n", inode.singleIndPtr);
+    // printf("inode->doubleIndPtr = %d\n", inode.doubleIndPtr);
 
     /* Tenta localizar o arquivos nos blocos apontados por ponteiros diretos */
     if(inode.dataPtr[0] !=	INVALID_PTR){
@@ -446,8 +444,8 @@ int findInBlock(int block, char *name, int *dir, struct record_location* locatio
                 }
                 inode_number = *(int *)buffer_inode_number;
 
-                printf("nome do arquivo = %s\n", buffer_name);
-                printf("inode_number do arquivo = %d\n", inode_number);
+                // printf("nome do arquivo = %s\n", buffer_name);
+                // printf("inode_number do arquivo = %d\n", inode_number);
 
                 /* Compara os nomes dos arquivos. */
                 if(strcmp(name, buffer_name) == 0){
