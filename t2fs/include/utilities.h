@@ -24,7 +24,7 @@ int readSuperBlock(struct t2fs_superbloco *superblock);
 int readInode(struct t2fs_inode *actual_inode, int inode_number);
 int findFreeINode();
 int writeInode(int inode_number, struct t2fs_inode inode);
-int writeRecord(struct t2fs_record* record);
+int writeRecord(struct t2fs_record* record_to_write, struct t2fs_record* parent_record, struct record_location* location);
 int createRecord(BYTE type, char* name, int inode_number);
 int isFileNameValid(char* filename);
 int formatDirBlock(int block);
@@ -34,5 +34,11 @@ int findInDir(int inode_number, char* name, int* dir, struct record_location* lo
 int findInList(int block, char* name, int* dir, struct record_location* location);
 int findInListDouble(int block, char* name, int* dir, struct record_location* location);
 int formatDirBlock(int block);
+int allocNewBlock(BYTE type);
+int findInvalidRecordInINode(struct t2fs_inode* inode, struct record_location* location);
+int findInvalidRecordInBlock(int block, struct record_location* location);
+int findInvalidRecordInList(int block, struct record_location* location);
+int findInvalidRecordInListDouble(int block, struct record_location* location);
+int readRecord(struct record_location* location, struct t2fs_record* actual_record);
 
 #endif

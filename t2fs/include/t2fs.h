@@ -60,6 +60,14 @@ struct record_location {
     int position;
 };
 
+/* Informações de um arquivo */
+struct file_descriptor{
+    struct t2fs_record* record;      /* Registro do arquivo */
+    int current_pointer;            /* Contador de posição do arquivo */
+    int sector_record;              /* Número do setor em que o arquivo foi escrito */
+    int record_index_in_sector;     /* Índice do registro dentro do setor - dado que um setor possui 4 registros*/
+};
+
 /** Registro com as informações da entrada de diretório, lida com readdir2 */
 #define MAX_FILE_NAME_SIZE 255
 typedef struct {
