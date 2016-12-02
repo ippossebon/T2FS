@@ -54,6 +54,12 @@ struct t2fs_inode {
     int     doubleIndPtr;   /* Ponteiro de indireção dupla (little endian) Se inválido, recebe INVALID_PTR.    */
 };
 
+/** localização de um registro **/
+struct record_location {
+    int sector;
+    int position;
+};
+
 /** Registro com as informações da entrada de diretório, lida com readdir2 */
 #define MAX_FILE_NAME_SIZE 255
 typedef struct {

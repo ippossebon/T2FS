@@ -338,8 +338,8 @@ int writeRecord(struct t2fs_record* record){
 /* Esta função recebe um nome de um arquivo/diretório com o seu caminho absoluto.
     Retorna o número de inode do diretório pai do arquivo/diretório
     ou -1 em caso do caminho ou arquivo/diretório não existir */
-int findParentDir(char *name){
-    /* Este é o número do inode retornado, começando sempre na raiz */
+int findRecord(char *name, struct record_location* location){
+    /* Este é o número do inode, começando sempre na raiz */
     int inode_number = 0;
 
     /* Controle se estamos lendo arquivo ou diretório */
@@ -352,27 +352,36 @@ int findParentDir(char *name){
 
     char *token = strtok(name, "/");
     while(token) {
+        /* Confere se os subdiretórios são de fato diretórios */
         if(dir == 0){
             printf("Procurando o arquivo/diretório = %s no inode_number = %d\n", token, inode_number);
-            inode_number = findInDir(inode_number, token, &dir);
-            if(inode_number == ERRO)
-                return ERRO;
+            inode_number = findInDir(inode_number, token, &dir, location);
 
             token = strtok(NULL, "/");
+
+            /* O caminho absoluto inforamdo é inválido */
+            if((token != 0)&&(inode_number == ERRO)){
+                return ERRO;
+            }
+            /* O caminho absoluto é válido, mas o arquivo informado não existe */
+            else if((token == 0)&&(inode_number == ERRO)){
+                return SUCESSO;
+            }
         }
         else{
             printf("Caminho informado não é válido.\n");
             return ERRO;
         }
     }
-    return inode_number;
+    /* O caminho absoluto e o arquivo informado são válidos e existentes */
+    return 1;
 }
 
 /* Função para localizar um arquivo ou subdiretório em um diretório pai. Deve-se informar:
     - i-node do diretório pai
     - nome do arquvo ou subdiretório, sem o caminho absoluto
     Retorna o número do inode do arquivo ou -1 em caso de erro */
-int findInDir(int inode_number, char *name, int *dir){
+int findInDir(int inode_number, char *name, int *dir, struct record_location* location){
     struct t2fs_inode inode;
     int aux, file_inode;
 
@@ -390,13 +399,13 @@ int findInDir(int inode_number, char *name, int *dir){
 
     /* Tenta localizar o arquivos nos blocos apontados por ponteiros diretos */
     if(inode.dataPtr[0] !=	INVALID_PTR){
-        file_inode = findInBlock(inode.dataPtr[0], name, dir);
+        file_inode = findInBlock(inode.dataPtr[0], name, dir, location);
         if(file_inode != ERRO){
             return file_inode;
         }
     }
     if(inode.dataPtr[1] !=	INVALID_PTR){
-        file_inode = findInBlock(inode.dataPtr[1], name, dir);
+        file_inode = findInBlock(inode.dataPtr[1], name, dir, location);
         if(file_inode != ERRO){
             return file_inode;
         }
@@ -419,7 +428,7 @@ int findInDir(int inode_number, char *name, int *dir){
 
 /* Funçao auxiliar que recebe um endereço para um bloco de dados de um diretório e um nome do arquivo.
     Irá procurar um arquivo com o mesmo nome. Encontrando, devolve o número do inode do arquivo, senão retorna -1 */
-int findInBlock(int block, char *name, int *dir){
+int findInBlock(int block, char *name, int *dir, struct record_location* location){
     int sector, i, j, k, inode_number;
     unsigned char buffer_sector[SECTOR_SIZE];
     char buffer_name[32];
@@ -430,7 +439,7 @@ int findInBlock(int block, char *name, int *dir){
     /* Irá varrer os setores do bloco, lendo um por vez */
     for(i=0; i < sectors_by_block; i++){
         if (read_sector(sector + i, &buffer_sector[0]) != 0){
-            printf("Erro ao ler setor %d\n", sector);
+            printf("Erro ao ler setor %d\n", sector + i);
             return ERRO;
         }
 
@@ -439,12 +448,12 @@ int findInBlock(int block, char *name, int *dir){
 
             /* Primeiro testa se o registro é válido */
             if(((int)buffer_sector[j*DIR_SIZE] == TYPEVAL_REGULAR)||((int)buffer_sector[j*DIR_SIZE] == TYPEVAL_DIRETORIO)){
-                if((int)buffer_sector[j*DIR_SIZE] == TYPEVAL_REGULAR){
+                if((int)buffer_sector[j*DIR_SIZE] == TYPEVAL_REGULAR)
                     *dir = 1;
-                }
-                else{
+
+                else
                     *dir = 0;
-                }
+
                 for(k = 1 + j*DIR_SIZE; k < 32 + j*DIR_SIZE; k++){
                     buffer_name[k - 1 - j*DIR_SIZE] = buffer_sector[k];
                 }
@@ -453,11 +462,13 @@ int findInBlock(int block, char *name, int *dir){
                 }
                 inode_number = *(int *)buffer_inode_number;
 
-                printf("Teste: nome do arquivo = %s\n", buffer_name);
-                printf("Teste: inode_number do arquivo = %d\n", inode_number);
+                printf("nome do arquivo = %s\n", buffer_name);
+                printf("inode_number do arquivo = %d\n", inode_number);
 
                 /* Compara os nomes dos arquivos. */
                 if(strcmp(name, buffer_name) == 0){
+                    location->sector = sector + i;
+                    location->position = j;
                     return inode_number;
                 }
             }

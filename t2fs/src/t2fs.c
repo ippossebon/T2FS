@@ -108,15 +108,25 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o handle d
 -----------------------------------------------------------------------------*/
 FILE2 create2 (char *filename){
     int aux;
+    struct record_location location;
 
     if(!initialized){
         initialize_data();
     }
 
-    aux = findParentDir(filename);
+    aux = findRecord(filename, &location);
     if(aux == ERRO){
         printf("Não existe o caminho especificado = %s\n", filename);
         return ERRO;
+    }
+    else if(aux == 1){
+        printf("Já existe arquivo com o nome especificado = %s\n", filename);
+        printf("Setor do arquivo = %d, posição no setor = %d\n", location.sector, location.position);
+        return ERRO;
+    }
+    else if(aux == 0){
+        printf("Caminho informado válido = %s\n", filename);
+        printf("Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
     }
 
     struct t2fs_record* record = malloc(64);
@@ -126,7 +136,7 @@ FILE2 create2 (char *filename){
     record->bytesFileSize = 64;
     record->inodeNumber = 1;
 
-    aux += writeRecord(record);
+    aux = writeRecord(record);
     printf("writeRecord = %d\n", aux);
 
     return ERRO;
