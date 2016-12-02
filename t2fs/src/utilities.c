@@ -111,7 +111,13 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number){
 
     /* Teste se o número informado é de um inode válido */
     if((inode_number < 0)||(inode_number >= total_inodes)){
+        printf("inode_number %d < 0 ou maior que o total_inodes %d\n", inode_number, total_inodes);
         return ERRO;
+    }
+    if(getBitmap2(BITMAP_INODE, inode_number) != OCUPADO){
+        printf("bitmap do i-node está como livre\n");
+        setBitmap2 (BITMAP_INODE, inode_number, OCUPADO);
+        //return ERRO;
     }
 
     /* Localiza o setor correto para a leitura */

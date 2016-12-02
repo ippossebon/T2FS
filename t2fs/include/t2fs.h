@@ -1,8 +1,6 @@
 #ifndef __LIBT2FS___
 #define __LIBT2FS___
 
-#define	SECTOR_SIZE	256
-
 #define TYPEVAL_INVALIDO    0x00
 #define TYPEVAL_REGULAR     0x01
 #define TYPEVAL_DIRETORIO   0x02
@@ -12,8 +10,8 @@
 #define MAX_OPENED_FILES 20
 #define SECTOR_SIZE 256
 #define INODE_SIZE 16
-
 #define DIR_SIZE 64
+
 #define ERRO -1
 #define SUCESSO 0
 #define LIVRE 0

@@ -16,10 +16,6 @@ int initialized = 0;
 int opened_files_count = 0;
 
 struct t2fs_superbloco superblock;
-struct t2fs_inode actual_inode;
-int inode_start_position;
-int inode_sectors;
-int block_to_sectors;
 
 struct file_descriptor opened_files[20];
 
@@ -44,7 +40,6 @@ void initialize_data(){
     aux += readInode(&inode, inode_number);
 
     /* Se o i-node estiver vazio, inicializa o i-node e o bloco de dados */
-    inode.dataPtr[0] = INVALID_PTR;
     if(inode.dataPtr[0] == INVALID_PTR){
         /* Procura por um bloco livre no bitmap */
         block_number = searchBitmap2 (BITMAP_DADOS, LIVRE);
@@ -111,6 +106,8 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o handle d
 	Em caso de erro, deve ser retornado um valor negativo.
 -----------------------------------------------------------------------------*/
 FILE2 create2 (char *filename){
+    int aux;
+
     if(!initialized){
         initialize_data();
     }
@@ -149,6 +146,7 @@ FILE2 create2 (char *filename){
     if (aux == ERRO){
         return ERRO;
     }
+
 
     struct file_descriptor descriptor = malloc(sizeof(struct file_descriptor));
     descriptor->record = record;
