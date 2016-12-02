@@ -411,18 +411,18 @@ int findInDir(int inode_number, char *name, int *dir, struct record_location* lo
         }
     }
     /* Tenta localizar o arquivos nos blocos apontados por indireção simples e dupla */
-    // if(inode.singleIndPtr != INVALID_PTR){
-    //     file_inode = findInBlock(inode.singleIndPtr, name);
-    //     if(file_inode != ERRO){
-    //         return file_inode;
-    //     }
-    // }
-    // if(inode.doubleIndPtr != INVALID_PTR){
-    //     file_inode = findInBlock(inode.doubleIndPtr, name);
-    //     if(file_inode != ERRO){
-    //         return file_inode;
-    //     }
-    // }
+    if(inode.singleIndPtr != INVALID_PTR){
+        file_inode = findInList(inode.singleIndPtr, name, dir, location);
+        if(file_inode != ERRO){
+            return file_inode;
+        }
+    }
+    if(inode.doubleIndPtr != INVALID_PTR){
+        file_inode = findInListDouble(inode.doubleIndPtr, name, dir, location);
+        if(file_inode != ERRO){
+            return file_inode;
+        }
+    }
     return ERRO;
 }
 
@@ -470,6 +470,74 @@ int findInBlock(int block, char *name, int *dir, struct record_location* locatio
                     location->sector = sector + i;
                     location->position = j;
                     return inode_number;
+                }
+            }
+        }
+    }
+    return ERRO;
+}
+
+int findInList(int block, char* name, int* dir, struct record_location* location){
+    int sector, i, j, k, file_inode, pointer;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    unsigned char buffer_pointer[4];
+
+    sector = blocks_start_sector + block * sectors_by_block;
+
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("Erro ao ler setor %d\n", sector + i);
+            return ERRO;
+        }
+
+        /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
+        for(j=0; j < SECTOR_SIZE / 4; j++){
+            for(k = 0; k < 4; k++){
+                buffer_pointer[k] = buffer_sector[k + j*4];
+            }
+            pointer = *(int *)buffer_pointer;
+            if(pointer == TYPEVAL_INVALIDO){
+                return ERRO;
+            }
+            else{
+                file_inode = findInBlock(pointer, name, dir, location);
+                if(file_inode != ERRO){
+                    return file_inode;
+                }
+            }
+        }
+    }
+    return ERRO;
+}
+
+int findInListDouble(int block, char* name, int* dir, struct record_location* location){
+    int sector, i, j, k, file_inode, pointer;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    unsigned char buffer_pointer[4];
+
+    sector = blocks_start_sector + block * sectors_by_block;
+
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("Erro ao ler setor %d\n", sector + i);
+            return ERRO;
+        }
+
+        /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
+        for(j=0; j < SECTOR_SIZE / 4; j++){
+            for(k = 0; k < 4; k++){
+                buffer_pointer[k] = buffer_sector[k + j*4];
+            }
+            pointer = *(int *)buffer_pointer;
+            if(pointer == TYPEVAL_INVALIDO){
+                return ERRO;
+            }
+            else{
+                file_inode = findInList(pointer, name, dir, location);
+                if(file_inode != ERRO){
+                    return file_inode;
                 }
             }
         }

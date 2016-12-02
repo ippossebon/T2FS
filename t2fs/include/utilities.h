@@ -31,6 +31,8 @@ int formatDirBlock(int block);
 int findRecord(char* name, struct record_location* location);
 int findInBlock(int block, char* name, int* dir, struct record_location* location);
 int findInDir(int inode_number, char* name, int* dir, struct record_location* location);
+int findInList(int block, char* name, int* dir, struct record_location* location);
+int findInListDouble(int block, char* name, int* dir, struct record_location* location);
 int formatDirBlock(int block);
 
 #endif
