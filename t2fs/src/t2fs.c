@@ -17,10 +17,6 @@ int opened_files_count = 0;
 int opened_dirs_count = 0;
 
 struct t2fs_superbloco superblock;
-struct t2fs_inode actual_inode;
-int inode_start_position;
-int inode_sectors;
-int block_to_sectors;
 
 FILE2 opened_files [MAX_OPENED_FILES];
 DIR2 opened_dirs [MAX_OPENED_FILES];
@@ -45,7 +41,6 @@ void initialize_data(){
     aux += readInode(&inode, inode_number);
 
     /* Se o i-node estiver vazio, inicializa o i-node e o bloco de dados */
-    inode.dataPtr[0] = INVALID_PTR;
     if(inode.dataPtr[0] == INVALID_PTR){
         /* Procura por um bloco livre no bitmap */
         block_number = searchBitmap2 (BITMAP_DADOS, LIVRE);
@@ -112,18 +107,26 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o handle d
 	Em caso de erro, deve ser retornado um valor negativo.
 -----------------------------------------------------------------------------*/
 FILE2 create2 (char *filename){
+    int aux;
+
     if(!initialized){
         initialize_data();
     }
 
+    aux = findParentDir(filename);
+    if(aux == ERRO){
+        printf("Não existe o caminho especificado = %s\n", filename);
+        return ERRO;
+    }
+
     struct t2fs_record* record = malloc(64);
-    record->TypeVal = TYPEVAL_FILE;
+    record->TypeVal = TYPEVAL_REGULAR;
     strcpy(record->name, "testfile");
     record->blocksFileSize = 1;
     record->bytesFileSize = 64;
     record->inodeNumber = 1;
 
-    int aux = writeRecord(record);
+    aux += writeRecord(record);
     printf("writeRecord = %d\n", aux);
 
     return ERRO;
