@@ -14,7 +14,6 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 /* Globais */
 int initialized = 0;
 int opened_files_count = 0;
-int opened_dirs_count = 0;
 
 struct t2fs_superbloco superblock;
 struct t2fs_inode actual_inode;
@@ -22,8 +21,8 @@ int inode_start_position;
 int inode_sectors;
 int block_to_sectors;
 
-FILE2 opened_files [MAX_OPENED_FILES];
-DIR2 opened_dirs [MAX_OPENED_FILES];
+struct file_descriptor opened_files[20];
+
 
 /* Funções Auxiliares */
 void initialize_data();
@@ -116,17 +115,53 @@ FILE2 create2 (char *filename){
         initialize_data();
     }
 
+    if (opened_files_count >= 20){
+        return ERRO;
+    }
+
+    if(!isFileNameValid(filename)){
+        return ERRO;
+    }
+
+    /* Verifica se o caminho em questão existe e, se existe,
+    se já existe um arquivo com o mesmo nome.*/
+
+
+    /* Tenta alocar um novo bloco */
+    int block_number = allocNewBlock();
+    if (block_number <= 0){
+        return ERRO;
+    }
+
+    int inode = findFreeINode();
+    if (inode == ERRO){
+        return ERRO;
+    }
+    /* Cria registro e escreve-o no disco.*/
     struct t2fs_record* record = malloc(64);
-    record->TypeVal = TYPEVAL_FILE;
-    strcpy(record->name, "testfile");
+    record->TypeVal = TYPEVAL_REGULAR;
+    strcpy(record->name, filename);
     record->blocksFileSize = 1;
-    record->bytesFileSize = 64;
-    record->inodeNumber = 1;
+    record->bytesFileSize = 0;
+    record->inodeNumber = inode;
 
     int aux = writeRecord(record);
-    printf("writeRecord = %d\n", aux);
+    if (aux == ERRO){
+        return ERRO;
+    }
 
-    return ERRO;
+    struct file_descriptor descriptor = malloc(sizeof(struct file_descriptor));
+    descriptor->record = record;
+    descriptor->current_pointer = 0;
+    descriptor->sector_record = -1; // mudar
+    descriptor->record_index_in_sector =-1; // mudar
+
+    /* Retorna o handler (índice na lista de opened_files) do arquivo.*/
+    int handler = opened_files_count;
+    opened_files[handler] = descriptor;
+    opened_files_count++;
+
+    return handler;
 }
 
 /*-----------------------------------------------------------------------------
@@ -269,10 +304,6 @@ int mkdir2 (char *pathname){
     if (!initialized){
         initialize_data();
     }
-
-    // Deve ser vazio, exceto por . e ..
-    // newBlock()
-    // createRecord(2, ...);
 
     return ERRO;
 }
