@@ -5,6 +5,7 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "../include/t2fs.h"
 #include "../include/apidisk.h"
 #include "../include/bitmap2.h"
@@ -43,7 +44,6 @@ void initialize_data(){
     if(inode.dataPtr[0] == INVALID_PTR){
         /* Procura por um bloco livre no bitmap */
         block_number = searchBitmap2 (BITMAP_DADOS, LIVRE);
-        // printf("block_number = %d\n", block_number);
 
         if(block_number <= 0){
             printf("Erro ao localizar bloco livre.\n");
@@ -102,16 +102,32 @@ Função: Criar um novo arquivo.
 	Caso já exista um arquivo ou diretório com o mesmo nome, a função deverá retornar um erro de criação.
 	A função deve retornar o identificador (handle) do arquivo.
 	Esse handle será usado em chamadas posteriores do sistema de arquivo para fins de manipulação do arquivo criado.
-
 Entra:	filename -> nome do arquivo a ser criado.
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna o handle do arquivo (número positivo).
 	Em caso de erro, deve ser retornado um valor negativo.
 -----------------------------------------------------------------------------*/
 FILE2 create2 (char *filename){
+    int aux;
+
     if(!initialized){
         initialize_data();
     }
+
+    aux = findParentDir(filename);
+    if(aux == ERRO){
+        printf("Não existe o caminho especificado = %s\n", filename);
+        return ERRO;
+    }
+
+    struct t2fs_record* record = malloc(64);
+    record->TypeVal = TYPEVAL_REGULAR;
+    strcpy(record->name, "testfile");
+    record->blocksFileSize = 1;
+    record->bytesFileSize = 64;
+    record->inodeNumber = 1;
+
+    aux += writeRecord(record);
+    printf("writeRecord = %d\n", aux);
 
     return ERRO;
 }
