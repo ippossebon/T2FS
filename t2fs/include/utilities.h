@@ -6,6 +6,9 @@
 #define TYPEVAL_DIRETORIO   0x02
 
 #define	INVALID_PTR	-1
+#define TYPEVAL_INVALIDO    0x00
+#define TYPEVAL_REGULAR     0x01
+#define TYPEVAL_DIRETORIO   0x02
 
 #define MAX_OPENED_FILES 20
 #define SECTOR_SIZE 256
@@ -37,9 +40,9 @@ int writeRecord(struct t2fs_record* record);
 int createRecord(BYTE type, char* name, int inode_number);
 int isFileNameValid(char* filename);
 int formatDirBlock(int block);
-int findParentDir(char* name);
-int findInBlock(int block, char* name, int* dir);
-int findInDir(int inode_number, char* name, int* dir);
+int findRecord(char* name, struct record_location* location);
+int findInBlock(int block, char* name, int* dir, struct record_location* location);
+int findInDir(int inode_number, char* name, int* dir, struct record_location* location);
 int formatDirBlock(int block);
 
 #endif

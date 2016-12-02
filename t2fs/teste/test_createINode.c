@@ -4,7 +4,7 @@
 
 int main()
 {
-    char file_name[31] = "/arq/a";
+    char file_name[31] = "/sub/a";
     create2(&file_name[0]);
 
     return 0;

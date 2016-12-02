@@ -107,6 +107,7 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o handle d
 -----------------------------------------------------------------------------*/
 FILE2 create2 (char *filename){
     int aux;
+    struct record_location* location;
 
     if(!initialized){
         initialize_data();
@@ -122,14 +123,35 @@ FILE2 create2 (char *filename){
 
     /* Verifica se o caminho em questão existe e, se existe,
     se já existe um arquivo com o mesmo nome.*/
+    aux = findRecord(filename, location);
+    if(aux == ERRO){
+        printf("Não existe o caminho especificado = %s\n", filename);
+        return ERRO;
+    }
+    else if(aux == 1){
+        printf("Já existe arquivo com o nome especificado = %s\n", filename);
+        printf("Setor do arquivo = %d, posição no setor = %d\n", location->sector, location->position);
+        return ERRO;
+    }
+    else if(aux == 0){
+        printf("Caminho informado válido = %s\n", filename);
+        printf("Setor do diretório-pai = %d, posição no setor = %d\n", location->sector, location->position);
+    }
 
+    struct t2fs_record* parent_record = malloc(64);
+    aux = readRecord(location, parent_record);
+
+    if (aux == ERRO){
+        return ERRO;
+    }
 
     /* Tenta alocar um novo bloco */
+    /*
     int block_number = allocNewBlock();
     if (block_number <= 0){
         return ERRO;
     }
-
+*/
     int inode = findFreeINode();
     if (inode == ERRO){
         return ERRO;
@@ -142,21 +164,23 @@ FILE2 create2 (char *filename){
     record->bytesFileSize = 0;
     record->inodeNumber = inode;
 
-    int aux = writeRecord(record);
+    /* Procura pelo diretório pai do arquivo. */
+    struct record_location new_file_location;
+    aux = writeRecord(record, parent_record, &new_file_location);
     if (aux == ERRO){
         return ERRO;
     }
 
-
-    struct file_descriptor descriptor = malloc(sizeof(struct file_descriptor));
+    struct file_descriptor* descriptor;
+    descriptor = malloc(sizeof(struct file_descriptor));
     descriptor->record = record;
     descriptor->current_pointer = 0;
-    descriptor->sector_record = -1; // mudar
-    descriptor->record_index_in_sector =-1; // mudar
+    descriptor->sector_record = new_file_location.sector;
+    descriptor->record_index_in_sector = new_file_location.position;
 
     /* Retorna o handler (índice na lista de opened_files) do arquivo.*/
     int handler = opened_files_count;
-    opened_files[handler] = descriptor;
+    opened_files[handler] = *descriptor;
     opened_files_count++;
 
     return handler;
