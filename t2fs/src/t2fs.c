@@ -28,7 +28,6 @@ void initialize_data(){
 
     if(getBitmap2(BITMAP_INODE, inode_number) != OCUPADO){
         aux += setBitmap2 (BITMAP_INODE, inode_number, OCUPADO);
-        //printf("setBitmap2 do I-node 0.\n");
     }
 
     /* Lê o i-node 0 que possui as informações do diretório raiz */
@@ -134,12 +133,12 @@ FILE2 create2 (char *filename){
     }
     else if(aux == 1){
         printf("[create2] Já existe arquivo com o nome especificado = %s\n", filename);
-        printf("[create2] Setor do arquivo = %d, posição no setor = %d\n", location.sector, location.position);
+        //printf("[create2] Setor do arquivo = %d, posição no setor = %d\n", location.sector, location.position);
         return ERRO;
     }
     else if(aux == 0){
-        // printf("Caminho informado válido = %s\n", filename);
-        // printf("Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
+        // printf("[create2] Caminho informado válido = %s\n", filename);
+        // printf("[create2] Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
     }
 
     aux = readRecord(&location, &parent_record);
@@ -233,14 +232,67 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o handle d
 	Em caso de erro, deve ser retornado um valor negativo
 -----------------------------------------------------------------------------*/
 FILE2 open2 (char *filename){
-    // Encontrar o i-node relativo ao arquivo (pesquisa nos diretórios da partição -> lookup)
-    // Se o arquivo não existe: return -1
-    // Senão, verifica se o arquivo já está aberto (procura por ele na tabela dos descritores de arquivos abertos)
-    // Se o arquivo já está aberto: fim
-    // Senão, aloca uma entrada livre na tabela TDAA e copia o i-node/descritor do arquivo para essa entrada (obs.: inicializar os campos adicionais)
-    // (talvez) verificar se as permissões são satisfeitas
+    char filename_copy[32];
+    struct t2fs_record record;
+    struct file_descriptor* descriptor;
+    struct record_location location;
+    int aux;
 
-    return ERRO;
+    strcpy(filename_copy, filename);
+
+    if(!initialized){
+        initialize_data();
+    }
+
+    if (opened_files_count >= 20){
+        printf("[open2] Foi atingindo o máximo de arquivos abertos simultaneamente\n");
+        return ERRO;
+    }
+
+    if(isFileNameValid(filename) == ERRO){
+        printf("[open2] O nome do arquivo informado não é válido.\n");
+        return ERRO;
+    }
+
+    printf("[open2] filename = %s\n", filename);
+
+    /* Verifica se o caminho em questão existe e se existe um arquivo com o nome informado.*/
+    aux = findRecord(filename_copy, &location);
+    if(aux == ERRO){
+        printf("[open2] Não existe o caminho especificado = %s\n", filename);
+        return ERRO;
+    }
+    else if(aux == 0){
+        printf("[open2] Não existe o arquivo %s no diretório informado.\n", filename);
+        return ERRO;
+    }
+    else if(aux == 1){
+        printf("[open2] Localizado arquivo com o nome informado = %s\n", filename);
+    }
+
+    /* Lê o registro do arquivo que será aberto */
+    aux = readRecord(&location, &record);
+
+    if (aux == ERRO){
+        printf("[open2] Erro ao ler registro do arquivo.\n");
+        return ERRO;
+    }
+
+    /* Cria a estrutura para armazenar o descritor do arquivo aberto*/
+    descriptor = malloc(sizeof(struct file_descriptor));
+    descriptor->record.TypeVal = record.TypeVal;
+    strcpy(descriptor->record.name, record.name);
+    descriptor->record.blocksFileSize = record.blocksFileSize;
+    descriptor->record.bytesFileSize = record.bytesFileSize;
+    descriptor->record.inodeNumber = record.inodeNumber;
+    descriptor->current_pointer = 0;
+    descriptor->sector_record = location.sector;
+    descriptor->record_index_in_sector = location.position;
+
+    /* Retorna o ponteiro para o file_descriptor do arquivo e incrementa os arquivos abertos.*/
+    opened_files_count++;
+
+    return (FILE2)descriptor;
 }
 
 
@@ -254,6 +306,10 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 -----------------------------------------------------------------------------*/
 int close2 (FILE2 handle){
     struct file_descriptor *file;
+
+    if(!initialized){
+        initialize_data();
+    }
 
     if(opened_files_count <= 0){
         printf("[close2] Contador de arquivos igual ou menor a zero.\n");
