@@ -105,9 +105,9 @@ FILE2 create2 (char *filename){
     struct record_location location;
     struct t2fs_record parent_record;
     struct t2fs_record record;
-    char copy[32];
+    char filename_copy[32];
 
-    strcpy(copy, filename);
+    strcpy(filename_copy, filename);
 
     if(!initialized){
         initialize_data();
@@ -127,13 +127,13 @@ FILE2 create2 (char *filename){
 
     /* Verifica se o caminho em questão existe e, se existe,
     se já existe um arquivo com o mesmo nome.*/
-    aux = findRecord(filename, &location);
+    aux = findRecord(filename_copy, &location);
     if(aux == ERRO){
         printf("[create2] Não existe o caminho especificado = %s\n", filename);
         return ERRO;
     }
     else if(aux == 1){
-        printf("[create2] Já existe arquivo com o nome especificado = %s\n", copy);
+        printf("[create2] Já existe arquivo com o nome especificado = %s\n", filename);
         printf("[create2] Setor do arquivo = %d, posição no setor = %d\n", location.sector, location.position);
         return ERRO;
     }
@@ -163,7 +163,8 @@ FILE2 create2 (char *filename){
     }
 
     /* Seleciona o nome do arquivo, sem o caminho absoluto */
-    char *token = strtok(copy, "//0");
+    strcpy(filename_copy, filename);
+    char *token = strtok(filename_copy, "//0");
     char name[32];
     while(token) {
         strcpy(name, token);
@@ -200,7 +201,7 @@ FILE2 create2 (char *filename){
     /* Retorna o ponteiro para o file_descriptor do arquivo e incrementa os arquivos abertos.*/
     opened_files_count++;
 
-    return (int)descriptor;
+    return (FILE2)descriptor;
 }
 
 /*-----------------------------------------------------------------------------
@@ -252,7 +253,18 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int close2 (FILE2 handle){
-    return ERRO;
+    struct file_descriptor *file;
+
+    if(opened_files_count <= 0){
+        printf("[close2] Contador de arquivos igual ou menor a zero.\n");
+        return ERRO;
+    }
+    file = (struct file_descriptor *)handle;
+    printf("[close2] Fechando o arquivo com o handle número = %d\n", handle);
+    free(file);
+    file = NULL;
+
+    return SUCESSO;
 }
 
 
