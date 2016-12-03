@@ -676,9 +676,9 @@ os blocos de dados apontados por ele. Se encontrar, sua localização
 (setor + posição dentro do setor) estará em location. Se não encontrar, os campos
 de location terão o valor -1. Em caso de sucesso, retorna 0; em caso de erro, -1. */
 int findInvalidRecordInList(int block, struct record_location* location){
-    int sector, i, j, k, pointer;
+    int sector, i, j, k, pointer, aux;
     unsigned char buffer_sector[SECTOR_SIZE];
-    unsigned char buffer_pointer[4];
+    char buffer_pointer[4];
 
 
     sector = blocks_start_sector + block * sectors_by_block;
@@ -697,7 +697,22 @@ int findInvalidRecordInList(int block, struct record_location* location){
             }
             pointer = *(int *)buffer_pointer;
             if(pointer == TYPEVAL_INVALIDO){
-                return ERRO;
+
+                /* Aqui devemos acrescentar mais um bloco para ponteiros */
+                int new_block = allocNewBlock(TYPEVAL_DIRETORIO);
+
+                strcpy(buffer_pointer, (char*)new_block);
+                for(k = 0; k < 4; k++){
+                    buffer_sector[k + j*4] = buffer_pointer[k];
+                }
+                if (write_sector(sector + i, &buffer_sector[0]) != 0){
+                    printf("[findInvalidRecordInList] Erro ao gravar setor %d\n", sector);
+                    return ERRO;
+                }
+                aux = findInvalidRecordInBlock(new_block, location);
+                if (aux == SUCESSO){
+                    return SUCESSO;
+                }
             }
             else{
                 /* Procura, no bloco de dados apontado, por um registro inválido.*/
@@ -717,9 +732,9 @@ inválido em todos os blocos de dados apontados por eles. Se encontrar, sua loca
 (setor + posição dentro do setor) estará em location. Se não encontrar, os campos
 de location terão o valor -1. Em caso de sucesso, retorna 0; em caso de erro, -1. */
 int findInvalidRecordInListDouble(int block, struct record_location* location){
-    int sector, i, j, k, pointer;
+    int sector, i, j, k, pointer, aux;
     unsigned char buffer_sector[SECTOR_SIZE];
-    unsigned char buffer_pointer[4];
+    char buffer_pointer[4];
 
     sector = blocks_start_sector + block * sectors_by_block;
 
@@ -737,12 +752,29 @@ int findInvalidRecordInListDouble(int block, struct record_location* location){
             }
             pointer = *(int *)buffer_pointer;
             if(pointer == TYPEVAL_INVALIDO){
-                return ERRO;
+                /* Aqui devemos acrescentar mais um bloco para ponteiros */
+                int new_block = allocNewBlock(TYPEVAL_DIRETORIO);
+                aux = formatPointerBlock(new_block);
+                if(aux == ERRO)
+                    return ERRO;
+
+                strcpy(buffer_pointer, (char*)new_block);
+                for(k = 0; k < 4; k++){
+                    buffer_sector[k + j*4] = buffer_pointer[k];
+                }
+                if (write_sector(sector + i, &buffer_sector[0]) != 0){
+                    printf("[findInvalidRecordInList] Erro ao gravar setor %d\n", sector);
+                    return ERRO;
+                }
+                aux = findInvalidRecordInList(new_block, location);
+                if (aux == SUCESSO){
+                    return SUCESSO;
+                }
             }
             else{
                 /* Procura, no bloco de dados apontado, por um registro inválido.*/
                 int aux;
-                aux = findInvalidRecordInBlock(pointer, location);
+                aux = findInvalidRecordInList(pointer, location);
                 if (aux == SUCESSO){
                     return SUCESSO;
                 }
@@ -756,7 +788,7 @@ int findInvalidRecordInListDouble(int block, struct record_location* location){
 Recebe um i-node e um ponteiro para a localização do setor.
 Retorna -1 em caso de erro e 0 em caso de sucesso */
 int createNewRegistersBlock(struct t2fs_inode* inode, struct record_location* location, struct t2fs_record* parent_record){
-    int new_block, aux, second_block, sector, j;
+    int new_block, aux;
 
     /* Procura por registro inválido nos ponteiros diretos. */
     if (inode->dataPtr[0] == INVALID_PTR){
@@ -798,25 +830,23 @@ int createNewRegistersBlock(struct t2fs_inode* inode, struct record_location* lo
         if(aux == ERRO){
             printf("[createNewRegistersBlock] Erro ao escrever no i-node.\n");
         }
-        second_block = allocNewBlock(TYPEVAL_DIRETORIO);
-
-        unsigned char buffer_sector[SECTOR_SIZE];
-        char buffer_pointer[4];
-        strcpy(buffer_pointer, (char*)second_block);
-        for(j=0; j < 4; j++){
-            buffer_sector[j] = buffer_pointer[j];
-        }
-        sector = blocks_start_sector + second_block * sectors_by_block;
-        if (write_sector(sector, &buffer_sector[0]) != 0){
-            printf("[formatPointerBlock] Erro ao gravar setor %d\n", sector);
-            return ERRO;
-        }
         return SUCESSO;
     }
 
     /* Procura por registro inválido nos blocos dos blocos de índices. */
     if (inode->doubleIndPtr == INVALID_PTR){
+        new_block = allocNewBlock(TYPEVAL_DIRETORIO);
+        aux = formatPointerBlock(new_block);
+        if(aux == ERRO){
+            printf("[createNewRegistersBlock] Erro formantando o bloco.\n");
+        }
+        inode->doubleIndPtr = new_block;
+        aux = writeInode(parent_record->inodeNumber, *inode);
+        if(aux == ERRO){
+            printf("[createNewRegistersBlock] Erro ao escrever no i-node.\n");
+        }
 
+        return SUCESSO;
     }
 
     return ERRO;

@@ -123,6 +123,8 @@ FILE2 create2 (char *filename){
         return ERRO;
     }
 
+    printf("[create2] filename = %s\n", filename);
+
     /* Verifica se o caminho em questão existe e, se existe,
     se já existe um arquivo com o mesmo nome.*/
     aux = findRecord(filename, &location);
@@ -131,7 +133,7 @@ FILE2 create2 (char *filename){
         return ERRO;
     }
     else if(aux == 1){
-        printf("[create2] Já existe arquivo com o nome especificado = %s\n", filename);
+        printf("[create2] Já existe arquivo com o nome especificado = %s\n", copy);
         printf("[create2] Setor do arquivo = %d, posição no setor = %d\n", location.sector, location.position);
         return ERRO;
     }
