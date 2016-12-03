@@ -297,9 +297,9 @@ int writeRecord(struct t2fs_record* record_to_write, struct t2fs_record* parent_
         /* Copia as informações de cada buffer intermediário para o buffer_sector */
         memcpy(&buffer_sector[position_in_sector * 64], &type_buffer, sizeof(type_buffer));
         memcpy(&buffer_sector[(position_in_sector * 64) + 1], &name_buffer, sizeof(name_buffer));
-        memcpy(&buffer_sector[(position_in_sector * 64) + 32], &size_in_blocks_buffer, sizeof(size_in_blocks_buffer));
-        memcpy(&buffer_sector[(position_in_sector * 64) + 36], &size_in_bytes_buffer, sizeof(size_in_bytes_buffer));
-        memcpy(&buffer_sector[(position_in_sector * 64) + 40], &inode_number_buffer, sizeof(inode_number_buffer));
+        memcpy(&buffer_sector[(position_in_sector * 64) + 32 + 1], &size_in_blocks_buffer, sizeof(size_in_blocks_buffer));
+        memcpy(&buffer_sector[(position_in_sector * 64) + 36 + 1], &size_in_bytes_buffer, sizeof(size_in_bytes_buffer));
+        memcpy(&buffer_sector[(position_in_sector * 64) + 40 + 1], &inode_number_buffer, sizeof(inode_number_buffer));
 
         /* Escreve no disco todo o setor */
         if (write_sector(location->sector, &buffer_sector[0]) != 0){
@@ -895,9 +895,9 @@ int readRecord(struct record_location* location, struct t2fs_record* actual_reco
     /* Recupera o registro em questão */
     memcpy(&actual_record->TypeVal, &buffer_sector[position_in_sector * 64], sizeof(actual_record->TypeVal));
     memcpy(&actual_record->name, &buffer_sector[(position_in_sector * 64) + 1], sizeof(actual_record->name));
-    memcpy(&actual_record->blocksFileSize, &buffer_sector[(position_in_sector * 64) + 32], sizeof(actual_record->blocksFileSize));
-    memcpy(&actual_record->bytesFileSize, &buffer_sector[(position_in_sector * 64) + 36], sizeof(actual_record->bytesFileSize));
-    memcpy(&actual_record->inodeNumber, &buffer_sector[(position_in_sector * 64) + 40], sizeof(actual_record->inodeNumber));
+    memcpy(&actual_record->blocksFileSize, &buffer_sector[(position_in_sector * 64) + 32 + 1], sizeof(actual_record->blocksFileSize));
+    memcpy(&actual_record->bytesFileSize, &buffer_sector[(position_in_sector * 64) + 36 + 1], sizeof(actual_record->bytesFileSize));
+    memcpy(&actual_record->inodeNumber, &buffer_sector[(position_in_sector * 64) + 40 + 1], sizeof(actual_record->inodeNumber));
 
     /* Teste */
     printf("[readRecord] Registro recuperado do setor %d, posição %d\n", location->sector, location->position);
