@@ -40,7 +40,7 @@ void initialize_data(){
         block_number = searchBitmap2 (BITMAP_DADOS, LIVRE);
 
         if(block_number <= 0){
-            printf("Erro ao localizar bloco livre.\n");
+            printf("[initialize_data] Erro ao localizar bloco livre.\n");
             aux = ERRO;
         }
         else {
@@ -65,7 +65,7 @@ void initialize_data(){
         initialized = 1;
     }
     else{
-        printf("Erro na inicialização.\n");
+        printf("[initialize_data] Erro na inicialização.\n");
     }
 }
 
@@ -114,12 +114,12 @@ FILE2 create2 (char *filename){
     }
 
     if (opened_files_count >= 20){
-        printf("Foi atingindo o máximo de arquivos abertos simultaneamente\n");
+        printf("[create2] Foi atingindo o máximo de arquivos abertos simultaneamente\n");
         return ERRO;
     }
 
     if(isFileNameValid(filename) == ERRO){
-        printf("O nome do arquivo informado não é válido.\n");
+        printf("[create2] O nome do arquivo informado não é válido.\n");
         return ERRO;
     }
 
@@ -127,12 +127,12 @@ FILE2 create2 (char *filename){
     se já existe um arquivo com o mesmo nome.*/
     aux = findRecord(filename, &location);
     if(aux == ERRO){
-        printf("Não existe o caminho especificado = %s\n", filename);
+        printf("[create2] Não existe o caminho especificado = %s\n", filename);
         return ERRO;
     }
     else if(aux == 1){
-        printf("Já existe arquivo com o nome especificado = %s\n", filename);
-        printf("Setor do arquivo = %d, posição no setor = %d\n", location.sector, location.position);
+        printf("[create2] Já existe arquivo com o nome especificado = %s\n", filename);
+        printf("[create2] Setor do arquivo = %d, posição no setor = %d\n", location.sector, location.position);
         return ERRO;
     }
     else if(aux == 0){
@@ -143,19 +143,19 @@ FILE2 create2 (char *filename){
     aux = readRecord(&location, &parent_record);
 
     if (aux == ERRO){
-        printf("Erro ao ler registro do diretório pai.\n");
+        printf("[create2] Erro ao ler registro do diretório pai.\n");
         return ERRO;
     }
 
     int inode = findFreeINode();
     if (inode == ERRO){
-        printf("Não existem i-nodes livres para criar o novo arquivo.\n");
+        printf("[create2] Não existem i-nodes livres para criar o novo arquivo.\n");
         return ERRO;
     }
     else{
         aux = setBitmap2 (BITMAP_INODE, inode, OCUPADO);
         if(aux == ERRO){
-            printf("Erro ao gravar o bitmap de i-node\n");
+            printf("[create2] Erro ao gravar o bitmap de i-node\n");
             return ERRO;
         }
     }
@@ -180,7 +180,7 @@ FILE2 create2 (char *filename){
     struct record_location new_file_location;
     aux = writeRecord(&record, &parent_record, &new_file_location);
     if (aux == ERRO){
-        printf("Erro ao gravar o registro no diretório-pai\n");
+        printf("[create2] Erro ao gravar o registro no diretório-pai\n");
         return ERRO;
     }
 

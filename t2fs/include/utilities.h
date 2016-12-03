@@ -35,10 +35,12 @@ int findInList(int block, char* name, int* dir, struct record_location* location
 int findInListDouble(int block, char* name, int* dir, struct record_location* location);
 int formatDirBlock(int block);
 int allocNewBlock(BYTE type);
-int findInvalidRecordInINode(struct t2fs_inode* inode, struct record_location* location);
+int findInvalidRecordInINode(struct t2fs_inode* inode, struct record_location* location, struct t2fs_record* parent_record);
 int findInvalidRecordInBlock(int block, struct record_location* location);
 int findInvalidRecordInList(int block, struct record_location* location);
 int findInvalidRecordInListDouble(int block, struct record_location* location);
 int readRecord(struct record_location* location, struct t2fs_record* actual_record);
+int createNewRegistersBlock(struct t2fs_inode* inode, struct record_location* location, struct t2fs_record* parent_record);
+int formatPointerBlock(int block);
 
 #endif
