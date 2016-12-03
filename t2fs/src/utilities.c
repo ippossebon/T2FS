@@ -185,13 +185,13 @@ int writeInode(int inode_number, struct t2fs_inode inode){
     int inodes_by_sector, sector, position, i;
 
     inodes_by_sector = SECTOR_SIZE / INODE_SIZE;
-    printf("[writeInode] inodes_by_sector = %d\n", inodes_by_sector);
+    //printf("[writeInode] inodes_by_sector = %d\n", inodes_by_sector);
     if((inode_number < 0)||(inode_number >= inodes_area_sectors * inodes_by_sector)){
         printf("[writeInode] Número de i-node inválido\n");
         return ERRO;
     }
 
-    sector = inode_number / inodes_by_sector + blocks_start_sector;
+    sector = inode_number / inodes_by_sector + inodes_start_sector;
     printf("[writeInode] sector = %d\n", sector);
     if (read_sector(sector, &buffer_sector[0]) != 0){
         printf("[writeInode] Erro ao ler setor %d\n", sector);
