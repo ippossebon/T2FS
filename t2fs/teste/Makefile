@@ -18,5 +18,8 @@ test_createINode: test_createINode.c $(LIB_DIR)libt2fs.a
 test_open_close: test_open_close.c $(LIB_DIR)libt2fs.a
 	$(CC) -g -o test_open_close test_open_close.c -L$(LIB_DIR) -lt2fs -I$(INC_DIR) -lm -Wall
 
+test_mkDir: test_mkDir.c $(LIB_DIR)libt2fs.a
+	$(CC) -g -o test_mkDir test_mkDir.c -L$(LIB_DIR) -lt2fs -I$(INC_DIR) -lm -Wall
+
 clean:
 	rm -rf $(OBJETOS)
