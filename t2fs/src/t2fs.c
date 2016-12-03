@@ -14,8 +14,11 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 /* Globais */
 int initialized = 0;
 int opened_files_count = 0;
+int opened_dirs_count = 0;
+
 struct t2fs_superbloco superblock;
 struct file_descriptor opened_files[20];
+struct file_descriptor opened_dirs[20];
 
 /* Função de Inicialização */
 void initialize_data(){
@@ -273,6 +276,11 @@ FILE2 open2 (char *filename){
     /* Lê o registro do arquivo que será aberto */
     aux = readRecord(&location, &record);
 
+    if (record.TypeVal != TYPEVAL_REGULAR){
+        printf("[open2] Este arquivo não é um arquivo regular.\n");
+        return ERRO;
+    }
+
     if (aux == ERRO){
         printf("[open2] Erro ao ler registro do arquivo.\n");
         return ERRO;
@@ -316,6 +324,12 @@ int close2 (FILE2 handle){
         return ERRO;
     }
     file = (struct file_descriptor *)handle;
+
+    if (file->record.TypeVal != TYPEVAL_REGULAR){
+        printf("[closedir2] Este arquivo não é um arquivo regular\n");
+        return ERRO;
+    }
+
     printf("[close2] Fechando o arquivo com o handle número = %d\n", handle);
     free(file);
     file = NULL;
@@ -549,7 +563,73 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o identifi
 	Em caso de erro, será retornado um valor negativo.
 -----------------------------------------------------------------------------*/
 DIR2 opendir2 (char *pathname){
-    return ERRO;
+
+    char pathname_copy[32];
+    struct t2fs_record record;
+    struct file_descriptor* descriptor;
+    struct record_location location;
+    int aux;
+
+    strcpy(pathname_copy, pathname);
+
+    if(!initialized){
+        initialize_data();
+    }
+
+    if (opened_dirs_count >= 20){
+        printf("[opendir2] Foi atingindo o máximo de diretórios abertos simultaneamente\n");
+        return ERRO;
+    }
+
+    if(isFileNameValid(pathname) == ERRO){
+        printf("[opendir2] O nome do diretório informado não é válido.\n");
+        return ERRO;
+    }
+
+    printf("[opendir2] pathname = %s\n", pathname);
+
+    /* Verifica se o caminho em questão existe e se existe um diretório com o nome informado.*/
+    aux = findRecord(pathname_copy, &location);
+    if(aux == ERRO){
+        printf("[opendir2] Não existe o caminho especificado = %s\n", pathname);
+        return ERRO;
+    }
+    else if(aux == 0){
+        printf("[opendir2] Não existe o diretório %s no caminho informado.\n", pathname);
+        return ERRO;
+    }
+    else if(aux == 1){
+        printf("[opendir2] Localizado diretório com o nome informado = %s\n", pathname);
+    }
+
+    /* Lê o registro do arquivo que será aberto */
+    aux = readRecord(&location, &record);
+
+    if (aux == ERRO){
+        printf("[opendir2] Erro ao ler registro do arquivo.\n");
+        return ERRO;
+    }
+
+    if (record.TypeVal != TYPEVAL_DIRETORIO){
+        printf("[opendir2] Este arquivo não é um diretório.\n");
+        return ERRO;
+    }
+
+    /* Cria a estrutura para armazenar o descritor do arquivo aberto*/
+    descriptor = malloc(sizeof(struct file_descriptor));
+    descriptor->record.TypeVal = record.TypeVal;
+    strcpy(descriptor->record.name, record.name);
+    descriptor->record.blocksFileSize = record.blocksFileSize;
+    descriptor->record.bytesFileSize = record.bytesFileSize;
+    descriptor->record.inodeNumber = record.inodeNumber;
+    descriptor->current_pointer = 0;
+    descriptor->sector_record = location.sector;
+    descriptor->record_index_in_sector = location.position;
+
+    /* Retorna o ponteiro para o file_descriptor do arquivo e incrementa os arquivos abertos.*/
+    opened_dirs_count++;
+
+    return (DIR2)descriptor;
 }
 
 
@@ -582,5 +662,27 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int closedir2 (DIR2 handle){
-    return ERRO;
+
+    struct file_descriptor *dir;
+
+    if(!initialized){
+        initialize_data();
+    }
+
+    if(opened_dirs_count <= 0){
+        printf("[closedir2] Contador de arquivos igual ou menor a zero.\n");
+        return ERRO;
+    }
+    dir = (struct file_descriptor *)handle;
+
+    if (dir->record.TypeVal != TYPEVAL_DIRETORIO){
+        printf("[closedir2] Este arquivo não é um diretório\n");
+        return ERRO;
+    }
+
+    printf("[closedir2] Fechando o diretório com o handle número = %d\n", handle);
+    free(dir);
+    dir = NULL;
+
+    return SUCESSO;
 }
