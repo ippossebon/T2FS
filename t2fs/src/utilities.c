@@ -297,9 +297,9 @@ int writeRecord(struct t2fs_record* record_to_write, struct t2fs_record* parent_
         /* Copia as informações de cada buffer intermediário para o buffer_sector */
         memcpy(&buffer_sector[position_in_sector * 64], &type_buffer, sizeof(type_buffer));
         memcpy(&buffer_sector[(position_in_sector * 64) + 1], &name_buffer, sizeof(name_buffer));
-        memcpy(&buffer_sector[(position_in_sector * 64) + 32 + 1], &size_in_blocks_buffer, sizeof(size_in_blocks_buffer));
-        memcpy(&buffer_sector[(position_in_sector * 64) + 36 + 1], &size_in_bytes_buffer, sizeof(size_in_bytes_buffer));
-        memcpy(&buffer_sector[(position_in_sector * 64) + 40 + 1], &inode_number_buffer, sizeof(inode_number_buffer));
+        memcpy(&buffer_sector[(position_in_sector * 64) + 33], &size_in_blocks_buffer, sizeof(size_in_blocks_buffer));
+        memcpy(&buffer_sector[(position_in_sector * 64) + 37], &size_in_bytes_buffer, sizeof(size_in_bytes_buffer));
+        memcpy(&buffer_sector[(position_in_sector * 64) + 41], &inode_number_buffer, sizeof(inode_number_buffer));
 
         /* Escreve no disco todo o setor */
         if (write_sector(location->sector, &buffer_sector[0]) != 0){
@@ -439,18 +439,16 @@ int findInBlock(int block, char *name, int *dir, struct record_location* locatio
                 else
                     *dir = 0;
 
-                for(k = 1 + j*DIR_SIZE; k < 32 + j*DIR_SIZE; k++){
+                for(k = 1 + j*DIR_SIZE; k < 33 + j*DIR_SIZE; k++){
                     buffer_name[k - 1 - j*DIR_SIZE] = buffer_sector[k];
                 }
-                for(k = 40 + j*DIR_SIZE; k < 44 + j*DIR_SIZE; k++){
-                    buffer_inode_number[k - 40 - j*DIR_SIZE] = buffer_sector[k];
+                for(k = 41 + j*DIR_SIZE; k < 45 + j*DIR_SIZE; k++){
+                    buffer_inode_number[k - 41 - j*DIR_SIZE] = buffer_sector[k];
                 }
                 inode_number = *(int *)buffer_inode_number;
 
-                // printf("nome do arquivo = %s\n", buffer_name);
-                // printf("inode_number do arquivo = %d\n", inode_number);
-
                 /* Compara os nomes dos arquivos. */
+                // printf("[findInBlock] Comparando os nomes: %s e %s.\n", name, buffer_name);
                 if(strcmp(name, buffer_name) == 0){
                     location->sector = sector + i;
                     location->position = j;
@@ -895,9 +893,9 @@ int readRecord(struct record_location* location, struct t2fs_record* actual_reco
     /* Recupera o registro em questão */
     memcpy(&actual_record->TypeVal, &buffer_sector[position_in_sector * 64], sizeof(actual_record->TypeVal));
     memcpy(&actual_record->name, &buffer_sector[(position_in_sector * 64) + 1], sizeof(actual_record->name));
-    memcpy(&actual_record->blocksFileSize, &buffer_sector[(position_in_sector * 64) + 32 + 1], sizeof(actual_record->blocksFileSize));
-    memcpy(&actual_record->bytesFileSize, &buffer_sector[(position_in_sector * 64) + 36 + 1], sizeof(actual_record->bytesFileSize));
-    memcpy(&actual_record->inodeNumber, &buffer_sector[(position_in_sector * 64) + 40 + 1], sizeof(actual_record->inodeNumber));
+    memcpy(&actual_record->blocksFileSize, &buffer_sector[(position_in_sector * 64) + 33], sizeof(actual_record->blocksFileSize));
+    memcpy(&actual_record->bytesFileSize, &buffer_sector[(position_in_sector * 64) + 37], sizeof(actual_record->bytesFileSize));
+    memcpy(&actual_record->inodeNumber, &buffer_sector[(position_in_sector * 64) + 41], sizeof(actual_record->inodeNumber));
 
     /* Teste */
     printf("[readRecord] Registro recuperado do setor %d, posição %d\n", location->sector, location->position);

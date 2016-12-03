@@ -2,9 +2,6 @@
 #include <stdio.h>
 #include "t2fs.h"
 
-#define ERRO -1
-#define SUCESSO 0
-
 int main()
 {
     char file_name[31];
@@ -28,7 +25,7 @@ int main()
         printf("[test_open_close] Arquivo %s fechado corretamente\n", file_name);
     }
     else{
-        printf("Erro ao fechar o arquivo %s.\n", file_name);
+        printf("[test_open_close] Erro ao fechar o arquivo %s.\n", file_name);
     }
 
     return 0;

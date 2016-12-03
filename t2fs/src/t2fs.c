@@ -127,8 +127,7 @@ FILE2 create2 (char *filename){
 
     printf("[create2] filename = %s\n", filename);
 
-    /* Verifica se o caminho em questão existe e, se existe,
-    se já existe um arquivo com o mesmo nome.*/
+    /* Verifica se o caminho em questão existe e, se existe, se já existe um arquivo com o mesmo nome.*/
     aux = findRecord(filename_copy, &location);
     if(aux == ERRO){
         printf("[create2] Não existe o caminho especificado = %s\n", filename);
@@ -140,8 +139,8 @@ FILE2 create2 (char *filename){
         return ERRO;
     }
     else if(aux == 0){
-        // printf("[create2] Caminho informado válido = %s\n", filename);
-        // printf("[create2] Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
+        printf("[create2] Caminho informado válido = %s\n", filename);
+        printf("[create2] Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
     }
 
     aux = readRecord(&location, &parent_record);
@@ -177,7 +176,7 @@ FILE2 create2 (char *filename){
     /* Cria registro e escreve-o no disco.*/
     record.TypeVal = TYPEVAL_REGULAR;
     strcpy(record.name, name);
-    record.blocksFileSize = 1;
+    record.blocksFileSize = 0;
     record.bytesFileSize = 0;
     record.inodeNumber = inode;
 
