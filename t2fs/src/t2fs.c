@@ -215,7 +215,69 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int delete2 (char *filename){
-    return ERRO;
+    char filename_copy[32];
+    struct t2fs_record record;
+    struct record_location location;
+    int aux;
+
+    strcpy(filename_copy, filename);
+
+    if(!initialized){
+        initialize_data();
+    }
+
+    if(isFileNameValid(filename) == ERRO){
+        printf("[delete2] O nome do arquivo informado não é válido.\n");
+        return ERRO;
+    }
+
+    printf("[delete2] filename = %s\n", filename);
+
+    /* Verifica se o caminho em questão existe e se existe um arquivo com o nome informado.*/
+    aux = findRecord(filename_copy, &location);
+    if(aux == ERRO){
+        printf("[delete2] Não existe o caminho especificado = %s\n", filename);
+        return ERRO;
+    }
+    else if(aux == 0){
+        printf("[delete2] Não existe o arquivo %s no diretório informado.\n", filename);
+        return ERRO;
+    }
+    else if(aux == 1){
+        printf("[delete2] Localizado arquivo com o nome informado = %s\n", filename);
+    }
+
+    /* Lê o registro do arquivo que será apagado */
+    aux = readRecord(&location, &record);
+    if (aux == ERRO){
+        printf("[delete2] Erro ao ler registro do arquivo.\n");
+        return ERRO;
+    }
+
+    if (record.TypeVal != TYPEVAL_REGULAR){
+        printf("[delete2] Este arquivo não é um arquivo regular.\n");
+        return ERRO;
+    }
+
+    /* Apaga o registro do arquivo */
+    aux = eraseRecord(&location);
+    if (aux == ERRO){
+        printf("[delete2] Erro ao apagar registro do arquivo.\n");
+        return ERRO;
+    }
+
+    /* Libera o bitmap do i-node do arquivo */
+    setBitmap2 (BITMAP_INODE, record.inodeNumber, LIVRE);
+
+    /* Libera o bitmap dos blocos de dados utilizados pelo arquivo */
+    aux = freeBlocks(record.inodeNumber);
+    if (aux == ERRO){
+        printf("[delete2] Erro ao liberar os blocos do arquivo.\n");
+        return ERRO;
+    }
+
+    printf("[delete2] Arquivo %s apagado com sucesso.\n", filename);
+    return SUCESSO;
 }
 
 
@@ -274,14 +336,13 @@ FILE2 open2 (char *filename){
 
     /* Lê o registro do arquivo que será aberto */
     aux = readRecord(&location, &record);
-
-    if (record.TypeVal != TYPEVAL_REGULAR){
-        printf("[open2] Este arquivo não é um arquivo regular.\n");
+    if (aux == ERRO){
+        printf("[open2] Erro ao ler registro do arquivo.\n");
         return ERRO;
     }
 
-    if (aux == ERRO){
-        printf("[open2] Erro ao ler registro do arquivo.\n");
+    if (record.TypeVal != TYPEVAL_REGULAR){
+        printf("[open2] Este arquivo não é um arquivo regular.\n");
         return ERRO;
     }
 
