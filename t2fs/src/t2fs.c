@@ -510,6 +510,7 @@ int mkdir2 (char *pathname){
     descriptor->sector_record = new_dir_location.sector;
     descriptor->record_index_in_sector = new_dir_location.position;
 
+    printf("[mkdir] Diretório criado com sucesso\n");
     return SUCESSO;
 }
 
