@@ -909,3 +909,31 @@ int readRecord(struct record_location* location, struct t2fs_record* actual_reco
 
     return SUCESSO;
 }
+
+/* Função que recebe um i-node relativo a um diretório, aloca novos blocos para
+este i-node e formata os blocos como diretórios.
+Retorna 0 em caso de sucesso; -1, caso contrário. */
+int formatDirINode(int inode_number){
+
+    struct t2fs_inode inode;
+    int aux = readInode(&inode, inode_number);
+    if (aux == ERRO){
+        return ERRO;
+    }
+
+    int new_block = allocNewBlock(TYPEVAL_DIRETORIO);
+    aux = formatDirBlock(new_block);
+
+    if (aux == ERRO){
+        return ERRO;
+    }
+    inode.dataPtr[0] = new_block;
+
+    aux = writeInode(inode_number, inode);
+    if(aux == ERRO){
+        printf("[formatDirINode] Erro ao escrever no i-node.\n");
+    }
+
+    printf("[formatDirINode] Bloco de diretório para o i-node criado com sucesso\n");
+    return SUCESSO;
+}

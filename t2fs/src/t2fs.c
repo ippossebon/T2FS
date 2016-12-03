@@ -352,17 +352,110 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int mkdir2 (char *pathname){
-    if (!initialized){
+    int aux;
+    struct record_location location;
+    struct t2fs_record parent_record;
+    struct t2fs_record record;
+    char copy[32];
+
+    strcpy(copy, pathname);
+
+    if(!initialized){
         initialize_data();
     }
 
-    // Deve ser vazio, exceto por . e ..
-    // newBlock()
-    // createRecord(2, ...);
+    printf("pathname = %s\n", pathname);
+    if(isFileNameValid(pathname) == ERRO){
+        printf("[mkdir2] O nome informado para o diretório não é válido.\n");
+        return ERRO;
+    }
 
-    return ERRO;
+    printf("[mkdir2] pathname = %s\n", pathname);
+
+    /* Verifica se o caminho em questão existe e, se existe,
+    se já existe um diretório com o mesmo nome.*/
+    aux = findRecord(pathname, &location);
+    if(aux == ERRO){
+        printf("[mkdir2] Não existe o caminho especificado = %s\n", pathname);
+        return ERRO;
+    }
+    else if(aux == 1){
+        printf("[mkdir2] Já existe diretório com o nome especificado = %s\n", copy);
+        printf("[mkdir2] Setor do diretório = %d, posição no setor = %d\n", location.sector, location.position);
+        return ERRO;
+    }
+    else if(aux == 0){
+        // printf("Caminho informado válido = %s\n", filename);
+        // printf("Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
+    }
+
+    /* Lê registro do diretório pai para escrever dentro dele. */
+    aux = readRecord(&location, &parent_record);
+
+    if (aux == ERRO){
+        printf("[mkdir2] Erro ao ler registro do diretório pai.\n");
+        return ERRO;
+    }
+
+    /* Aloca um novo i-node para o novo diretório. */
+    int inode = findFreeINode();
+    if (inode == ERRO){
+        printf("[mkdir2] Não existem i-nodes livres para criar o novo diretório.\n");
+        return ERRO;
+    }
+    else{
+        aux = setBitmap2 (BITMAP_INODE, inode, OCUPADO);
+        if(aux == ERRO){
+            printf("[mkdir2] Erro ao gravar o bitmap de i-node\n");
+            return ERRO;
+        }
+    }
+
+    /* Aloca o primeiro bloco para o i-node do novo diretório, formatando-o como
+    diretório. */
+    aux = formatDirINode(inode);
+    if (aux == ERRO){
+        printf("[mkdir] Erro ao alocar/formatar primeiro bloco do diretório.\n");
+        return ERRO;
+    }
+
+    /* Seleciona o nome do diretório, sem o caminho absoluto */
+    char *token = strtok(copy, "//0");
+    char name[32];
+    while(token) {
+        strcpy(name, token);
+        token = strtok(NULL, "//0");
+    }
+    // printf("name = %s\n", name);
+
+    /* Cria registro e escreve-o no disco.*/
+    record.TypeVal = TYPEVAL_DIRETORIO;
+    strcpy(record.name, name);
+    record.blocksFileSize = 1;
+    record.bytesFileSize = 0;
+    record.inodeNumber = inode;
+
+    /* Grava o arquivo no diretório-pai */
+    struct record_location new_dir_location;
+    aux = writeRecord(&record, &parent_record, &new_dir_location);
+    if (aux == ERRO){
+        printf("[mkdir2] Erro ao gravar o registro no diretório-pai\n");
+        return ERRO;
+    }
+
+    struct file_descriptor* descriptor;
+    descriptor = malloc(sizeof(struct file_descriptor));
+    descriptor->record.TypeVal = record.TypeVal;
+    strcpy(descriptor->record.name, record.name);
+    descriptor->record.blocksFileSize = record.blocksFileSize;
+    descriptor->record.bytesFileSize = record.bytesFileSize;
+    descriptor->record.inodeNumber = record.inodeNumber;
+    descriptor->current_pointer = 0;
+    descriptor->sector_record = new_dir_location.sector;
+    descriptor->record_index_in_sector = new_dir_location.position;
+
+    return SUCESSO;
 }
-
 
 /*-----------------------------------------------------------------------------
 Função:	Apagar um subdiretório do disco.

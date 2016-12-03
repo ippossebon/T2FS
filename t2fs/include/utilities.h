@@ -42,5 +42,6 @@ int findInvalidRecordInListDouble(int block, struct record_location* location);
 int readRecord(struct record_location* location, struct t2fs_record* actual_record);
 int createNewRegistersBlock(struct t2fs_inode* inode, struct record_location* location, struct t2fs_record* parent_record);
 int formatPointerBlock(int block);
+int formatDirINode(int inode_number);
 
 #endif
