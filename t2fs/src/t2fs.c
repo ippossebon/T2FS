@@ -549,7 +549,31 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int truncate2 (FILE2 handle){
-    return ERRO;
+
+    struct file_descriptor *file;
+    int aux;
+
+    if(!initialized){
+        initialize_data();
+    }
+
+    aux = findHandle(handle, &handles[0]);
+    if (aux == ERRO){
+        printf("[seek2] O arquivo especificado não está aberto.\n");
+        return ERRO;
+    }
+
+    file = (struct file_descriptor *)handle;
+
+    if (file->record.TypeVal != TYPEVAL_REGULAR){
+        printf("[read2] Este arquivo não é um arquivo regular\n");
+        return ERRO;
+    }
+
+    //int bytes_to_remove = file->record.bytesFileSize - file->current_pointer;
+
+
+    return SUCESSO;
 }
 
 
@@ -565,7 +589,35 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int seek2 (FILE2 handle, DWORD offset){
-    return ERRO;
+
+    struct file_descriptor *file;
+    int aux;
+
+    if(!initialized){
+        initialize_data();
+    }
+
+    aux = findHandle(handle, &handles[0]);
+    if (aux == ERRO){
+        printf("[seek2] O arquivo especificado não está aberto.\n");
+        return ERRO;
+    }
+
+    file = (struct file_descriptor *)handle;
+
+    if (file->record.TypeVal != TYPEVAL_REGULAR){
+        printf("[read2] Este arquivo não é um arquivo regular\n");
+        return ERRO;
+    }
+
+    if ((int)offset == -1){
+        /* Posiciona o ponteiro no byte seguinte ao final do arquivo. */
+        file->current_pointer = file->record.bytesFileSize + 1;
+    }
+
+    file->current_pointer += offset;
+
+    return SUCESSO;
 }
 
 
