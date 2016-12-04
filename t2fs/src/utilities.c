@@ -1206,3 +1206,23 @@ int testEmptyList(int block){
     }
     return SUCESSO;
 }
+
+/* Recebe o número do bloco no disco e lê a n-ésima entrada deste bloco.
+Retorna 0 se conseguiu ler, -1, caso contrário.
+*/
+int readNthEntry(int block, int entry, struct t2fs_record* record){
+
+    int sector = blocks_start_sector + block *sectors_by_block;
+    struct record_location location;
+    location.sector = sector;
+    location.position = entry % 4;
+
+    int aux = readRecord(&location, record);
+
+    if (aux == ERRO){
+        printf("[readNthEntry] Erro ao ler registro %d no setor %d\n", location.position, location.sector);
+        return ERRO;
+    }
+
+    return SUCESSO;
+}

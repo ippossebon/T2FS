@@ -50,9 +50,6 @@ int freeDoubleListBlock(int block);
 int testEmpty(int inode_number);
 int testEmptyBlock(int block);
 int testEmptyList(int block);
-<<<<<<< HEAD
-=======
-
->>>>>>> feat/rmdir
+int readNthEntry(int block, int entry, struct t2fs_record* record);
 
 #endif
