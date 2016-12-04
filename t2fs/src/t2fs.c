@@ -18,6 +18,7 @@ int opened_dirs_count = 0;
 
 struct t2fs_superbloco superblock;
 FILE2 handles[20];
+DIR2 dir_handles[20];
 
 /* Função de Inicialização */
 void initialize_data(){
@@ -61,7 +62,7 @@ void initialize_data(){
         aux += formatDirBlock(block_number);
     }
 
-    aux += initHandle(&handles[0]);
+    aux += initHandle(&handles[0], &dir_handles[0]);
 
     if(aux == SUCESSO){
         //printf("Inicialização concluída corretamente\n");
@@ -841,6 +842,12 @@ DIR2 opendir2 (char *pathname){
     descriptor->sector_record = location.sector;
     descriptor->record_index_in_sector = location.position;
 
+    aux = addHandleDir((DIR2)descriptor, &dir_handles[0]);
+    if (aux == ERRO){
+        printf("[opendir2] Erro ao criar o handle do diretório.\n");
+        return ERRO;
+    }
+
     /* Retorna o ponteiro para o file_descriptor do arquivo e incrementa os arquivos abertos.*/
     opened_dirs_count++;
 
@@ -873,17 +880,19 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int closedir2 (DIR2 handle){
-
+    int aux;
     struct file_descriptor *dir;
 
     if(!initialized){
         initialize_data();
     }
 
-    if(opened_dirs_count <= 0){
-        printf("[closedir2] Contador de arquivos igual ou menor a zero.\n");
+    aux = rmvHandleDir((DIR2)handle, &dir_handles[0]);
+    if (aux == ERRO){
+        printf("[closedir2] Erro ao remover o handle do diretório.\n");
         return ERRO;
     }
+
     dir = (struct file_descriptor *)handle;
 
     if (dir->record.TypeVal != TYPEVAL_DIRETORIO){

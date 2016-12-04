@@ -1280,7 +1280,7 @@ int FindBlock(int block_number, struct t2fs_inode* inode){
 
 int findHandle(FILE2 handle, FILE2 *handles){
     int i;
-    
+
     if(handle == INVALID_PTR)
         return ERRO;
 
@@ -1314,10 +1314,47 @@ int rmvHandle(FILE2 handle, FILE2 *handles){
     return ERRO;
 }
 
-int initHandle(FILE2 *handles){
+int initHandle(FILE2 *handles, DIR2 *dir_handles){
     int i;
     for(i = 0; i < 20; i++){
         handles[i] = INVALID_PTR;
+        dir_handles[i] = INVALID_PTR;
     }
     return SUCESSO;
+}
+
+int findHandleDir(DIR2 handle, DIR2 *handles){
+    int i;
+
+    if(handle == INVALID_PTR)
+        return ERRO;
+
+    for(i = 0; i < 20; i++){
+        if(handles[i] == handle){
+            return SUCESSO;
+        }
+    }
+    return ERRO;
+}
+
+int addHandleDir(DIR2 handle, DIR2 *handles){
+    int i;
+    for(i = 0; i < 20; i++){
+        if(handles[i] == INVALID_PTR){
+            handles[i] = handle;
+            return SUCESSO;
+        }
+    }
+    return ERRO;
+}
+
+int rmvHandleDir(DIR2 handle, DIR2 *handles){
+    int i;
+    for(i = 0; i < 20; i++){
+        if(handles[i] == handle){
+            handles[i] = INVALID_PTR;
+            return SUCESSO;
+        }
+    }
+    return ERRO;
 }
