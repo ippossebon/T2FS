@@ -17,8 +17,7 @@ int opened_files_count = 0;
 int opened_dirs_count = 0;
 
 struct t2fs_superbloco superblock;
-struct file_descriptor opened_files[20];
-struct file_descriptor opened_dirs[20];
+FILE2 handles[20];
 
 /* Função de Inicialização */
 void initialize_data(){
@@ -61,6 +60,8 @@ void initialize_data(){
         /* Formata o bloco alocado para o diretório raiz */
         aux += formatDirBlock(block_number);
     }
+
+    aux += initHandle(&handles[0]);
 
     if(aux == SUCESSO){
         //printf("Inicialização concluída corretamente\n");
@@ -184,7 +185,7 @@ FILE2 create2 (char *filename){
     struct record_location new_file_location;
     aux = writeRecord(&record, &parent_record, &new_file_location);
     if (aux == ERRO){
-        printf("[create2] Erro ao gravar o registro no diretório-pai\n");
+        printf("[create2] Erro ao gravar o registro no diretório-pai.\n");
         return ERRO;
     }
 
@@ -198,6 +199,12 @@ FILE2 create2 (char *filename){
     descriptor->current_pointer = 0;
     descriptor->sector_record = new_file_location.sector;
     descriptor->record_index_in_sector = new_file_location.position;
+
+    aux = addHandle((FILE2)descriptor, &handles[0]);
+    if (aux == ERRO){
+        printf("[create2] Erro ao criar o handle do arquivo.\n");
+        return ERRO;
+    }
 
     /* Retorna o ponteiro para o file_descriptor do arquivo e incrementa os arquivos abertos.*/
     opened_files_count++;
@@ -353,6 +360,12 @@ FILE2 open2 (char *filename){
     descriptor->sector_record = location.sector;
     descriptor->record_index_in_sector = location.position;
 
+    aux = addHandle((FILE2)descriptor, &handles[0]);
+    if (aux == ERRO){
+        printf("[open2] Erro ao criar o handle do arquivo.\n");
+        return ERRO;
+    }
+
     /* Retorna o ponteiro para o file_descriptor do arquivo e incrementa os arquivos abertos.*/
     opened_files_count++;
 
@@ -368,15 +381,18 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 -----------------------------------------------------------------------------*/
 int close2 (FILE2 handle){
     struct file_descriptor *file;
+    int aux;
 
     if(!initialized){
         initialize_data();
     }
 
-    if(opened_files_count <= 0){
-        printf("[close2] Contador de arquivos igual ou menor a zero.\n");
+    aux = rmvHandle(handle, &handles[0]);
+    if (aux == ERRO){
+        printf("[close2] Erro ao remover o handle do arquivo.\n");
         return ERRO;
     }
+
     file = (struct file_descriptor *)handle;
 
     if (file->record.TypeVal != TYPEVAL_REGULAR){
@@ -412,12 +428,13 @@ int read2 (FILE2 handle, char *buffer, int size){
         initialize_data();
     }
 
-    file = (struct file_descriptor *)handle;
-
-    if(opened_files_count <= 0){
-        printf("[read2] Contador de arquivos igual ou menor a zero.\n");
+    aux = findHandle(handle, &handles[0]);
+    if (aux == ERRO){
+        printf("[read2] O arquivo especificado não está aberto.\n");
         return ERRO;
     }
+
+    file = (struct file_descriptor *)handle;
 
     if (file->record.TypeVal != TYPEVAL_REGULAR){
         printf("[read2] Este arquivo não é um arquivo regular\n");

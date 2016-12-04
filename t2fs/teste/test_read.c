@@ -4,7 +4,7 @@
 
 int main()
 {
-    char file_name[64];
+    char file_name[32];
     char buffer[64];
     FILE2 file;
     int aux;
@@ -14,12 +14,6 @@ int main()
     scanf("%s", file_name);
 
     file = open2(&file_name[0]);
-    if(file == -1){
-        printf("[test_read] Erro ao abrir o arquivo = %s.\n", file_name);
-    }
-    else{
-        printf("[test_read] Aberto o arquivo = %s, com o handle = %d.\n", file_name, file);
-    }
 
     aux = read2(file, &buffer[0], 63);
     buffer[63] = '\0';
