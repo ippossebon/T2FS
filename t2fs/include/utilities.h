@@ -47,5 +47,8 @@ int eraseRecord(struct record_location* location);
 int freeBlocks(int inode_number);
 int freeListBlock(int block);
 int freeDoubleListBlock(int block);
+int testEmpty(int inode_number);
+int testEmptyBlock(int block);
+int testEmptyList(int block);
 
 #endif

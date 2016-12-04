@@ -1057,3 +1057,103 @@ int freeDoubleListBlock(int block){
     }
     return SUCESSO;
 }
+
+/* Recebe o número do inode e libera todos os blocos do i-node */
+int testEmpty(int inode_number){
+    struct t2fs_inode inode;
+    int aux;
+
+    readInode(&inode, inode_number);
+
+    /* Tenta localizar os blocos ocupados pelo arquivo */
+    if(inode.dataPtr[0] !=	INVALID_PTR){
+        return ERRO;
+    }
+    if(inode.dataPtr[1] !=	INVALID_PTR){
+        return ERRO;
+    }
+    /* Tenta localizar o arquivos nos blocos apontados por indireção simples e dupla */
+    if(inode.singleIndPtr != INVALID_PTR){
+
+        int block = inode.singleIndPtr;
+        aux = testEmptyBlock(block);
+        if(aux == ERRO){
+            return ERRO;
+        }
+    }
+    if(inode.doubleIndPtr != INVALID_PTR){
+
+        int block = inode.doubleIndPtr;
+        aux = testEmptyList(block);
+        if(aux == ERRO){
+            return ERRO;
+        }
+    }
+    return SUCESSO;
+}
+
+/* Recebe um bloco que é uma lista de ponteiros para outros blocos */
+int testEmptyBlock(int block){
+    int sector, i, j, k, pointer;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    char buffer_pointer[4];
+
+
+    sector = blocks_start_sector + block * sectors_by_block;
+
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("[freeListBlock] Erro ao ler setor %d\n", sector + i);
+            return ERRO;
+        }
+
+        /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
+        for(j=0; j < SECTOR_SIZE / 4; j++){
+            for(k = 0; k < 4; k++){
+                buffer_pointer[k] = buffer_sector[k + j*4];
+            }
+            pointer = *(int *)buffer_pointer;
+            if(pointer != TYPEVAL_INVALIDO){
+                return ERRO;
+            }
+        }
+    }
+    return SUCESSO;
+}
+
+/* Recebe um bloco que é uma lista de ponteiros para uma lista de blocos */
+int testEmptyList(int block){
+    int sector, i, j, k, pointer, aux;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    char buffer_pointer[4];
+
+
+    sector = blocks_start_sector + block * sectors_by_block;
+
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("[freeListBlock] Erro ao ler setor %d\n", sector + i);
+            return ERRO;
+        }
+
+        /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
+        for(j=0; j < SECTOR_SIZE / 4; j++){
+            for(k = 0; k < 4; k++){
+                buffer_pointer[k] = buffer_sector[k + j*4];
+            }
+            pointer = *(int *)buffer_pointer;
+            if(pointer == TYPEVAL_INVALIDO){
+                return SUCESSO;
+            }
+            else{
+                aux = testEmptyBlock(pointer);
+                if(aux == ERRO){
+                    return ERRO;
+                }
+            }
+        }
+    }
+    return SUCESSO;
+}
