@@ -51,5 +51,13 @@ int testEmpty(int inode_number);
 int testEmptyBlock(int block);
 int testEmptyList(int block);
 int readNthEntry(int block, int entry, struct t2fs_record* record);
+int FindBlock(int block_number, struct t2fs_inode* inode);
+int findHandle(FILE2 handle, FILE2 *handles);
+int addHandle(FILE2 handle, FILE2 *handles);
+int rmvHandle(FILE2 handle, FILE2 *handles);
+int initHandle(FILE2 *handles, DIR2 *dir_handles);
+int findHandleDir(DIR2 handle, DIR2 *handles);
+int addHandleDir(DIR2 handle, DIR2 *handles);
+int rmvHandleDir(DIR2 handle, DIR2 *handles);
 
 #endif
