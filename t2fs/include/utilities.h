@@ -50,6 +50,7 @@ int freeDoubleListBlock(int block);
 int testEmpty(int inode_number);
 int testEmptyBlock(int block);
 int testEmptyList(int block);
+int readNthEntry(int block, int entry, struct t2fs_record* record);
 int FindBlock(int block_number, struct t2fs_inode* inode);
 int findHandle(FILE2 handle, FILE2 *handles);
 int addHandle(FILE2 handle, FILE2 *handles);

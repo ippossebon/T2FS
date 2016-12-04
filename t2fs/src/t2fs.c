@@ -878,7 +878,140 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero)
 	Em caso de erro, será retornado um valor diferente de zero ( e "dentry" não será válido)
 -----------------------------------------------------------------------------*/
 int readdir2 (DIR2 handle, DIRENT2 *dentry){
-    return ERRO;
+    struct file_descriptor *dir;
+
+    if(!initialized){
+        initialize_data();
+    }
+
+    int aux = findHandleDir(handle, &dir_handles[0]);
+    if (aux == ERRO){
+        printf("[readdir2] O diretório especificado não está aberto.\n");
+        return ERRO;
+    }
+
+    dir = (struct file_descriptor *)handle;
+
+    if (dir->record.TypeVal != TYPEVAL_DIRETORIO){
+        printf("[readdir2] Este arquivo não é um diretório\n");
+        return ERRO;
+    }
+
+    if (testEmpty(dir->record.inodeNumber) == SUCESSO){
+        printf("[readdir2] Este diretório é vazio.\n");
+        return ERRO;
+    }
+
+    /* Recupera i-node do diretório. */
+    struct t2fs_inode inode;
+    aux = readInode(&inode, dir->record.inodeNumber);
+
+    if (aux == ERRO){
+        printf("[readdir2] Erro ao ler i-node do diretório\n");
+        return ERRO;
+    }
+
+    /* Procura em qual bloco, no disco, o current_pointer está. */
+    int blocks_start_sector = (int)superblock.inodeAreaSize + (int)superblock.superblockSize + (int)superblock.freeBlocksBitmapSize + (int)superblock.freeInodeBitmapSize;
+    int sectors_by_block = (int)superblock.blockSize;
+    int block;
+    if (dir->current_pointer < 4096){
+        block = inode.dataPtr[0];
+    }
+    else if (dir->current_pointer < 4096 * 2){
+        block = inode.dataPtr[1];
+    }
+    else if (dir->current_pointer < 1024 * 4096){
+        // Procura bloco na lista de indireção simples
+
+        int block_number = (int) (dir->current_pointer / 4096);
+        int sector, start_sector, sector_in_block, position, i;
+        start_sector = blocks_start_sector + inode.singleIndPtr * sectors_by_block;
+
+        /* Um bloco tem 1024 ponteiros de 4 bytes. Um setor, 64 ponteiros */
+        sector_in_block = (block_number - 2) / 64;
+        sector = start_sector + sector_in_block;
+        position = (block_number - 2) % 64;
+
+        unsigned char buffer_sector[SECTOR_SIZE];
+        char buffer_block[4];
+
+        if (read_sector(sector, &buffer_sector[0]) != 0){
+            printf("[readdir2] Erro ao ler setor do registro inválido no diretório pai.\n");
+            return ERRO;
+        }
+
+        for(i = 0; i < 4; i++){
+            buffer_block[i] = buffer_sector[position*4 + i];
+        }
+        block = *(int *)buffer_block;
+    }
+    /* dir->current_pointer < 1024 * 1024 * 4096, mas 2147483647 é o limite de representação de INT*/
+    else if (dir->current_pointer < 2147483646){
+        // Procura bloco na lista de indireção dupla
+
+        int block_number = (int) (dir->current_pointer / 4096);
+        int sector, start_sector, sector_in_block, position, i, second_block;
+        unsigned char buffer_sector[SECTOR_SIZE];
+        char buffer_block[4];
+
+        start_sector = blocks_start_sector + inode.singleIndPtr * sectors_by_block;
+        /* Um bloco tem 1024 ponteiros de 4 bytes. Um setor, 64 ponteiros */
+        /* Na indireção dupla, cada ponteiro do bloco inicial endereça 1024 outros blocos */
+        sector_in_block = ((block_number - 1026) / 1024) / 64;
+        sector = start_sector + sector_in_block;
+        position = ((block_number - 1026) / 1024) % 64;
+
+        if (read_sector(sector, &buffer_sector[0]) != 0){
+            printf("[writeRecord] Erro ao ler setor do registro inválido no diretório pai.\n");
+            return ERRO;
+        }
+
+        for(i = 0; i < 4; i++){
+            buffer_block[i] = buffer_sector[position*4 + i];
+        }
+        second_block = *(int *)buffer_block;
+
+        start_sector = blocks_start_sector + second_block * sectors_by_block;
+        /* Queremos descobrir o setor no segundo bloco, por isso o resto de 1024 */
+        sector_in_block = ((block_number - 1026) % 1024) / sectors_by_block;
+        sector = start_sector + sector_in_block;
+        position = ((block_number - 1026) % 1024) % sectors_by_block;
+
+        if (read_sector(sector, &buffer_sector[0]) != 0){
+            printf("[writeRecord] Erro ao ler setor do registro inválido no diretório pai.\n");
+            return ERRO;
+        }
+
+        for(i = 0; i < 4; i++){
+            buffer_block[i] = buffer_sector[position*4 + i];
+        }
+        block = *(int *)buffer_block;
+    }
+    else{
+        printf("[readdir2] Entrada fora dos limites\n");
+        return ERRO;
+    }
+
+    int entry_number = (int) (dir->current_pointer / 64);
+    struct t2fs_record entry_record;
+    aux = readNthEntry(block, entry_number, &entry_record);
+
+    if (aux == ERRO){
+        printf("[readdir2] Erro ao ler entrada do diretório\n");
+        return ERRO;
+    }
+
+    /* Copia os dados do registro para a estrutura de retorno. */
+    strcpy(dentry->name, entry_record.name);
+    dentry->fileType = entry_record.TypeVal;
+    dentry->fileSize = entry_record.bytesFileSize;
+
+    /* Aponta para a próxima entrada */
+    /**** SALVAR ESTE VALOR NA STRUCT ***/
+    dir->current_pointer = dir->current_pointer + 64;
+
+    return SUCESSO;
 }
 
 
