@@ -208,9 +208,7 @@ FILE2 create2 (char *filename){
 /*-----------------------------------------------------------------------------
 Função:	Apagar um arquivo do disco.
 	O nome do arquivo a ser apagado é aquele informado pelo parâmetro "filename".
-
 Entra:	filename -> nome do arquivo a ser apagado.
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero).
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
@@ -289,9 +287,7 @@ Função:	Abre um arquivo existente no disco.
 	Esse handle será usado em chamadas posteriores do sistema de arquivo para fins de manipulação do arquivo criado.
 	Todos os arquivos abertos por esta chamada são abertos em leitura e em escrita.
 	O ponto em que a leitura, ou escrita, será realizada é fornecido pelo valor current_pointer (ver função seek2).
-
 Entra:	filename -> nome do arquivo a ser apagado.
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna o handle do arquivo (número positivo)
 	Em caso de erro, deve ser retornado um valor negativo
 -----------------------------------------------------------------------------*/
@@ -366,9 +362,7 @@ FILE2 open2 (char *filename){
 
 /*-----------------------------------------------------------------------------
 Função:	Fecha o arquivo identificado pelo parâmetro "handle".
-
 Entra:	handle -> identificador do arquivo a ser fechado
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero).
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
@@ -402,11 +396,9 @@ int close2 (FILE2 handle){
 Função:	Realiza a leitura de "size" bytes do arquivo identificado por "handle".
 	Os bytes lidos são colocados na área apontada por "buffer".
 	Após a leitura, o contador de posição (current pointer) deve ser ajustado para o byte seguinte ao último lido.
-
 Entra:	handle -> identificador do arquivo a ser lido
 	buffer -> buffer onde colocar os bytes lidos do arquivo
 	size -> número de bytes a serem lidos
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna o número de bytes lidos.
 	Se o valor retornado for menor do que "size", então o contador de posição atingiu o final do arquivo.
 	Em caso de erro, será retornado um valor negativo.
@@ -420,11 +412,9 @@ int read2 (FILE2 handle, char *buffer, int size){
 Função:	Realiza a escrita de "size" bytes no arquivo identificado por "handle".
 	Os bytes a serem escritos estão na área apontada por "buffer".
 	Após a escrita, o contador de posição (current pointer) deve ser ajustado para o byte seguinte ao último escrito.
-
 Entra:	handle -> identificador do arquivo a ser escrito
 	buffer -> buffer de onde pegar os bytes a serem escritos no arquivo
 	size -> número de bytes a serem escritos
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna o número de bytes efetivamente escritos.
 	Em caso de erro, será retornado um valor negativo.
 -----------------------------------------------------------------------------*/
@@ -437,9 +427,7 @@ int write2 (FILE2 handle, char *buffer, int size){
 Função:	Função usada para truncar um arquivo.
 	Remove do arquivo todos os bytes a partir da posição atual do contador de posição (current pointer)
 	Todos os bytes desde a posição indicada pelo current pointer até o final do arquivo são removidos do arquivo.
-
 Entra:	handle -> identificador do arquivo a ser truncado
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero).
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
@@ -454,10 +442,8 @@ Função:	Reposiciona o contador de posições (current pointer) do arquivo iden
 	O parâmetro "offset" corresponde ao deslocamento, em bytes, contados a partir do início do arquivo.
 	Se o valor de "offset" for "-1", o current_pointer deverá ser posicionado no byte seguinte ao final do arquivo,
 		Isso é útil para permitir que novos dados sejam adicionados no final de um arquivo já existente.
-
 Entra:	handle -> identificador do arquivo a ser escrito
 	offset -> deslocamento, em bytes, onde posicionar o "current pointer".
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero).
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
@@ -475,9 +461,7 @@ Função:	Criar um novo diretório.
 	A entrada ".." corresponde à entrada de seu diretório pai.
 	São considerados erros de criação quaisquer situações em que o diretório não possa ser criado.
 		Isso inclui a existência de um arquivo ou diretório com o mesmo "pathname".
-
 Entra:	pathname -> caminho do diretório a ser criado
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero).
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
@@ -598,14 +582,80 @@ Função:	Apagar um subdiretório do disco.
 			(c) algum dos componentes do "pathname" não existe (caminho inválido);
 			(d) o "pathname" indicado não é um arquivo;
 			(e) o "pathname" indica os diretórios "." ou "..".
-
 Entra:	pathname -> caminho do diretório a ser criado
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero).
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/
 int rmdir2 (char *pathname){
-    return ERRO;
+    int aux;
+    struct record_location location;
+    struct t2fs_record record;
+    char copy[32];
+
+    strcpy(copy, pathname);
+
+    if(!initialized){
+        initialize_data();
+    }
+
+    if(isFileNameValid(pathname) == ERRO){
+        printf("[rmdir2] O nome informado para o diretório não é válido.\n");
+        return ERRO;
+    }
+
+    printf("[rmdir2] pathname = %s\n", pathname);
+
+    /* Verifica se o caminho em questão existe e, se existe,
+    se já existe um diretório com o mesmo nome.*/
+    aux = findRecord(pathname, &location);
+    if(aux == ERRO){
+        printf("[rmdir2] Não existe o caminho especificado = %s\n", pathname);
+        return ERRO;
+    }
+    else if(aux == 0){
+        printf("[rmdir2] Este subdiretório não existe: %s\n", pathname);
+        return ERRO;
+    }
+    else if(aux == 1){
+        printf("[rmdir2] O subdiretório %s está no setor %d, posição %d\n", copy, location.sector, location.position);
+    }
+
+    /* Lê o registro do diretório que será apagado */
+    aux = readRecord(&location, &record);
+    if (aux == ERRO){
+        printf("[rmdir2] Erro ao ler registro do diretório.\n");
+        return ERRO;
+    }
+
+    if (record.TypeVal != TYPEVAL_DIRETORIO){
+        printf("[rmdir2] Este arquivo não é um diretório.\n");
+        return ERRO;
+    }
+
+    if (testEmpty(record.inodeNumber) == ERRO){
+        printf("[rmdir2] Este diretório não é vazio.\n");
+        return ERRO;
+    }
+
+    /* Apaga o registro do arquivo */
+    aux = eraseRecord(&location);
+    if (aux == ERRO){
+        printf("[rmdir2] Erro ao apagar registro do diretório.\n");
+        return ERRO;
+    }
+
+    /* Libera o bitmap do i-node do arquivo */
+    setBitmap2 (BITMAP_INODE, record.inodeNumber, LIVRE);
+
+    /* Libera o bitmap dos blocos de dados utilizados pelo arquivo */
+    aux = freeBlocks(record.inodeNumber);
+    if (aux == ERRO){
+        printf("[rmdir2] Erro ao liberar os blocos do diretório.\n");
+        return ERRO;
+    }
+
+    printf("[rmdir2] Arquivo %s apagado com sucesso.\n", pathname);
+    return SUCESSO;
 }
 
 
@@ -616,9 +666,7 @@ Função:	Abre um diretório existente no disco.
 		(a) deve retornar o identificador (handle) do diretório
 		(b) deve posicionar o ponteiro de entradas (current entry) na primeira posição válida do diretório "pathname".
 	O handle retornado será usado em chamadas posteriores do sistema de arquivo para fins de manipulação do diretório.
-
 Entra:	pathname -> caminho do diretório a ser aberto
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna o identificador do diretório (handle).
 	Em caso de erro, será retornado um valor negativo.
 -----------------------------------------------------------------------------*/
@@ -701,10 +749,8 @@ Função:	Realiza a leitura das entradas do diretório identificado por "handle"
 	São considerados erros:
 		(a) qualquer situação que impeça a realização da operação
 		(b) término das entradas válidas do diretório identificado por "handle".
-
 Entra:	handle -> identificador do diretório cujas entradas deseja-se ler.
 	dentry -> estrutura de dados onde a função coloca as informações da entrada lida.
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero).
 	Em caso de erro, será retornado um valor diferente de zero ( e "dentry" não será válido)
 -----------------------------------------------------------------------------*/
@@ -715,9 +761,7 @@ int readdir2 (DIR2 handle, DIRENT2 *dentry){
 
 /*-----------------------------------------------------------------------------
 Função:	Fecha o diretório identificado pelo parâmetro "handle".
-
 Entra:	handle -> identificador do diretório que se deseja fechar (encerrar a operação).
-
 Saída:	Se a operação foi realizada com sucesso, a função retorna "0" (zero).
 	Em caso de erro, será retornado um valor diferente de zero.
 -----------------------------------------------------------------------------*/

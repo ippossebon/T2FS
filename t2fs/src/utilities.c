@@ -1058,7 +1058,8 @@ int freeDoubleListBlock(int block){
     return SUCESSO;
 }
 
-/* Recebe o número do inode e libera todos os blocos do i-node */
+/* Recebe o número do i-node de um diretório e verifica se ele é vazio.
+Retorna 0 se for vazio; -1, caso contrário.*/
 int testEmpty(int inode_number){
     struct t2fs_inode inode;
     int aux;
@@ -1067,10 +1068,44 @@ int testEmpty(int inode_number){
 
     /* Tenta localizar os blocos ocupados pelo arquivo */
     if(inode.dataPtr[0] !=	INVALID_PTR){
-        return ERRO;
+        /* Verifica se o bloco apontado é vazio (tipo inválido)*/
+
+        int sector = blocks_start_sector + inode.dataPtr[0] * sectors_by_block;
+        unsigned char buffer[SECTOR_SIZE];
+
+        int b;
+        for(b = 0; b < sectors_by_block; b++){
+            if (read_sector(sector + b, &buffer[0]) != 0){
+                printf("[testEmpty] Erro ao ler setor %d\n", sector + b);
+                return ERRO;
+            }
+
+            if ((unsigned char)buffer[64] == TYPEVAL_INVALIDO){
+                return SUCESSO;
+            }
+            else{
+                return ERRO;
+            }
+        }
     }
     if(inode.dataPtr[1] !=	INVALID_PTR){
-        return ERRO;
+        /* Verifica se o bloco apontado é vazio (tipo inválido)*/
+        int sector = blocks_start_sector + inode.dataPtr[1] * sectors_by_block;
+        unsigned char buffer[SECTOR_SIZE];
+
+        int b;
+        for(b = 0; b < sectors_by_block; b++){
+            if (read_sector(sector + b, &buffer[0]) != 0){
+                printf("[testEmpty] Erro ao ler setor %d\n", sector + b);
+                return ERRO;
+            }
+            if ((unsigned char)buffer[64] == TYPEVAL_INVALIDO){
+                return SUCESSO;
+            }
+            else{
+                return ERRO;
+            }
+        }
     }
     /* Tenta localizar o arquivos nos blocos apontados por indireção simples e dupla */
     if(inode.singleIndPtr != INVALID_PTR){
@@ -1114,8 +1149,22 @@ int testEmptyBlock(int block){
                 buffer_pointer[k] = buffer_sector[k + j*4];
             }
             pointer = *(int *)buffer_pointer;
+
             if(pointer != TYPEVAL_INVALIDO){
-                return ERRO;
+                int sector = blocks_start_sector + pointer * sectors_by_block;
+                unsigned char buffer[SECTOR_SIZE];
+
+                int b;
+                for(b = 0; b < sectors_by_block; b++){
+                    if (read_sector(sector + b, &buffer[0]) != 0){
+                        printf("[testEmpty] Erro ao ler setor %d\n", sector + b);
+                        return ERRO;
+                    }
+
+                    if ((unsigned char)buffer[64] != TYPEVAL_INVALIDO){
+                        return ERRO;
+                    }
+                }
             }
         }
     }

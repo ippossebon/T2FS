@@ -50,5 +50,9 @@ int freeDoubleListBlock(int block);
 int testEmpty(int inode_number);
 int testEmptyBlock(int block);
 int testEmptyList(int block);
+<<<<<<< HEAD
+=======
+
+>>>>>>> feat/rmdir
 
 #endif
