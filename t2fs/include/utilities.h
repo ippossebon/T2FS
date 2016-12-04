@@ -43,5 +43,13 @@ int readRecord(struct record_location* location, struct t2fs_record* actual_reco
 int createNewRegistersBlock(struct t2fs_inode* inode, struct record_location* location, struct t2fs_record* parent_record);
 int formatPointerBlock(int block);
 int formatDirINode(int inode_number);
+int eraseRecord(struct record_location* location);
+int freeBlocks(int inode_number);
+int freeListBlock(int block);
+int freeDoubleListBlock(int block);
+int testEmpty(int inode_number);
+int testEmptyBlock(int block);
+int testEmptyList(int block);
+
 
 #endif

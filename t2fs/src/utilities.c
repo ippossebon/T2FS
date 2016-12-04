@@ -297,9 +297,9 @@ int writeRecord(struct t2fs_record* record_to_write, struct t2fs_record* parent_
         /* Copia as informações de cada buffer intermediário para o buffer_sector */
         memcpy(&buffer_sector[position_in_sector * 64], &type_buffer, sizeof(type_buffer));
         memcpy(&buffer_sector[(position_in_sector * 64) + 1], &name_buffer, sizeof(name_buffer));
-        memcpy(&buffer_sector[(position_in_sector * 64) + 32 + 1], &size_in_blocks_buffer, sizeof(size_in_blocks_buffer));
-        memcpy(&buffer_sector[(position_in_sector * 64) + 36 + 1], &size_in_bytes_buffer, sizeof(size_in_bytes_buffer));
-        memcpy(&buffer_sector[(position_in_sector * 64) + 40 + 1], &inode_number_buffer, sizeof(inode_number_buffer));
+        memcpy(&buffer_sector[(position_in_sector * 64) + 33], &size_in_blocks_buffer, sizeof(size_in_blocks_buffer));
+        memcpy(&buffer_sector[(position_in_sector * 64) + 37], &size_in_bytes_buffer, sizeof(size_in_bytes_buffer));
+        memcpy(&buffer_sector[(position_in_sector * 64) + 41], &inode_number_buffer, sizeof(inode_number_buffer));
 
         /* Escreve no disco todo o setor */
         if (write_sector(location->sector, &buffer_sector[0]) != 0){
@@ -439,18 +439,16 @@ int findInBlock(int block, char *name, int *dir, struct record_location* locatio
                 else
                     *dir = 0;
 
-                for(k = 1 + j*DIR_SIZE; k < 32 + j*DIR_SIZE; k++){
+                for(k = 1 + j*DIR_SIZE; k < 33 + j*DIR_SIZE; k++){
                     buffer_name[k - 1 - j*DIR_SIZE] = buffer_sector[k];
                 }
-                for(k = 40 + j*DIR_SIZE; k < 44 + j*DIR_SIZE; k++){
-                    buffer_inode_number[k - 40 - j*DIR_SIZE] = buffer_sector[k];
+                for(k = 41 + j*DIR_SIZE; k < 45 + j*DIR_SIZE; k++){
+                    buffer_inode_number[k - 41 - j*DIR_SIZE] = buffer_sector[k];
                 }
                 inode_number = *(int *)buffer_inode_number;
 
-                // printf("nome do arquivo = %s\n", buffer_name);
-                // printf("inode_number do arquivo = %d\n", inode_number);
-
                 /* Compara os nomes dos arquivos. */
+                // printf("[findInBlock] Comparando os nomes: %s e %s.\n", name, buffer_name);
                 if(strcmp(name, buffer_name) == 0){
                     location->sector = sector + i;
                     location->position = j;
@@ -895,9 +893,9 @@ int readRecord(struct record_location* location, struct t2fs_record* actual_reco
     /* Recupera o registro em questão */
     memcpy(&actual_record->TypeVal, &buffer_sector[position_in_sector * 64], sizeof(actual_record->TypeVal));
     memcpy(&actual_record->name, &buffer_sector[(position_in_sector * 64) + 1], sizeof(actual_record->name));
-    memcpy(&actual_record->blocksFileSize, &buffer_sector[(position_in_sector * 64) + 32 + 1], sizeof(actual_record->blocksFileSize));
-    memcpy(&actual_record->bytesFileSize, &buffer_sector[(position_in_sector * 64) + 36 + 1], sizeof(actual_record->bytesFileSize));
-    memcpy(&actual_record->inodeNumber, &buffer_sector[(position_in_sector * 64) + 40 + 1], sizeof(actual_record->inodeNumber));
+    memcpy(&actual_record->blocksFileSize, &buffer_sector[(position_in_sector * 64) + 33], sizeof(actual_record->blocksFileSize));
+    memcpy(&actual_record->bytesFileSize, &buffer_sector[(position_in_sector * 64) + 37], sizeof(actual_record->bytesFileSize));
+    memcpy(&actual_record->inodeNumber, &buffer_sector[(position_in_sector * 64) + 41], sizeof(actual_record->inodeNumber));
 
     /* Teste */
     printf("[readRecord] Registro recuperado do setor %d, posição %d\n", location->sector, location->position);
@@ -935,5 +933,280 @@ int formatDirINode(int inode_number){
     }
 
     printf("[formatDirINode] Bloco de diretório para o i-node criado com sucesso\n");
+    return SUCESSO;
+}
+
+/* Dada uma localização, esta função torna inválido o registro ali localizado */
+int eraseRecord(struct record_location* location){
+    unsigned char buffer_sector[SECTOR_SIZE];
+
+    if (read_sector(location->sector, &buffer_sector[0]) != 0){
+        printf("[readRecord] Erro ao ler setor indicado\n");
+        return ERRO;
+    }
+    buffer_sector[location->position * DIR_SIZE] = INVALID_PTR;
+
+    if (write_sector(location->sector, &buffer_sector[0]) != 0){
+        printf("[writeInode] Erro ao gravar setor %d\n", location->sector);
+        return ERRO;
+    }
+    return SUCESSO;
+}
+
+/* Recebe o número do inode e libera todos os blocos do i-node */
+int freeBlocks(int inode_number){
+    struct t2fs_inode inode;
+    int aux;
+
+    readInode(&inode, inode_number);
+
+    /* Tenta localizar os blocos ocupados pelo arquivo */
+    if(inode.dataPtr[0] !=	INVALID_PTR){
+        setBitmap2 (BITMAP_DADOS, inode.dataPtr[0], LIVRE);
+    }
+    if(inode.dataPtr[1] !=	INVALID_PTR){
+        setBitmap2 (BITMAP_DADOS, inode.dataPtr[1], LIVRE);
+    }
+    /* Tenta localizar o arquivos nos blocos apontados por indireção simples e dupla */
+    if(inode.singleIndPtr != INVALID_PTR){
+        setBitmap2 (BITMAP_DADOS, inode.singleIndPtr, LIVRE);
+
+        int block = inode.singleIndPtr;
+        aux = freeListBlock(block);
+        if(aux == ERRO){
+            return ERRO;
+        }
+    }
+    if(inode.doubleIndPtr != INVALID_PTR){
+        setBitmap2 (BITMAP_DADOS, inode.doubleIndPtr, LIVRE);
+
+        int block = inode.doubleIndPtr;
+        aux = freeDoubleListBlock(block);
+        if(aux == ERRO){
+            return ERRO;
+        }
+    }
+    return SUCESSO;
+}
+
+/* Recebe um bloco que é uma lista de ponteiros para outros blocos */
+int freeListBlock(int block){
+    int sector, i, j, k, pointer;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    char buffer_pointer[4];
+
+
+    sector = blocks_start_sector + block * sectors_by_block;
+
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("[freeListBlock] Erro ao ler setor %d\n", sector + i);
+            return ERRO;
+        }
+
+        /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
+        for(j=0; j < SECTOR_SIZE / 4; j++){
+            for(k = 0; k < 4; k++){
+                buffer_pointer[k] = buffer_sector[k + j*4];
+            }
+            pointer = *(int *)buffer_pointer;
+            if(pointer == TYPEVAL_INVALIDO){
+                return SUCESSO;
+            }
+            else{
+                setBitmap2 (BITMAP_DADOS, pointer, LIVRE);
+            }
+        }
+    }
+    return SUCESSO;
+}
+
+/* Recebe um bloco que é uma lista de ponteiros para uma lista de blocos */
+int freeDoubleListBlock(int block){
+    int sector, i, j, k, pointer, aux;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    char buffer_pointer[4];
+
+
+    sector = blocks_start_sector + block * sectors_by_block;
+
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("[freeListBlock] Erro ao ler setor %d\n", sector + i);
+            return ERRO;
+        }
+
+        /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
+        for(j=0; j < SECTOR_SIZE / 4; j++){
+            for(k = 0; k < 4; k++){
+                buffer_pointer[k] = buffer_sector[k + j*4];
+            }
+            pointer = *(int *)buffer_pointer;
+            if(pointer == TYPEVAL_INVALIDO){
+                return SUCESSO;
+            }
+            else{
+                aux = freeListBlock(pointer);
+                if(aux == ERRO){
+                    return ERRO;
+                }
+            }
+        }
+    }
+    return SUCESSO;
+}
+
+int testEmpty(int inode_number){
+    struct t2fs_inode inode;
+    int aux;
+
+    readInode(&inode, inode_number);
+
+    printf("[testEmpty] i-node number: %d\n", inode_number);
+    printf("[testEmpty] dataPtr[0]: %d\n", inode.dataPtr[0]);
+    printf("[testEmpty] dataPtr[1]: %d\n", inode.dataPtr[1]);
+    printf("[testEmpty] singleIndPtr: %d\n", inode.singleIndPtr);
+    printf("[testEmpty] doubleIndPtr: %d\n", inode.doubleIndPtr);
+
+    /* Tenta localizar os blocos ocupados pelo arquivo */
+    if(inode.dataPtr[0] !=	INVALID_PTR){
+        /* Verifica se o bloco apontado é vazio (tipo inválido)*/
+
+        int sector = blocks_start_sector + inode.dataPtr[0] * sectors_by_block;
+        unsigned char buffer[SECTOR_SIZE];
+
+        int b;
+        for(b = 0; b < sectors_by_block; b++){
+            if (read_sector(sector + b, &buffer[0]) != 0){
+                printf("[testEmpty] Erro ao ler setor %d\n", sector + b);
+                return ERRO;
+            }
+
+            if ((unsigned char)buffer[64] == TYPEVAL_INVALIDO){
+                return SUCESSO;
+            }
+            else{
+                return ERRO;
+            }
+        }
+    }
+    if(inode.dataPtr[1] !=	INVALID_PTR){
+        /* Verifica se o bloco apontado é vazio (tipo inválido)*/
+        int sector = blocks_start_sector + inode.dataPtr[1] * sectors_by_block;
+        unsigned char buffer[SECTOR_SIZE];
+
+        int b;
+        for(b = 0; b < sectors_by_block; b++){
+            if (read_sector(sector + b, &buffer[0]) != 0){
+                printf("[testEmpty] Erro ao ler setor %d\n", sector + b);
+                return ERRO;
+            }
+            if ((unsigned char)buffer[64] == TYPEVAL_INVALIDO){
+                return SUCESSO;
+            }
+            else{
+                return ERRO;
+            }
+        }
+    }
+    /* Tenta localizar o arquivos nos blocos apontados por indireção simples e dupla */
+    if(inode.singleIndPtr != INVALID_PTR){
+
+        int block = inode.singleIndPtr;
+        aux = testEmptyBlock(block);
+        if(aux == ERRO){
+            return ERRO;
+        }
+    }
+    if(inode.doubleIndPtr != INVALID_PTR){
+
+        int block = inode.doubleIndPtr;
+        aux = testEmptyList(block);
+        if(aux == ERRO){
+            return ERRO;
+        }
+    }
+    return SUCESSO;
+}
+
+/* Recebe um bloco que é uma lista de ponteiros para outros blocos */
+int testEmptyBlock(int block){
+    int sector, i, j, k, pointer;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    char buffer_pointer[4];
+
+
+    sector = blocks_start_sector + block * sectors_by_block;
+
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("[freeListBlock] Erro ao ler setor %d\n", sector + i);
+            return ERRO;
+        }
+
+        /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
+        for(j=0; j < SECTOR_SIZE / 4; j++){
+            for(k = 0; k < 4; k++){
+                buffer_pointer[k] = buffer_sector[k + j*4];
+            }
+            pointer = *(int *)buffer_pointer;
+
+            if(pointer != TYPEVAL_INVALIDO){
+                int sector = blocks_start_sector + pointer * sectors_by_block;
+                unsigned char buffer[SECTOR_SIZE];
+
+                int b;
+                for(b = 0; b < sectors_by_block; b++){
+                    if (read_sector(sector + b, &buffer[0]) != 0){
+                        printf("[testEmpty] Erro ao ler setor %d\n", sector + b);
+                        return ERRO;
+                    }
+
+                    if ((unsigned char)buffer[64] != TYPEVAL_INVALIDO){
+                        return ERRO;
+                    }
+                }
+            }
+        }
+    }
+    return SUCESSO;
+}
+
+/* Recebe um bloco que é uma lista de ponteiros para uma lista de blocos */
+int testEmptyList(int block){
+    int sector, i, j, k, pointer, aux;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    char buffer_pointer[4];
+
+
+    sector = blocks_start_sector + block * sectors_by_block;
+
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("[freeListBlock] Erro ao ler setor %d\n", sector + i);
+            return ERRO;
+        }
+
+        /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
+        for(j=0; j < SECTOR_SIZE / 4; j++){
+            for(k = 0; k < 4; k++){
+                buffer_pointer[k] = buffer_sector[k + j*4];
+            }
+            pointer = *(int *)buffer_pointer;
+            if(pointer == TYPEVAL_INVALIDO){
+                return SUCESSO;
+            }
+            else{
+                aux = testEmptyBlock(pointer);
+                if(aux == ERRO){
+                    return ERRO;
+                }
+            }
+        }
+    }
     return SUCESSO;
 }
