@@ -483,8 +483,10 @@ int read2 (FILE2 handle, char *buffer, int size){
     blocks_start_sector = (int)superblock.superblockSize + (int)superblock.freeBlocksBitmapSize + (int)superblock.freeInodeBitmapSize + (int)superblock.inodeAreaSize;
 
     while (buffer_index < size) {
-        int i, j, sector;
+        int i, j, sector, current_block, test_current = 0;
         unsigned char buffer_sector[SECTOR_SIZE];
+
+        current_block = current % 4096;
 
         block_number = FindBlock(file_block, &inode);
         if(block_number == ERRO){
@@ -500,13 +502,20 @@ int read2 (FILE2 handle, char *buffer, int size){
                 return ERRO;
             }
             for(j = 0; j < 256; j++){
-                buffer[buffer_index] = buffer_sector[j];
-                current++;
-                buffer_index++;
+                if(test_current < current_block){
+                    test_current++;
+                }
+                else{
+                    buffer[buffer_index] = buffer_sector[j];
+                    //printf("[read2] Current do arquivo: %d\n", current);
 
-                if(current > read_limit){
-                    file->current_pointer = current;
-                    return bytes_to_read;
+                    if(current >= read_limit){
+                        file->current_pointer = current;
+                        //printf("[read2] Current do descritor: %d\n", file->current_pointer);
+                        return bytes_to_read;
+                    }
+                    current++;
+                    buffer_index++;
                 }
             }
         }
