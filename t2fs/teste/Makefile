@@ -5,10 +5,10 @@ INC_DIR=../include/
 BIN_DIR=../bin/
 SRC_DIR=../src/
 CFLAGS= -Wall -c
-OBJETOS= test_initialize test_create2 test_open_close test_delete
+OBJETOS= test_initialize test_create2 test_open_close test_mkDir test_open_close_dir test_delete test_read
 
 
-all: test_initialize test_create2 test_open_close test_mkDir test_open_close_dir test_delete
+all: $(OBJETOS)
 
 test_initialize: test_initialize.c $(LIB_DIR)libt2fs.a
 	$(CC) -g -o test_initialize test_initialize.c -L$(LIB_DIR) -lt2fs -I$(INC_DIR) -lm -Wall
@@ -27,6 +27,9 @@ test_open_close_dir: test_open_close_dir.c $(LIB_DIR)libt2fs.a
 
 test_delete: test_delete.c $(LIB_DIR)libt2fs.a
 	$(CC) -g -o test_delete test_delete.c -L$(LIB_DIR) -lt2fs -I$(INC_DIR) -lm -Wall
+
+test_read: test_read.c $(LIB_DIR)libt2fs.a
+	$(CC) -g -o test_read test_read.c -L$(LIB_DIR) -lt2fs -I$(INC_DIR) -lm -Wall
 
 clean:
 	rm -rf $(OBJETOS)

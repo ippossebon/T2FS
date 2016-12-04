@@ -412,6 +412,96 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o número 
 	Em caso de erro, será retornado um valor negativo.
 -----------------------------------------------------------------------------*/
 int read2 (FILE2 handle, char *buffer, int size){
+    struct file_descriptor *file;
+    struct t2fs_inode inode;
+    int current, file_size, read_limit, aux, file_block, block_number, buffer_index = 0, bytes_to_read, blocks_start_sector;
+
+    if(!initialized){
+        initialize_data();
+    }
+
+    file = (struct file_descriptor *)handle;
+
+    if(opened_files_count <= 0){
+        printf("[read2] Contador de arquivos igual ou menor a zero.\n");
+        return ERRO;
+    }
+
+    if (file->record.TypeVal != TYPEVAL_REGULAR){
+        printf("[read2] Este arquivo não é um arquivo regular\n");
+        return ERRO;
+    }
+
+    current = file->current_pointer;
+    if (current < 0){
+        return ERRO;
+    }
+    file_size = file->record.bytesFileSize;
+    if (file_size < 0){
+        return ERRO;
+    }
+
+    /* read_limit é o valor em bytes de até onde se deseja ler no arquivo */
+    read_limit = size + current;
+
+    if (file_size == 0){
+        printf("[read2] Arquivo vazio.\n");
+        return 0;
+    }
+    if (current > file_size){
+        printf("[read2] O current_pointer é maior que o tamanho do arquivo.\n");
+        return ERRO;
+    }
+    /* teste para ver se a quantidade de bytes do arquivo é maior que o tamanho solicitado
+    Se for, diminui a quantidade de bytes a serem lidos */
+    if (file_size < read_limit){
+        printf("[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.\n");
+        read_limit = file_size;
+    }
+    bytes_to_read = read_limit - current;
+
+    /* Lê o i-node do arquivo */
+    aux = readInode(&inode, file->record.inodeNumber);
+    if(aux != 0){
+        printf("[read2] Inode de diretório inválido\n");
+        return ERRO;
+    }
+
+    /* 4096 bytes por bloco. Logo, achamos pra qual bloco o current apontada
+        P.S: não é o número do bloco no disco, mas referente aos blocos do arquivo */
+    file_block = current / 4096;
+    blocks_start_sector = (int)superblock.superblockSize + (int)superblock.freeBlocksBitmapSize + (int)superblock.freeInodeBitmapSize + (int)superblock.inodeAreaSize;
+
+    while (buffer_index < size) {
+        int i, j, sector;
+        unsigned char buffer_sector[SECTOR_SIZE];
+
+        block_number = FindBlock(file_block, &inode);
+        if(block_number == ERRO){
+            printf("[read2] Erro ao procurar os blocos do arquivo.\n");
+            return ERRO;
+        }
+
+        sector = blocks_start_sector + block_number * 16;
+        /* Vai ler os 16 setores do bloco */
+        for(i = 0; i < 16; i++){
+            if (read_sector(sector + i, &buffer_sector[0]) != 0){
+                printf("[read2] Erro ao ler setor do bloco do arquivo.\n");
+                return ERRO;
+            }
+            for(j = 0; j < 256; j++){
+                buffer[buffer_index] = buffer_sector[j];
+                current++;
+                buffer_index++;
+
+                if(current > read_limit){
+                    file->current_pointer = current;
+                    return bytes_to_read;
+                }
+            }
+        }
+        file_block++;
+    }
     return ERRO;
 }
 

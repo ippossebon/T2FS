@@ -50,5 +50,6 @@ int freeDoubleListBlock(int block);
 int testEmpty(int inode_number);
 int testEmptyBlock(int block);
 int testEmptyList(int block);
+int FindBlock(int block_number, struct t2fs_inode* inode);
 
 #endif

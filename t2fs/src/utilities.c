@@ -1157,3 +1157,74 @@ int testEmptyList(int block){
     }
     return SUCESSO;
 }
+
+/* Recebe uma posição do bloco do arquivo e o i-node
+Retorna o número do bloco se achou o bloco ou -1 em caso de erro */
+int FindBlock(int block_number, struct t2fs_inode* inode){
+    if(block_number == 0){
+        return inode->dataPtr[0];
+    }
+    if(block_number == 1){
+        return inode->dataPtr[1];
+    }
+    if((block_number > 1)&&(block_number < 1026)){
+        int sector, start_sector, sector_in_block, position, i;
+        start_sector = blocks_start_sector + inode->singleIndPtr * sectors_by_block;
+        /* Um bloco tem 1024 ponteiros de 4 bytes. Um setor, 64 ponteiros */
+        sector_in_block = (block_number - 2) / 64;
+        sector = start_sector + sector_in_block;
+        position = (block_number - 2) % 64;
+
+        unsigned char buffer_sector[SECTOR_SIZE];
+        char buffer_block[4];
+
+        if (read_sector(sector, &buffer_sector[0]) != 0){
+            printf("[writeRecord] Erro ao ler setor do registro inválido no diretório pai.\n");
+            return ERRO;
+        }
+
+        for(i = 0; i < 4; i++){
+            buffer_block[i] = buffer_sector[position*4 + i];
+        }
+        return *(int *)buffer_block;
+    }
+    if(block_number >= 1026){
+        int sector, start_sector, sector_in_block, position, i, second_block;
+        unsigned char buffer_sector[SECTOR_SIZE];
+        char buffer_block[4];
+
+        start_sector = blocks_start_sector + inode->singleIndPtr * sectors_by_block;
+        /* Um bloco tem 1024 ponteiros de 4 bytes. Um setor, 64 ponteiros */
+        /* Na indireção dupla, cada ponteiro do bloco inicial endereça 1024 outros blocos */
+        sector_in_block = ((block_number - 1026) / 1024) / 64;
+        sector = start_sector + sector_in_block;
+        position = ((block_number - 1026) / 1024) % 64;
+
+        if (read_sector(sector, &buffer_sector[0]) != 0){
+            printf("[writeRecord] Erro ao ler setor do registro inválido no diretório pai.\n");
+            return ERRO;
+        }
+
+        for(i = 0; i < 4; i++){
+            buffer_block[i] = buffer_sector[position*4 + i];
+        }
+        second_block = *(int *)buffer_block;
+
+        start_sector = blocks_start_sector + second_block * sectors_by_block;
+        /* Queremos descobrir o setor no segundo bloco, por isso o resto de 1024 */
+        sector_in_block = ((block_number - 1026) % 1024) / sectors_by_block;
+        sector = start_sector + sector_in_block;
+        position = ((block_number - 1026) % 1024) % sectors_by_block;
+
+        if (read_sector(sector, &buffer_sector[0]) != 0){
+            printf("[writeRecord] Erro ao ler setor do registro inválido no diretório pai.\n");
+            return ERRO;
+        }
+
+        for(i = 0; i < 4; i++){
+            buffer_block[i] = buffer_sector[position*4 + i];
+        }
+        return *(int *)buffer_block;
+    }
+    return ERRO;
+}
