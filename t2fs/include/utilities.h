@@ -41,6 +41,9 @@ int findInvalidRecordInList(int block, struct record_location* location);
 int findInvalidRecordInListDouble(int block, struct record_location* location);
 int readRecord(struct record_location* location, struct t2fs_record* actual_record);
 int createNewRegistersBlock(struct t2fs_inode* inode, struct record_location* location, struct t2fs_record* parent_record);
+int createNewBlock(struct t2fs_inode* inode, struct t2fs_record* parent_record);
+int createNewBlockInList(int block);
+int createNewBlockInListDouble(int block);
 int formatPointerBlock(int block);
 int formatDirINode(int inode_number);
 int eraseRecord(struct record_location* location);
@@ -59,5 +62,6 @@ int initHandle(FILE2 *handles, DIR2 *dir_handles);
 int findHandleDir(DIR2 handle, DIR2 *handles);
 int addHandleDir(DIR2 handle, DIR2 *handles);
 int rmvHandleDir(DIR2 handle, DIR2 *handles);
+int recordRecord(struct file_descriptor *file);
 
 #endif

@@ -473,7 +473,7 @@ int read2 (FILE2 handle, char *buffer, int size){
     /* Lê o i-node do arquivo */
     aux = readInode(&inode, file->record.inodeNumber);
     if(aux != 0){
-        printf("[read2] Inode de diretório inválido\n");
+        printf("[read2] Inode do arquivo inválido\n");
         return ERRO;
     }
 
@@ -536,6 +536,122 @@ Saída:	Se a operação foi realizada com sucesso, a função retorna o número 
 	Em caso de erro, será retornado um valor negativo.
 -----------------------------------------------------------------------------*/
 int write2 (FILE2 handle, char *buffer, int size){
+    struct file_descriptor *file;
+    struct t2fs_inode inode;
+    int current, file_size, new_size, buffer_index = 0;
+    int file_block, block_number;
+    int aux, blocks_start_sector, blocks_count = 0;
+
+    if(!initialized){
+        initialize_data();
+    }
+
+    aux = findHandle(handle, &handles[0]);
+    if (aux == ERRO){
+        printf("[write2] O arquivo especificado não está aberto.\n");
+        return ERRO;
+    }
+
+    file = (struct file_descriptor *)handle;
+
+    if (file->record.TypeVal != TYPEVAL_REGULAR){
+        printf("[write2] Este arquivo não é um arquivo regular\n");
+        return ERRO;
+    }
+
+    current = file->current_pointer;
+    if (current < 0){
+        return ERRO;
+    }
+    file_size = file->record.bytesFileSize;
+    if (file_size < 0){
+        return ERRO;
+    }
+
+    /* tamanho do arquivo após a escrita dos bytes */
+    new_size = size + current;
+
+    printf("[write2] Novo tamanho do arquivo após escrita: %d\n", new_size);
+
+    /* Lê o i-node do arquivo */
+    aux = readInode(&inode, file->record.inodeNumber);
+    if(aux != 0){
+        printf("[write2] Inode do arquivo inválido\n");
+        return ERRO;
+    }
+
+    /* 4096 bytes por bloco. Logo, achamos pra qual bloco o current apontada
+        P.S: não é o número do bloco no disco, mas referente aos blocos do arquivo */
+    file_block = current / 4096;
+    blocks_start_sector = (int)superblock.superblockSize + (int)superblock.freeBlocksBitmapSize + (int)superblock.freeInodeBitmapSize + (int)superblock.inodeAreaSize;
+
+    while (buffer_index < size) {
+        int i, j, sector, current_block, test_current = 0;
+        unsigned char buffer_sector[SECTOR_SIZE];
+        struct t2fs_record record2 = file->record;
+
+        current_block = current % 4096;
+
+        block_number = FindBlock(file_block, &inode);
+        //printf("[write2] Acessando o bloco: %d\n", block_number);
+
+        if(block_number == ERRO){
+            /* Não tem bloco livre, é necessário alocar um novo */
+            block_number = createNewBlock(&inode, &record2);
+            printf("[write2] Criado novo bloco: %d\n", block_number);
+            if(block_number == ERRO){
+                printf("[write2] Erro ao criar novo bloco\n");
+                return ERRO;
+            }
+            blocks_count++;
+        }
+
+        sector = blocks_start_sector + block_number * 16;
+        //printf("[write2] Setor = %d\n", sector);
+        /* Vai ler os 16 setores do bloco */
+        for(i = 0; i < 16; i++){
+            if (read_sector(sector + i, &buffer_sector[0]) != 0){
+                printf("[write2] Erro ao ler setor do bloco do arquivo.\n");
+                return ERRO;
+            }
+            for(j = 0; j < 256; j++){
+                if(test_current < current_block){
+                    //printf("[write2] test_current = %d, current_block = %d\n", test_current, current_block);
+                    test_current++;
+                }
+                else{
+                    buffer_sector[j] = buffer[buffer_index];
+
+                    if(current >= new_size){
+                        //printf("[write2] Chegou ao final do buffer.\n");
+                        file->current_pointer = current;
+                        file->record.blocksFileSize = file->record.blocksFileSize + blocks_count;
+                        file->record.bytesFileSize = file->record.bytesFileSize + size;
+
+                        if (write_sector(sector + i, &buffer_sector[0]) != 0){
+                            printf("[write2] Erro ao gravar setor %d\n", sector);
+                            return ERRO;
+                        }
+
+                        if (recordRecord(file) == ERRO){
+                            printf("[write2] Erro ao gravar o registro no disco.\n");
+                            return ERRO;
+                        }
+
+                        return size;
+                    }
+                    current++;
+                    buffer_index++;
+                }
+            }
+            //printf("[write2] Gravando setor %d\n", sector);
+            if (write_sector(sector + i, &buffer_sector[0]) != 0){
+                printf("[write2] Erro ao gravar setor %d\n", sector);
+                return ERRO;
+            }
+        }
+        file_block++;
+    }
     return ERRO;
 }
 

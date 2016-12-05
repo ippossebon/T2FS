@@ -6,7 +6,7 @@ BIN_DIR=../bin/
 SRC_DIR=../src/
 CFLAGS= -Wall -c
 
-OBJETOS= test_initialize test_create2 test_open_close test_mkDir test_open_close_dir test_delete test_rmdir2 test_read test_read_duplo test_readdir2 teste2 test_seek
+OBJETOS= test_initialize test_create2 test_open_close test_mkDir test_open_close_dir test_delete test_rmdir2 test_read test_read_duplo test_write test_readdir2
 
 all: $(OBJETOS)
 
@@ -33,6 +33,9 @@ test_rmdir2: test_rmdir2.c $(LIB_DIR)libt2fs.a
 
 test_read: test_read.c $(LIB_DIR)libt2fs.a
 	$(CC) -g -o test_read test_read.c -L$(LIB_DIR) -lt2fs -I$(INC_DIR) -lm -Wall
+
+test_write: test_write.c $(LIB_DIR)libt2fs.a
+	$(CC) -g -o test_write test_write.c -L$(LIB_DIR) -lt2fs -I$(INC_DIR) -lm -Wall
 
 test_read_duplo: test_read_duplo.c $(LIB_DIR)libt2fs.a
 	$(CC) -g -o test_read_duplo test_read_duplo.c -L$(LIB_DIR) -lt2fs -I$(INC_DIR) -lm -Wall

@@ -22,7 +22,5 @@ int main()
         printf("Arquivo %s criado com sucesso\n", filename);
     }
 
-    
-
     return 0;
 }

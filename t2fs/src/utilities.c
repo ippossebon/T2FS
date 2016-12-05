@@ -90,7 +90,7 @@ int isFileNameValid(char* filename){
         else if(filename[i] >= 97 && filename[i] <= 122){
         }
         else{
-            printf("[isFileNameValid] filename[i] = %c\n", filename[i]);
+            printf("[isFileNameValid] Erro: filename[i] = %c\n", filename[i]);
             return ERRO;
         }
     }
@@ -112,11 +112,6 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number){
     if((inode_number < 0)||(inode_number >= total_inodes)){
         printf("[readInode] inode_number %d < 0 ou maior que o total_inodes %d\n", inode_number, total_inodes);
         return ERRO;
-    }
-    if(getBitmap2(BITMAP_INODE, inode_number) != OCUPADO){
-        printf("[readInode] bitmap do i-node está como livre\n");
-        setBitmap2 (BITMAP_INODE, inode_number, OCUPADO);
-        //return ERRO;
     }
 
     /* Localiza o setor correto para a leitura */
@@ -161,7 +156,6 @@ int readInode(struct t2fs_inode *actual_inode, int inode_number){
     return SUCESSO;
 }
 
-
 /* Retorna o índice do i-node livre que foi encontrado. Se não encontrou, retorna -1.*/
 int findFreeINode(){
     int	inode_number;
@@ -177,7 +171,6 @@ int findFreeINode(){
     }
 }
 
-
 /* Recebe o número e os dados de um i-node e grava no disco. */
 int writeInode(int inode_number, struct t2fs_inode inode){
     unsigned char buffer_sector[SECTOR_SIZE];
@@ -192,14 +185,14 @@ int writeInode(int inode_number, struct t2fs_inode inode){
     }
 
     sector = inode_number / inodes_by_sector + inodes_start_sector;
-    printf("[writeInode] sector = %d\n", sector);
+    //printf("[writeInode] sector = %d\n", sector);
     if (read_sector(sector, &buffer_sector[0]) != 0){
         printf("[writeInode] Erro ao ler setor %d\n", sector);
         return ERRO;
     }
 
     position = (inode_number % inodes_by_sector) * INODE_SIZE;
-    printf("[writeInode] position = %d\n", position);
+    //printf("[writeInode] position = %d\n", position);
     memcpy(pointer_buffer, (char*)&inode.dataPtr[0], sizeof(int));
     for(i = position; i < position + 4; i++){
             buffer_sector[i] = pointer_buffer[i - position];
@@ -247,10 +240,10 @@ int writeRecord(struct t2fs_record* record_to_write, struct t2fs_record* parent_
         printf("[writeRecord] Erro ao ler i-node do pai\n");
         return ERRO;
     }
-    printf("[writeRecord] parent_inode->dataPtr[0] = %d\n", parent_inode.dataPtr[0]);
-    printf("[writeRecord] parent_inode->dataPtr[1] = %d\n", parent_inode.dataPtr[1]);
-    printf("[writeRecord] parent_inode->singleIndPtr = %d\n", parent_inode.singleIndPtr);
-    printf("[writeRecord] parent_inode->doubleIndPtr = %d\n", parent_inode.doubleIndPtr);
+    // printf("[writeRecord] parent_inode->dataPtr[0] = %d\n", parent_inode.dataPtr[0]);
+    // printf("[writeRecord] parent_inode->dataPtr[1] = %d\n", parent_inode.dataPtr[1]);
+    // printf("[writeRecord] parent_inode->singleIndPtr = %d\n", parent_inode.singleIndPtr);
+    // printf("[writeRecord] parent_inode->doubleIndPtr = %d\n", parent_inode.doubleIndPtr);
 
     /* No i-node do diretório pai, procura por um registro inicializado como
     inválido, que é onde este novo registro será escrito. Se nenhum registro
@@ -308,12 +301,12 @@ int writeRecord(struct t2fs_record* record_to_write, struct t2fs_record* parent_
         }
 
         /* Para testes */
-        printf("[writeRecord] Registro escrito no setor %d, posição %d\n", location->sector, location->position);
-        printf("[writeRecord] Tipo do registro: %d\n", (int)type_buffer);
-        printf("[writeRecord] Nome: %s\n", name_buffer);
-        printf("[writeRecord] size_in_blocks_buffer: %u\n", size_in_blocks_buffer[0]);
-        printf("[writeRecord] size_in_bytes_buffer: %u\n", size_in_bytes_buffer[0]);
-        printf("[writeRecord] inode_number: %d\n", inode_number_buffer[0]);
+        // printf("[writeRecord] Registro escrito no setor %d, posição %d\n", location->sector, location->position);
+        // printf("[writeRecord] Tipo do registro: %d\n", (int)type_buffer);
+        // printf("[writeRecord] Nome: %s\n", name_buffer);
+        // printf("[writeRecord] size_in_blocks_buffer: %u\n", size_in_blocks_buffer[0]);
+        // printf("[writeRecord] size_in_bytes_buffer: %u\n", size_in_bytes_buffer[0]);
+        // printf("[writeRecord] inode_number: %d\n", inode_number_buffer[0]);
 
         return SUCESSO;
     }
@@ -594,13 +587,13 @@ int findInvalidRecordInINode(struct t2fs_inode* inode, struct record_location* l
 
     /* Procura por registro inválido nos ponteiros diretos. */
     if (inode->dataPtr[0] != INVALID_PTR){
-        printf("[findInvalidRecordInINode] Procurando em inode->dataPtr[0].\n");
+        //printf("[findInvalidRecordInINode] Procurando em inode->dataPtr[0].\n");
         aux = findInvalidRecordInBlock(inode->dataPtr[0], location);
         if(aux == SUCESSO)
             return SUCESSO;
     }
     if (inode->dataPtr[1] != INVALID_PTR) {
-        printf("[findInvalidRecordInINode] Procurando em inode->dataPtr[1].\n");
+        //printf("[findInvalidRecordInINode] Procurando em inode->dataPtr[1].\n");
         aux = findInvalidRecordInBlock(inode->dataPtr[1], location);
         if(aux == SUCESSO)
             return SUCESSO;
@@ -608,7 +601,7 @@ int findInvalidRecordInINode(struct t2fs_inode* inode, struct record_location* l
 
     /* Procura por registro inválido nos blocos do bloco de índices.*/
     if (inode->singleIndPtr != INVALID_PTR){
-        printf("[findInvalidRecordInINode] Procurando em inode->singleIndPtr.\n");
+        //printf("[findInvalidRecordInINode] Procurando em inode->singleIndPtr.\n");
         aux = findInvalidRecordInList(inode->singleIndPtr, location);
         if(aux == SUCESSO)
             return SUCESSO;
@@ -616,17 +609,17 @@ int findInvalidRecordInINode(struct t2fs_inode* inode, struct record_location* l
 
     /* Procura por registro inválido nos blocos dos blocos de índices. */
     if (inode->doubleIndPtr != INVALID_PTR){
-        printf("[findInvalidRecordInINode] Procurando em inode->doubleIndPtr.\n");
+        //printf("[findInvalidRecordInINode] Procurando em inode->doubleIndPtr.\n");
         aux = findInvalidRecordInListDouble(inode->doubleIndPtr, location);
         if(aux == SUCESSO)
             return SUCESSO;
     }
 
     /* Se não foi localizado nenhum registro inválido, será necessário criar um novo bloco de registros */
-    printf("[findInvalidRecordInINode] Não existe registros vazios, é necessário criar um novo bloco de registros\n");
+    //printf("[findInvalidRecordInINode] Não existe registros vazios, é necessário criar um novo bloco de registros\n");
     aux = createNewRegistersBlock(inode, location, parent_record);
     if(aux == SUCESSO){
-        printf("[findInvalidRecordInINode] Novo bloco de registros criado com sucesso.\n");
+        //printf("[findInvalidRecordInINode] Novo bloco de registros criado com sucesso.\n");
         return SUCESSO;
     }
     return ERRO;
@@ -657,7 +650,7 @@ int findInvalidRecordInBlock(int block, struct record_location* location){
                 location->sector = sector + i;
                 location->position = j;
 
-                printf("[findInvalidRecordInBlock] Registro inválido localizado no setor = %d e na posição = %d.\n", sector + i, j);
+                //printf("[findInvalidRecordInBlock] Registro inválido localizado no setor = %d e na posição = %d.\n", sector + i, j);
                 return SUCESSO;
             }
         }
@@ -828,7 +821,19 @@ int createNewRegistersBlock(struct t2fs_inode* inode, struct record_location* lo
         if(aux == ERRO){
             printf("[createNewRegistersBlock] Erro ao escrever no i-node.\n");
         }
-        return SUCESSO;
+
+        aux = findInvalidRecordInList(inode->singleIndPtr, location);
+        if(aux == SUCESSO)
+            return SUCESSO;
+
+        printf("[createNewRegistersBlock] Erro ao achar registro inválido no novo bloco de diretório.\n");
+        return ERRO;
+    }
+
+    if (inode->singleIndPtr != INVALID_PTR){
+        aux = findInvalidRecordInList(inode->singleIndPtr, location);
+        if(aux == SUCESSO)
+            return SUCESSO;
     }
 
     /* Procura por registro inválido nos blocos dos blocos de índices. */
@@ -844,9 +849,220 @@ int createNewRegistersBlock(struct t2fs_inode* inode, struct record_location* lo
             printf("[createNewRegistersBlock] Erro ao escrever no i-node.\n");
         }
 
-        return SUCESSO;
+        aux = findInvalidRecordInListDouble(inode->doubleIndPtr, location);
+        if(aux == SUCESSO)
+            return SUCESSO;
+
+        printf("[createNewRegistersBlock] Erro ao achar registro inválido no novo bloco de diretório.\n");
+        return ERRO;
     }
 
+    if (inode->doubleIndPtr != INVALID_PTR){
+        aux = findInvalidRecordInListDouble(inode->doubleIndPtr, location);
+        if(aux == SUCESSO)
+            return SUCESSO;
+
+        printf("[createNewRegistersBlock] Erro ao achar registro inválido no novo bloco de diretório.\n");
+        return ERRO;
+    }
+
+    return ERRO;
+}
+
+/* Cria um novo bloco para um arquivo aberto. Retorna o número do bloco no disco */
+int createNewBlock(struct t2fs_inode* inode, struct t2fs_record* parent_record){
+    int new_block, aux;
+
+    if (inode->dataPtr[0] == INVALID_PTR){
+        new_block = allocNewBlock(TYPEVAL_REGULAR);
+        inode->dataPtr[0] = new_block;
+
+        aux = writeInode(parent_record->inodeNumber, *inode);
+        if(aux == ERRO){
+            printf("[createNewBlock] Erro ao escrever no i-node.\n");
+        }
+        return new_block;
+    }
+    if (inode->dataPtr[1] == INVALID_PTR){
+        new_block = allocNewBlock(TYPEVAL_REGULAR);
+        inode->dataPtr[1] = new_block;
+
+        aux = writeInode(parent_record->inodeNumber, *inode);
+        if(aux == ERRO){
+            printf("[createNewBlock] Erro ao escrever no i-node.\n");
+        }
+        return new_block;
+    }
+
+    if (inode->singleIndPtr == INVALID_PTR){
+        new_block = allocNewBlock(TYPEVAL_REGULAR);
+        aux = formatPointerBlock(new_block);
+        if(aux == ERRO){
+            printf("[createNewBlock] Erro formantando o bloco.\n");
+        }
+
+        inode->singleIndPtr = new_block;
+        aux = writeInode(parent_record->inodeNumber, *inode);
+        if(aux == ERRO){
+            printf("[createNewBlock] Erro ao escrever no i-node.\n");
+        }
+
+        aux = createNewBlockInList(new_block);
+        if(aux == ERRO){
+            return ERRO;
+        }
+
+        return new_block;
+    }
+
+    /* Cria novo bloco em indireção simples */
+    if (inode->singleIndPtr != INVALID_PTR){
+        int list = inode->singleIndPtr;
+        new_block = createNewBlockInList(list);
+        if(new_block > 0){
+            return new_block;
+        }
+    }
+
+    if (inode->doubleIndPtr == INVALID_PTR){
+        int new_block2, new_block3;
+
+        new_block = allocNewBlock(TYPEVAL_REGULAR);
+        aux = formatPointerBlock(new_block);
+        if(aux == ERRO){
+            printf("[createNewBlock] Erro formantando o bloco.\n");
+        }
+
+        inode->doubleIndPtr = new_block;
+        aux = writeInode(parent_record->inodeNumber, *inode);
+        if(aux == ERRO){
+            printf("[createNewBlock] Erro ao escrever no i-node.\n");
+        }
+
+        new_block2 = createNewBlockInList(new_block);
+        if(new_block2 == ERRO){
+            return ERRO;
+        }
+
+        aux = formatPointerBlock(new_block2);
+        if(aux == ERRO){
+            printf("[createNewBlock] Erro formantando o bloco.\n");
+        }
+        new_block3 = createNewBlockInList(new_block);
+        if(new_block3 == ERRO){
+            return ERRO;
+        }
+
+        return new_block3;
+    }
+
+    if (inode->doubleIndPtr != INVALID_PTR){
+        int list = inode->doubleIndPtr;
+        new_block = createNewBlockInListDouble(list);
+        if(new_block > 0){
+            return new_block;
+        }
+    }
+
+    return ERRO;
+}
+
+/* Recebe um arquivo que é uma lista de vazia de ponteiros e cria um bloco */
+int createNewBlockInList(int block){
+    int sector, i, j, k, pointer, new_block;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    char buffer_pointer[4];
+
+
+    sector = blocks_start_sector + block * sectors_by_block;
+
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("[createNewBlockInList] Erro ao ler setor %d\n", sector + i);
+            return ERRO;
+        }
+
+        /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
+        for(j=0; j < SECTOR_SIZE / 4; j++){
+            for(k = 0; k < 4; k++){
+                buffer_pointer[k] = buffer_sector[k + j*4];
+            }
+            pointer = *(int *)buffer_pointer;
+            if(pointer == TYPEVAL_INVALIDO){
+                new_block = allocNewBlock(TYPEVAL_REGULAR);
+                memcpy(buffer_pointer, (char*)new_block, 4);
+
+                for(k = 0; k < 4; k++){
+                    buffer_sector[k + j*4] = buffer_pointer[k];
+                }
+
+                if (write_sector(sector + i, &buffer_sector[0]) != 0){
+                    printf("[createNewBlockInList] Erro ao gravar setor %d\n", sector);
+                    return ERRO;
+                }
+
+                return new_block;
+            }
+        }
+    }
+    return ERRO;
+}
+
+int createNewBlockInListDouble(int block){
+    int sector, i, j, k, pointer, new_block, aux, new_block2;
+    unsigned char buffer_sector[SECTOR_SIZE];
+    char buffer_pointer[4];
+
+
+    sector = blocks_start_sector + block * sectors_by_block;
+
+    /* Irá varrer os setores do bloco, lendo um por vez */
+    for(i=0; i < sectors_by_block; i++){
+        if (read_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("[createNewBlockInListDouble] Erro ao ler setor %d\n", sector + i);
+            return ERRO;
+        }
+
+        /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
+        for(j=0; j < SECTOR_SIZE / 4; j++){
+            for(k = 0; k < 4; k++){
+                buffer_pointer[k] = buffer_sector[k + j*4];
+            }
+            pointer = *(int *)buffer_pointer;
+
+            if(pointer != TYPEVAL_INVALIDO){
+                new_block = createNewBlockInList(pointer);
+                if(new_block != ERRO){
+                    return new_block;
+                }
+            }
+
+            else if(pointer == TYPEVAL_INVALIDO){
+                new_block = allocNewBlock(TYPEVAL_REGULAR);
+                memcpy(buffer_pointer, (char*)new_block, 4);
+
+                for(k = 0; k < 4; k++){
+                    buffer_sector[k + j*4] = buffer_pointer[k];
+                }
+
+                if (write_sector(sector + i, &buffer_sector[0]) != 0){
+                    printf("[createNewBlockInListDouble] Erro ao gravar setor %d\n", sector);
+                    return ERRO;
+                }
+
+                aux = formatPointerBlock(new_block);
+                if(aux == ERRO){
+                    printf("[createNewBlockInListDouble] Erro formantando o bloco.\n");
+                }
+                new_block2 = createNewBlockInList(new_block);
+                if(new_block2 == ERRO){
+                    return ERRO;
+                }
+                return new_block2;
+            }
+        }
+    }
     return ERRO;
 }
 
@@ -898,12 +1114,12 @@ int readRecord(struct record_location* location, struct t2fs_record* actual_reco
     memcpy(&actual_record->inodeNumber, &buffer_sector[(position_in_sector * 64) + 41], sizeof(actual_record->inodeNumber));
 
     /* Teste */
-    printf("[readRecord] Registro recuperado do setor %d, posição %d\n", location->sector, location->position);
-    printf("[readRecord] Type: %d\n", actual_record->TypeVal);
-    printf("[readRecord] Name: %s\n", actual_record->name);
-    printf("[readRecord] blocksFileSize: %d\n", actual_record->blocksFileSize);
-    printf("[readRecord] bytesFileSize: %d\n", actual_record->bytesFileSize);
-    printf("[readRecord] inodeNumber: %d\n", actual_record->inodeNumber);
+    // printf("[readRecord] Registro recuperado do setor %d, posição %d\n", location->sector, location->position);
+    // printf("[readRecord] Type: %d\n", actual_record->TypeVal);
+    // printf("[readRecord] Name: %s\n", actual_record->name);
+    // printf("[readRecord] blocksFileSize: %d\n", actual_record->blocksFileSize);
+    // printf("[readRecord] bytesFileSize: %d\n", actual_record->bytesFileSize);
+    // printf("[readRecord] inodeNumber: %d\n", actual_record->inodeNumber);
 
     return SUCESSO;
 }
@@ -932,7 +1148,7 @@ int formatDirINode(int inode_number){
         printf("[formatDirINode] Erro ao escrever no i-node.\n");
     }
 
-    printf("[formatDirINode] Bloco de diretório para o i-node criado com sucesso\n");
+    //printf("[formatDirINode] Bloco de diretório para o i-node criado com sucesso\n");
     return SUCESSO;
 }
 
@@ -1376,4 +1592,41 @@ int rmvHandleDir(DIR2 handle, DIR2 *handles){
         }
     }
     return ERRO;
+}
+
+int recordRecord(struct file_descriptor *file){
+    unsigned char buffer_sector[SECTOR_SIZE];
+    unsigned char type_buffer;
+    unsigned char name_buffer[32];
+    unsigned char size_in_blocks_buffer[4];
+    unsigned char size_in_bytes_buffer[4];
+    unsigned char inode_number_buffer[4];
+
+    struct t2fs_record record2 = file->record;
+
+    /* Vai gravar as mudanças do registro do arquivo */
+    if (read_sector(file->sector_record, &buffer_sector[0]) != 0){
+        printf("[recordRecord] Erro ao ler setor do registro inválido no diretório pai.\n");
+        return ERRO;
+    }
+
+    type_buffer = (char)file->record.TypeVal;
+    memcpy(name_buffer, (char*)file->record.name, sizeof(file->record.name));
+    memcpy(size_in_blocks_buffer, (char*)&record2.blocksFileSize, 4);
+    memcpy(size_in_bytes_buffer, (char*)&record2.bytesFileSize, 4);
+    memcpy(inode_number_buffer, (char*)&record2.inodeNumber, 4);
+
+    /* Copia as informações de cada buffer intermediário para o buffer_sector */
+    memcpy(&buffer_sector[file->record_index_in_sector * 64], &type_buffer, sizeof(type_buffer));
+    memcpy(&buffer_sector[(file->record_index_in_sector * 64) + 1], &name_buffer, sizeof(name_buffer));
+    memcpy(&buffer_sector[(file->record_index_in_sector * 64) + 33], &size_in_blocks_buffer, sizeof(size_in_blocks_buffer));
+    memcpy(&buffer_sector[(file->record_index_in_sector * 64) + 37], &size_in_bytes_buffer, sizeof(size_in_bytes_buffer));
+    memcpy(&buffer_sector[(file->record_index_in_sector * 64) + 41], &inode_number_buffer, sizeof(inode_number_buffer));
+
+    /* Escreve no disco todo o setor */
+    if (write_sector(file->sector_record, &buffer_sector[0]) != 0){
+        printf("[recordRecord] Erro ao escrever setor de volta no disco (com o novo registro)\n");
+        return ERRO;
+    }
+    return SUCESSO;
 }
