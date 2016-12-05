@@ -618,6 +618,7 @@ int write2 (FILE2 handle, char *buffer, int size){
         //printf("[write2] Setor = %d\n", sector);
         /* Vai ler os 16 setores do bloco */
         for(i = 0; i < 16; i++){
+            printf("sector = %d\n", sector + i);
             if (read_sector(sector + i, &buffer_sector[0]) != 0){
                 printf("[write2] Erro ao ler setor do bloco do arquivo.\n");
                 return ERRO;
@@ -629,7 +630,9 @@ int write2 (FILE2 handle, char *buffer, int size){
                 }
                 else{
                     buffer_sector[j] = buffer[buffer_index];
+                    
                     current++;
+                    buffer_index++;
 
                     if(current >= new_size){
                         printf("[write2] current = %d, new_size = %d\n", current, new_size);
@@ -650,7 +653,6 @@ int write2 (FILE2 handle, char *buffer, int size){
 
                         return size;
                     }
-                    buffer_index++;
                 }
             }
             //printf("[write2] Gravando setor %d\n", sector);

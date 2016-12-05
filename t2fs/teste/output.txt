@@ -1,652 +1,2064 @@
-Informe o nome do arquivo a ser criado e escrito: [create2] filename = /kkkkk
-[create2] Caminho informado válido = /kkkkk
-[create2] Setor do diretório-pai = -1, posição no setor = -1
-[test_write2] Aberto o arquivo = /kkkkk, com o handle = 144167448.
+Informe o nome do arquivo a ser criado e escrito: [create2] filename = /sub/c
+[create2] Caminho informado válido = /sub/c
+[create2] Setor do diretório-pai = 128, posição no setor = 1
+[test_write2] Aberto o arquivo = /sub/c, com o handle = 165978648.
 [write2] Novo tamanho do arquivo após escrita: 64
 [write2] Current = 0, file_block = 0
-[write2] Criado novo bloco: 24
+[write2] Criado novo bloco: 12
+sector = 320
 [write2] current = 64, new_size = 64
 [test_write2] write for 0.
 [write2] Novo tamanho do arquivo após escrita: 128
 [write2] Current = 64, file_block = 0
+sector = 320
 [write2] current = 128, new_size = 128
 [test_write2] write for 1.
 [write2] Novo tamanho do arquivo após escrita: 192
 [write2] Current = 128, file_block = 0
+sector = 320
 [write2] current = 192, new_size = 192
 [test_write2] write for 2.
 [write2] Novo tamanho do arquivo após escrita: 256
 [write2] Current = 192, file_block = 0
+sector = 320
 [write2] current = 256, new_size = 256
 [test_write2] write for 3.
 [write2] Novo tamanho do arquivo após escrita: 320
 [write2] Current = 256, file_block = 0
+sector = 320
+sector = 321
 [write2] current = 320, new_size = 320
 [test_write2] write for 4.
 [write2] Novo tamanho do arquivo após escrita: 384
 [write2] Current = 320, file_block = 0
+sector = 320
+sector = 321
 [write2] current = 384, new_size = 384
 [test_write2] write for 5.
 [write2] Novo tamanho do arquivo após escrita: 448
 [write2] Current = 384, file_block = 0
+sector = 320
+sector = 321
 [write2] current = 448, new_size = 448
 [test_write2] write for 6.
 [write2] Novo tamanho do arquivo após escrita: 512
 [write2] Current = 448, file_block = 0
+sector = 320
+sector = 321
 [write2] current = 512, new_size = 512
 [test_write2] write for 7.
 [write2] Novo tamanho do arquivo após escrita: 576
 [write2] Current = 512, file_block = 0
+sector = 320
+sector = 321
+sector = 322
 [write2] current = 576, new_size = 576
 [test_write2] write for 8.
 [write2] Novo tamanho do arquivo após escrita: 640
 [write2] Current = 576, file_block = 0
+sector = 320
+sector = 321
+sector = 322
 [write2] current = 640, new_size = 640
 [test_write2] write for 9.
 [write2] Novo tamanho do arquivo após escrita: 704
 [write2] Current = 640, file_block = 0
+sector = 320
+sector = 321
+sector = 322
 [write2] current = 704, new_size = 704
 [test_write2] write for 10.
 [write2] Novo tamanho do arquivo após escrita: 768
 [write2] Current = 704, file_block = 0
+sector = 320
+sector = 321
+sector = 322
 [write2] current = 768, new_size = 768
 [test_write2] write for 11.
 [write2] Novo tamanho do arquivo após escrita: 832
 [write2] Current = 768, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
 [write2] current = 832, new_size = 832
 [test_write2] write for 12.
 [write2] Novo tamanho do arquivo após escrita: 896
 [write2] Current = 832, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
 [write2] current = 896, new_size = 896
 [test_write2] write for 13.
 [write2] Novo tamanho do arquivo após escrita: 960
 [write2] Current = 896, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
 [write2] current = 960, new_size = 960
 [test_write2] write for 14.
 [write2] Novo tamanho do arquivo após escrita: 1024
 [write2] Current = 960, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
 [write2] current = 1024, new_size = 1024
 [test_write2] write for 15.
 [write2] Novo tamanho do arquivo após escrita: 1088
 [write2] Current = 1024, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
 [write2] current = 1088, new_size = 1088
 [test_write2] write for 16.
 [write2] Novo tamanho do arquivo após escrita: 1152
 [write2] Current = 1088, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
 [write2] current = 1152, new_size = 1152
 [test_write2] write for 17.
 [write2] Novo tamanho do arquivo após escrita: 1216
 [write2] Current = 1152, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
 [write2] current = 1216, new_size = 1216
 [test_write2] write for 18.
 [write2] Novo tamanho do arquivo após escrita: 1280
 [write2] Current = 1216, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
 [write2] current = 1280, new_size = 1280
 [test_write2] write for 19.
 [write2] Novo tamanho do arquivo após escrita: 1344
 [write2] Current = 1280, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
 [write2] current = 1344, new_size = 1344
 [test_write2] write for 20.
 [write2] Novo tamanho do arquivo após escrita: 1408
 [write2] Current = 1344, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
 [write2] current = 1408, new_size = 1408
 [test_write2] write for 21.
 [write2] Novo tamanho do arquivo após escrita: 1472
 [write2] Current = 1408, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
 [write2] current = 1472, new_size = 1472
 [test_write2] write for 22.
 [write2] Novo tamanho do arquivo após escrita: 1536
 [write2] Current = 1472, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
 [write2] current = 1536, new_size = 1536
 [test_write2] write for 23.
 [write2] Novo tamanho do arquivo após escrita: 1600
 [write2] Current = 1536, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
 [write2] current = 1600, new_size = 1600
 [test_write2] write for 24.
 [write2] Novo tamanho do arquivo após escrita: 1664
 [write2] Current = 1600, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
 [write2] current = 1664, new_size = 1664
 [test_write2] write for 25.
 [write2] Novo tamanho do arquivo após escrita: 1728
 [write2] Current = 1664, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
 [write2] current = 1728, new_size = 1728
 [test_write2] write for 26.
 [write2] Novo tamanho do arquivo após escrita: 1792
 [write2] Current = 1728, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
 [write2] current = 1792, new_size = 1792
 [test_write2] write for 27.
 [write2] Novo tamanho do arquivo após escrita: 1856
 [write2] Current = 1792, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
 [write2] current = 1856, new_size = 1856
 [test_write2] write for 28.
 [write2] Novo tamanho do arquivo após escrita: 1920
 [write2] Current = 1856, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
 [write2] current = 1920, new_size = 1920
 [test_write2] write for 29.
 [write2] Novo tamanho do arquivo após escrita: 1984
 [write2] Current = 1920, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
 [write2] current = 1984, new_size = 1984
 [test_write2] write for 30.
 [write2] Novo tamanho do arquivo após escrita: 2048
 [write2] Current = 1984, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
 [write2] current = 2048, new_size = 2048
 [test_write2] write for 31.
 [write2] Novo tamanho do arquivo após escrita: 2112
 [write2] Current = 2048, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
 [write2] current = 2112, new_size = 2112
 [test_write2] write for 32.
 [write2] Novo tamanho do arquivo após escrita: 2176
 [write2] Current = 2112, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
 [write2] current = 2176, new_size = 2176
 [test_write2] write for 33.
 [write2] Novo tamanho do arquivo após escrita: 2240
 [write2] Current = 2176, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
 [write2] current = 2240, new_size = 2240
 [test_write2] write for 34.
 [write2] Novo tamanho do arquivo após escrita: 2304
 [write2] Current = 2240, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
 [write2] current = 2304, new_size = 2304
 [test_write2] write for 35.
 [write2] Novo tamanho do arquivo após escrita: 2368
 [write2] Current = 2304, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
 [write2] current = 2368, new_size = 2368
 [test_write2] write for 36.
 [write2] Novo tamanho do arquivo após escrita: 2432
 [write2] Current = 2368, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
 [write2] current = 2432, new_size = 2432
 [test_write2] write for 37.
 [write2] Novo tamanho do arquivo após escrita: 2496
 [write2] Current = 2432, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
 [write2] current = 2496, new_size = 2496
 [test_write2] write for 38.
 [write2] Novo tamanho do arquivo após escrita: 2560
 [write2] Current = 2496, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
 [write2] current = 2560, new_size = 2560
 [test_write2] write for 39.
 [write2] Novo tamanho do arquivo após escrita: 2624
 [write2] Current = 2560, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
 [write2] current = 2624, new_size = 2624
 [test_write2] write for 40.
 [write2] Novo tamanho do arquivo após escrita: 2688
 [write2] Current = 2624, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
 [write2] current = 2688, new_size = 2688
 [test_write2] write for 41.
 [write2] Novo tamanho do arquivo após escrita: 2752
 [write2] Current = 2688, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
 [write2] current = 2752, new_size = 2752
 [test_write2] write for 42.
 [write2] Novo tamanho do arquivo após escrita: 2816
 [write2] Current = 2752, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
 [write2] current = 2816, new_size = 2816
 [test_write2] write for 43.
 [write2] Novo tamanho do arquivo após escrita: 2880
 [write2] Current = 2816, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
 [write2] current = 2880, new_size = 2880
 [test_write2] write for 44.
 [write2] Novo tamanho do arquivo após escrita: 2944
 [write2] Current = 2880, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
 [write2] current = 2944, new_size = 2944
 [test_write2] write for 45.
 [write2] Novo tamanho do arquivo após escrita: 3008
 [write2] Current = 2944, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
 [write2] current = 3008, new_size = 3008
 [test_write2] write for 46.
 [write2] Novo tamanho do arquivo após escrita: 3072
 [write2] Current = 3008, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
 [write2] current = 3072, new_size = 3072
 [test_write2] write for 47.
 [write2] Novo tamanho do arquivo após escrita: 3136
 [write2] Current = 3072, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
 [write2] current = 3136, new_size = 3136
 [test_write2] write for 48.
 [write2] Novo tamanho do arquivo após escrita: 3200
 [write2] Current = 3136, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
 [write2] current = 3200, new_size = 3200
 [test_write2] write for 49.
 [write2] Novo tamanho do arquivo após escrita: 3264
 [write2] Current = 3200, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
 [write2] current = 3264, new_size = 3264
 [test_write2] write for 50.
 [write2] Novo tamanho do arquivo após escrita: 3328
 [write2] Current = 3264, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
 [write2] current = 3328, new_size = 3328
 [test_write2] write for 51.
 [write2] Novo tamanho do arquivo após escrita: 3392
 [write2] Current = 3328, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
 [write2] current = 3392, new_size = 3392
 [test_write2] write for 52.
 [write2] Novo tamanho do arquivo após escrita: 3456
 [write2] Current = 3392, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
 [write2] current = 3456, new_size = 3456
 [test_write2] write for 53.
 [write2] Novo tamanho do arquivo após escrita: 3520
 [write2] Current = 3456, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
 [write2] current = 3520, new_size = 3520
 [test_write2] write for 54.
 [write2] Novo tamanho do arquivo após escrita: 3584
 [write2] Current = 3520, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
 [write2] current = 3584, new_size = 3584
 [test_write2] write for 55.
 [write2] Novo tamanho do arquivo após escrita: 3648
 [write2] Current = 3584, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
+sector = 334
 [write2] current = 3648, new_size = 3648
 [test_write2] write for 56.
 [write2] Novo tamanho do arquivo após escrita: 3712
 [write2] Current = 3648, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
+sector = 334
 [write2] current = 3712, new_size = 3712
 [test_write2] write for 57.
 [write2] Novo tamanho do arquivo após escrita: 3776
 [write2] Current = 3712, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
+sector = 334
 [write2] current = 3776, new_size = 3776
 [test_write2] write for 58.
 [write2] Novo tamanho do arquivo após escrita: 3840
 [write2] Current = 3776, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
+sector = 334
 [write2] current = 3840, new_size = 3840
 [test_write2] write for 59.
 [write2] Novo tamanho do arquivo após escrita: 3904
 [write2] Current = 3840, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
+sector = 334
+sector = 335
 [write2] current = 3904, new_size = 3904
 [test_write2] write for 60.
 [write2] Novo tamanho do arquivo após escrita: 3968
 [write2] Current = 3904, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
+sector = 334
+sector = 335
 [write2] current = 3968, new_size = 3968
 [test_write2] write for 61.
 [write2] Novo tamanho do arquivo após escrita: 4032
 [write2] Current = 3968, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
+sector = 334
+sector = 335
 [write2] current = 4032, new_size = 4032
 [test_write2] write for 62.
 [write2] Novo tamanho do arquivo após escrita: 4096
 [write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 63.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 64.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 65.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 66.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 67.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 68.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 69.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 70.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 71.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 72.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 73.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 74.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 75.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 76.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 77.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 78.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 79.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 80.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 81.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 82.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 83.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 84.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 85.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 86.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 87.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 88.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 89.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 90.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 91.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 92.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 93.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 94.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 95.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 96.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 97.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 98.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 99.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 100.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 101.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 102.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 103.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 104.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 105.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 106.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 107.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 108.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 109.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 110.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 111.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 112.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 113.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 114.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 115.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 116.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 117.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 118.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 119.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 120.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 121.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 122.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 123.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 124.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 125.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 126.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 127.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
-[test_write2] Erro no write for 128.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+sector = 320
+sector = 321
+sector = 322
+sector = 323
+sector = 324
+sector = 325
+sector = 326
+sector = 327
+sector = 328
+sector = 329
+sector = 330
+sector = 331
+sector = 332
+sector = 333
+sector = 334
+sector = 335
+[write2] current = 4096, new_size = 4096
+[test_write2] write for 63.
+[write2] Novo tamanho do arquivo após escrita: 4160
+[write2] Current = 4096, file_block = 1
+[write2] Criado novo bloco: 13
+sector = 336
+[write2] current = 4160, new_size = 4160
+[test_write2] write for 64.
+[write2] Novo tamanho do arquivo após escrita: 4224
+[write2] Current = 4160, file_block = 1
+sector = 336
+[write2] current = 4224, new_size = 4224
+[test_write2] write for 65.
+[write2] Novo tamanho do arquivo após escrita: 4288
+[write2] Current = 4224, file_block = 1
+sector = 336
+[write2] current = 4288, new_size = 4288
+[test_write2] write for 66.
+[write2] Novo tamanho do arquivo após escrita: 4352
+[write2] Current = 4288, file_block = 1
+sector = 336
+[write2] current = 4352, new_size = 4352
+[test_write2] write for 67.
+[write2] Novo tamanho do arquivo após escrita: 4416
+[write2] Current = 4352, file_block = 1
+sector = 336
+sector = 337
+[write2] current = 4416, new_size = 4416
+[test_write2] write for 68.
+[write2] Novo tamanho do arquivo após escrita: 4480
+[write2] Current = 4416, file_block = 1
+sector = 336
+sector = 337
+[write2] current = 4480, new_size = 4480
+[test_write2] write for 69.
+[write2] Novo tamanho do arquivo após escrita: 4544
+[write2] Current = 4480, file_block = 1
+sector = 336
+sector = 337
+[write2] current = 4544, new_size = 4544
+[test_write2] write for 70.
+[write2] Novo tamanho do arquivo após escrita: 4608
+[write2] Current = 4544, file_block = 1
+sector = 336
+sector = 337
+[write2] current = 4608, new_size = 4608
+[test_write2] write for 71.
+[write2] Novo tamanho do arquivo após escrita: 4672
+[write2] Current = 4608, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+[write2] current = 4672, new_size = 4672
+[test_write2] write for 72.
+[write2] Novo tamanho do arquivo após escrita: 4736
+[write2] Current = 4672, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+[write2] current = 4736, new_size = 4736
+[test_write2] write for 73.
+[write2] Novo tamanho do arquivo após escrita: 4800
+[write2] Current = 4736, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+[write2] current = 4800, new_size = 4800
+[test_write2] write for 74.
+[write2] Novo tamanho do arquivo após escrita: 4864
+[write2] Current = 4800, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+[write2] current = 4864, new_size = 4864
+[test_write2] write for 75.
+[write2] Novo tamanho do arquivo após escrita: 4928
+[write2] Current = 4864, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+[write2] current = 4928, new_size = 4928
+[test_write2] write for 76.
+[write2] Novo tamanho do arquivo após escrita: 4992
+[write2] Current = 4928, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+[write2] current = 4992, new_size = 4992
+[test_write2] write for 77.
+[write2] Novo tamanho do arquivo após escrita: 5056
+[write2] Current = 4992, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+[write2] current = 5056, new_size = 5056
+[test_write2] write for 78.
+[write2] Novo tamanho do arquivo após escrita: 5120
+[write2] Current = 5056, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+[write2] current = 5120, new_size = 5120
+[test_write2] write for 79.
+[write2] Novo tamanho do arquivo após escrita: 5184
+[write2] Current = 5120, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+[write2] current = 5184, new_size = 5184
+[test_write2] write for 80.
+[write2] Novo tamanho do arquivo após escrita: 5248
+[write2] Current = 5184, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+[write2] current = 5248, new_size = 5248
+[test_write2] write for 81.
+[write2] Novo tamanho do arquivo após escrita: 5312
+[write2] Current = 5248, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+[write2] current = 5312, new_size = 5312
+[test_write2] write for 82.
+[write2] Novo tamanho do arquivo após escrita: 5376
+[write2] Current = 5312, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+[write2] current = 5376, new_size = 5376
+[test_write2] write for 83.
+[write2] Novo tamanho do arquivo após escrita: 5440
+[write2] Current = 5376, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+[write2] current = 5440, new_size = 5440
+[test_write2] write for 84.
+[write2] Novo tamanho do arquivo após escrita: 5504
+[write2] Current = 5440, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+[write2] current = 5504, new_size = 5504
+[test_write2] write for 85.
+[write2] Novo tamanho do arquivo após escrita: 5568
+[write2] Current = 5504, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+[write2] current = 5568, new_size = 5568
+[test_write2] write for 86.
+[write2] Novo tamanho do arquivo após escrita: 5632
+[write2] Current = 5568, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+[write2] current = 5632, new_size = 5632
+[test_write2] write for 87.
+[write2] Novo tamanho do arquivo após escrita: 5696
+[write2] Current = 5632, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+[write2] current = 5696, new_size = 5696
+[test_write2] write for 88.
+[write2] Novo tamanho do arquivo após escrita: 5760
+[write2] Current = 5696, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+[write2] current = 5760, new_size = 5760
+[test_write2] write for 89.
+[write2] Novo tamanho do arquivo após escrita: 5824
+[write2] Current = 5760, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+[write2] current = 5824, new_size = 5824
+[test_write2] write for 90.
+[write2] Novo tamanho do arquivo após escrita: 5888
+[write2] Current = 5824, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+[write2] current = 5888, new_size = 5888
+[test_write2] write for 91.
+[write2] Novo tamanho do arquivo após escrita: 5952
+[write2] Current = 5888, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+[write2] current = 5952, new_size = 5952
+[test_write2] write for 92.
+[write2] Novo tamanho do arquivo após escrita: 6016
+[write2] Current = 5952, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+[write2] current = 6016, new_size = 6016
+[test_write2] write for 93.
+[write2] Novo tamanho do arquivo após escrita: 6080
+[write2] Current = 6016, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+[write2] current = 6080, new_size = 6080
+[test_write2] write for 94.
+[write2] Novo tamanho do arquivo após escrita: 6144
+[write2] Current = 6080, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+[write2] current = 6144, new_size = 6144
+[test_write2] write for 95.
+[write2] Novo tamanho do arquivo após escrita: 6208
+[write2] Current = 6144, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+[write2] current = 6208, new_size = 6208
+[test_write2] write for 96.
+[write2] Novo tamanho do arquivo após escrita: 6272
+[write2] Current = 6208, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+[write2] current = 6272, new_size = 6272
+[test_write2] write for 97.
+[write2] Novo tamanho do arquivo após escrita: 6336
+[write2] Current = 6272, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+[write2] current = 6336, new_size = 6336
+[test_write2] write for 98.
+[write2] Novo tamanho do arquivo após escrita: 6400
+[write2] Current = 6336, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+[write2] current = 6400, new_size = 6400
+[test_write2] write for 99.
+[write2] Novo tamanho do arquivo após escrita: 6464
+[write2] Current = 6400, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+[write2] current = 6464, new_size = 6464
+[test_write2] write for 100.
+[write2] Novo tamanho do arquivo após escrita: 6528
+[write2] Current = 6464, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+[write2] current = 6528, new_size = 6528
+[test_write2] write for 101.
+[write2] Novo tamanho do arquivo após escrita: 6592
+[write2] Current = 6528, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+[write2] current = 6592, new_size = 6592
+[test_write2] write for 102.
+[write2] Novo tamanho do arquivo após escrita: 6656
+[write2] Current = 6592, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+[write2] current = 6656, new_size = 6656
+[test_write2] write for 103.
+[write2] Novo tamanho do arquivo após escrita: 6720
+[write2] Current = 6656, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+[write2] current = 6720, new_size = 6720
+[test_write2] write for 104.
+[write2] Novo tamanho do arquivo após escrita: 6784
+[write2] Current = 6720, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+[write2] current = 6784, new_size = 6784
+[test_write2] write for 105.
+[write2] Novo tamanho do arquivo após escrita: 6848
+[write2] Current = 6784, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+[write2] current = 6848, new_size = 6848
+[test_write2] write for 106.
+[write2] Novo tamanho do arquivo após escrita: 6912
+[write2] Current = 6848, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+[write2] current = 6912, new_size = 6912
+[test_write2] write for 107.
+[write2] Novo tamanho do arquivo após escrita: 6976
+[write2] Current = 6912, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+[write2] current = 6976, new_size = 6976
+[test_write2] write for 108.
+[write2] Novo tamanho do arquivo após escrita: 7040
+[write2] Current = 6976, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+[write2] current = 7040, new_size = 7040
+[test_write2] write for 109.
+[write2] Novo tamanho do arquivo após escrita: 7104
+[write2] Current = 7040, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+[write2] current = 7104, new_size = 7104
+[test_write2] write for 110.
+[write2] Novo tamanho do arquivo após escrita: 7168
+[write2] Current = 7104, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+[write2] current = 7168, new_size = 7168
+[test_write2] write for 111.
+[write2] Novo tamanho do arquivo após escrita: 7232
+[write2] Current = 7168, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+[write2] current = 7232, new_size = 7232
+[test_write2] write for 112.
+[write2] Novo tamanho do arquivo após escrita: 7296
+[write2] Current = 7232, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+[write2] current = 7296, new_size = 7296
+[test_write2] write for 113.
+[write2] Novo tamanho do arquivo após escrita: 7360
+[write2] Current = 7296, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+[write2] current = 7360, new_size = 7360
+[test_write2] write for 114.
+[write2] Novo tamanho do arquivo após escrita: 7424
+[write2] Current = 7360, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+[write2] current = 7424, new_size = 7424
+[test_write2] write for 115.
+[write2] Novo tamanho do arquivo após escrita: 7488
+[write2] Current = 7424, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+[write2] current = 7488, new_size = 7488
+[test_write2] write for 116.
+[write2] Novo tamanho do arquivo após escrita: 7552
+[write2] Current = 7488, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+[write2] current = 7552, new_size = 7552
+[test_write2] write for 117.
+[write2] Novo tamanho do arquivo após escrita: 7616
+[write2] Current = 7552, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+[write2] current = 7616, new_size = 7616
+[test_write2] write for 118.
+[write2] Novo tamanho do arquivo após escrita: 7680
+[write2] Current = 7616, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+[write2] current = 7680, new_size = 7680
+[test_write2] write for 119.
+[write2] Novo tamanho do arquivo após escrita: 7744
+[write2] Current = 7680, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+sector = 350
+[write2] current = 7744, new_size = 7744
+[test_write2] write for 120.
+[write2] Novo tamanho do arquivo após escrita: 7808
+[write2] Current = 7744, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+sector = 350
+[write2] current = 7808, new_size = 7808
+[test_write2] write for 121.
+[write2] Novo tamanho do arquivo após escrita: 7872
+[write2] Current = 7808, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+sector = 350
+[write2] current = 7872, new_size = 7872
+[test_write2] write for 122.
+[write2] Novo tamanho do arquivo após escrita: 7936
+[write2] Current = 7872, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+sector = 350
+[write2] current = 7936, new_size = 7936
+[test_write2] write for 123.
+[write2] Novo tamanho do arquivo após escrita: 8000
+[write2] Current = 7936, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+sector = 350
+sector = 351
+[write2] current = 8000, new_size = 8000
+[test_write2] write for 124.
+[write2] Novo tamanho do arquivo após escrita: 8064
+[write2] Current = 8000, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+sector = 350
+sector = 351
+[write2] current = 8064, new_size = 8064
+[test_write2] write for 125.
+[write2] Novo tamanho do arquivo após escrita: 8128
+[write2] Current = 8064, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+sector = 350
+sector = 351
+[write2] current = 8128, new_size = 8128
+[test_write2] write for 126.
+[write2] Novo tamanho do arquivo após escrita: 8192
+[write2] Current = 8128, file_block = 1
+sector = 336
+sector = 337
+sector = 338
+sector = 339
+sector = 340
+sector = 341
+sector = 342
+sector = 343
+sector = 344
+sector = 345
+sector = 346
+sector = 347
+sector = 348
+sector = 349
+sector = 350
+sector = 351
+[write2] current = 8192, new_size = 8192
+[test_write2] write for 127.
+[write2] Novo tamanho do arquivo após escrita: 8256
+[write2] Current = 8192, file_block = 2
+[findBlock] inode->singleIndPtr: -1
+[findBlock] Buffer lido: -1
+[createNewBlock] Novo bloco criado 14
+[write2] Criado novo bloco: 14
+sector = 352
+[write2] current = 8256, new_size = 8256
+[test_write2] write for 128.
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 129.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 130.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 131.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 132.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 133.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 134.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 135.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 136.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 137.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 138.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 139.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 140.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 141.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 142.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 143.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 144.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 145.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 146.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 147.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 148.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 149.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 150.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 151.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 152.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 153.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 154.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 155.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 156.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 157.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 158.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 159.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 160.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 161.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 162.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 163.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 164.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 165.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 166.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 167.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 168.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 169.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 170.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 171.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 172.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 173.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 174.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 175.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 176.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 177.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 178.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 179.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 180.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 181.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 182.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 183.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 184.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 185.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 186.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 187.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 188.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 189.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 190.
-[write2] Novo tamanho do arquivo após escrita: 4096
-[write2] Current = 4032, file_block = 0
+[write2] Novo tamanho do arquivo após escrita: 8320
+[write2] Current = 8256, file_block = 2
+[findBlock] inode->singleIndPtr: 14
+[findBlock] Buffer lido: 1702130501
+sector = 1464284368
+[write2] Erro ao ler setor do bloco do arquivo.
 [test_write2] Erro no write for 191.
-[close2] Fechando o arquivo com o handle número = 144167448
-[test_write2] Arquivo /kkkkk fechado corretamente
-[open2] filename = /kkkkk
-[open2] Localizado arquivo com o nome informado = /kkkkk
-[test_write2] Aberto o arquivo = /kkkkk, com o handle = 144167448.
+[close2] Fechando o arquivo com o handle número = 165978648
+[test_write2] Arquivo /sub/c fechado corretamente
+[open2] filename = /sub/c
+[open2] Localizado arquivo com o nome informado = /sub/c
+[test_write2] Aberto o arquivo = /sub/c, com o handle = 165978648.
 [test_write2] read for 0.
 [test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
 [test_write2] read for 1.
@@ -773,392 +2185,134 @@ Informe o nome do arquivo a ser criado e escrito: [create2] filename = /kkkkk
 [test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
 [test_write2] read for 62.
 [test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 63.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 64.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 65.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 66.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 67.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 68.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 69.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 70.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 71.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 72.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 73.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 74.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 75.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 76.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 77.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 78.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 79.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 80.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 81.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 82.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 83.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 84.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 85.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 86.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 87.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 88.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 89.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 90.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 91.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 92.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 93.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 94.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 95.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 96.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 97.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 98.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 99.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 100.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 101.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 102.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 103.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 104.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 105.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 106.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 107.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 108.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 109.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 110.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 111.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 112.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 113.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 114.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 115.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 116.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 117.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 118.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 119.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 120.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 121.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 122.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 123.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 124.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 125.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 126.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 127.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 128.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 129.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 130.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 131.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 132.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 133.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 134.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 135.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 136.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 137.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 138.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 139.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 140.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 141.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 142.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 143.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 144.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 145.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 146.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 147.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 148.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 149.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 150.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 151.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 152.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 153.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 154.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 155.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 156.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 157.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 158.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 159.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 160.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 161.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 162.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 163.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 164.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 165.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 166.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 167.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 168.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 169.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 170.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 171.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 172.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 173.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 174.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 175.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 176.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 177.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 178.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 179.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 180.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 181.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 182.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 183.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 184.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 185.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 186.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 187.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 188.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 189.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 190.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
-[test_write2] read for 191.
-[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
-[close2] Fechando o arquivo com o handle número = 144167448
-[test_write] Arquivo /kkkkk fechado corretamente
+[test_write2] Erro no read for 63.
+[test_write2] Erro no read for 64.
+[test_write2] Erro no read for 65.
+[test_write2] Erro no read for 66.
+[test_write2] Erro no read for 67.
+[test_write2] Erro no read for 68.
+[test_write2] Erro no read for 69.
+[test_write2] Erro no read for 70.
+[test_write2] Erro no read for 71.
+[test_write2] Erro no read for 72.
+[test_write2] Erro no read for 73.
+[test_write2] Erro no read for 74.
+[test_write2] Erro no read for 75.
+[test_write2] Erro no read for 76.
+[test_write2] Erro no read for 77.
+[test_write2] Erro no read for 78.
+[test_write2] Erro no read for 79.
+[test_write2] Erro no read for 80.
+[test_write2] Erro no read for 81.
+[test_write2] Erro no read for 82.
+[test_write2] Erro no read for 83.
+[test_write2] Erro no read for 84.
+[test_write2] Erro no read for 85.
+[test_write2] Erro no read for 86.
+[test_write2] Erro no read for 87.
+[test_write2] Erro no read for 88.
+[test_write2] Erro no read for 89.
+[test_write2] Erro no read for 90.
+[test_write2] Erro no read for 91.
+[test_write2] Erro no read for 92.
+[test_write2] Erro no read for 93.
+[test_write2] Erro no read for 94.
+[test_write2] Erro no read for 95.
+[test_write2] Erro no read for 96.
+[test_write2] Erro no read for 97.
+[test_write2] Erro no read for 98.
+[test_write2] Erro no read for 99.
+[test_write2] Erro no read for 100.
+[test_write2] Erro no read for 101.
+[test_write2] Erro no read for 102.
+[test_write2] Erro no read for 103.
+[test_write2] Erro no read for 104.
+[test_write2] Erro no read for 105.
+[test_write2] Erro no read for 106.
+[test_write2] Erro no read for 107.
+[test_write2] Erro no read for 108.
+[test_write2] Erro no read for 109.
+[test_write2] Erro no read for 110.
+[test_write2] Erro no read for 111.
+[test_write2] Erro no read for 112.
+[test_write2] Erro no read for 113.
+[test_write2] Erro no read for 114.
+[test_write2] Erro no read for 115.
+[test_write2] Erro no read for 116.
+[test_write2] Erro no read for 117.
+[test_write2] Erro no read for 118.
+[test_write2] Erro no read for 119.
+[test_write2] Erro no read for 120.
+[test_write2] Erro no read for 121.
+[test_write2] Erro no read for 122.
+[test_write2] Erro no read for 123.
+[test_write2] Erro no read for 124.
+[test_write2] Erro no read for 125.
+[test_write2] Erro no read for 126.
+[test_write2] Erro no read for 127.
+[test_write2] Erro no read for 128.
+[test_write2] Erro no read for 129.
+[test_write2] Erro no read for 130.
+[test_write2] Erro no read for 131.
+[test_write2] Erro no read for 132.
+[test_write2] Erro no read for 133.
+[test_write2] Erro no read for 134.
+[test_write2] Erro no read for 135.
+[test_write2] Erro no read for 136.
+[test_write2] Erro no read for 137.
+[test_write2] Erro no read for 138.
+[test_write2] Erro no read for 139.
+[test_write2] Erro no read for 140.
+[test_write2] Erro no read for 141.
+[test_write2] Erro no read for 142.
+[test_write2] Erro no read for 143.
+[test_write2] Erro no read for 144.
+[test_write2] Erro no read for 145.
+[test_write2] Erro no read for 146.
+[test_write2] Erro no read for 147.
+[test_write2] Erro no read for 148.
+[test_write2] Erro no read for 149.
+[test_write2] Erro no read for 150.
+[test_write2] Erro no read for 151.
+[test_write2] Erro no read for 152.
+[test_write2] Erro no read for 153.
+[test_write2] Erro no read for 154.
+[test_write2] Erro no read for 155.
+[test_write2] Erro no read for 156.
+[test_write2] Erro no read for 157.
+[test_write2] Erro no read for 158.
+[test_write2] Erro no read for 159.
+[test_write2] Erro no read for 160.
+[test_write2] Erro no read for 161.
+[test_write2] Erro no read for 162.
+[test_write2] Erro no read for 163.
+[test_write2] Erro no read for 164.
+[test_write2] Erro no read for 165.
+[test_write2] Erro no read for 166.
+[test_write2] Erro no read for 167.
+[test_write2] Erro no read for 168.
+[test_write2] Erro no read for 169.
+[test_write2] Erro no read for 170.
+[test_write2] Erro no read for 171.
+[test_write2] Erro no read for 172.
+[test_write2] Erro no read for 173.
+[test_write2] Erro no read for 174.
+[test_write2] Erro no read for 175.
+[test_write2] Erro no read for 176.
+[test_write2] Erro no read for 177.
+[test_write2] Erro no read for 178.
+[test_write2] Erro no read for 179.
+[test_write2] Erro no read for 180.
+[test_write2] Erro no read for 181.
+[test_write2] Erro no read for 182.
+[test_write2] Erro no read for 183.
+[test_write2] Erro no read for 184.
+[test_write2] Erro no read for 185.
+[test_write2] Erro no read for 186.
+[test_write2] Erro no read for 187.
+[test_write2] Erro no read for 188.
+[test_write2] Erro no read for 189.
+[test_write2] Erro no read for 190.
+[test_write2] Erro no read for 191.
+[close2] Fechando o arquivo com o handle número = 165978648
+[test_write] Arquivo /sub/c fechado corretamente
