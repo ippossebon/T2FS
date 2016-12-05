@@ -906,9 +906,9 @@ int createNewBlock(struct t2fs_inode* inode, struct t2fs_record* parent_record){
         }
         return new_block;
     }
-
     if (inode->singleIndPtr == INVALID_PTR){
         new_block = allocNewBlock(TYPEVAL_REGULAR);
+        printf("[createNewBlock] Novo bloco criado %d\n", new_block);
         aux = formatPointerBlock(new_block);
         if(aux == ERRO){
             printf("[createNewBlock] Erro formantando o bloco.\n");
@@ -922,9 +922,9 @@ int createNewBlock(struct t2fs_inode* inode, struct t2fs_record* parent_record){
 
         aux = createNewBlockInList(new_block);
         if(aux == ERRO){
+            printf("[createNewBlock] Erro no createNewBlockInList.\n");
             return ERRO;
         }
-
         return new_block;
     }
 
@@ -984,7 +984,7 @@ int createNewBlock(struct t2fs_inode* inode, struct t2fs_record* parent_record){
 int createNewBlockInList(int block){
     int sector, i, j, k, pointer, new_block;
     unsigned char buffer_sector[SECTOR_SIZE];
-    char buffer_pointer[4];
+    unsigned char buffer_pointer[4];
 
 
     sector = blocks_start_sector + block * sectors_by_block;
@@ -1002,9 +1002,9 @@ int createNewBlockInList(int block){
                 buffer_pointer[k] = buffer_sector[k + j*4];
             }
             pointer = *(int *)buffer_pointer;
-            if(pointer == TYPEVAL_INVALIDO){
+            if(pointer == INVALID_PTR){
                 new_block = allocNewBlock(TYPEVAL_REGULAR);
-                memcpy(buffer_pointer, (char*)new_block, 4);
+                memcpy(&buffer_pointer[0], (char*)&new_block, 4);
 
                 for(k = 0; k < 4; k++){
                     buffer_sector[k + j*4] = buffer_pointer[k];
@@ -1044,14 +1044,14 @@ int createNewBlockInListDouble(int block){
             }
             pointer = *(int *)buffer_pointer;
 
-            if(pointer != TYPEVAL_INVALIDO){
+            if(pointer != INVALID_PTR){
                 new_block = createNewBlockInList(pointer);
                 if(new_block != ERRO){
                     return new_block;
                 }
             }
 
-            else if(pointer == TYPEVAL_INVALIDO){
+            else if(pointer == INVALID_PTR){
                 new_block = allocNewBlock(TYPEVAL_REGULAR);
                 memcpy(buffer_pointer, (char*)new_block, 4);
 
@@ -1082,9 +1082,10 @@ int createNewBlockInListDouble(int block){
 int formatPointerBlock(int block){
     int sector, i, j, k;
     unsigned char buffer_sector[SECTOR_SIZE];
-    char buffer_pointer[4];
+    unsigned char buffer_pointer[4];
+    int invalid = -1;
 
-    strcpy(buffer_pointer, (char*)INVALID_PTR);
+    memcpy(&buffer_pointer[0], (char*)&invalid, 4);
     if((block < 0)||(block >= blocks_total)){
         printf("[formatPointerBlock] Bloco informado inválido.\n");
         return ERRO;
@@ -1094,7 +1095,6 @@ int formatPointerBlock(int block){
             buffer_sector[k + j*4] = buffer_pointer[k];
         }
     }
-
     sector = blocks_start_sector + block * sectors_by_block;
     for(i = 0; i < sectors_by_block; i++){
         if (write_sector(sector, &buffer_sector[0]) != 0){
@@ -1452,7 +1452,6 @@ int readNthEntry(int block, int entry, struct t2fs_record* record){
         printf("[readNthEntry] Erro ao ler registro %d no setor %d\n", location.position, location.sector);
         return ERRO;
     }
-
     return SUCESSO;
 }
 /* Recebe uma posição do bloco do arquivo e o i-node
@@ -1473,8 +1472,9 @@ int findBlock(int block_number, struct t2fs_inode* inode){
         position = (block_number - 2) % 64;
 
         unsigned char buffer_sector[SECTOR_SIZE];
-        char buffer_block[4];
+        unsigned char buffer_block[4];
 
+        printf("[findBlock] inode->singleIndPtr: %d\n", inode->singleIndPtr);
         if (read_sector(sector, &buffer_sector[0]) != 0){
             printf("[findBlock] Erro ao ler setor do registro inválido no diretório pai.\n");
             return ERRO;
@@ -1483,7 +1483,12 @@ int findBlock(int block_number, struct t2fs_inode* inode){
         for(i = 0; i < 4; i++){
             buffer_block[i] = buffer_sector[position*4 + i];
         }
-        return *(int *)buffer_block;
+
+        int new_block;
+        memcpy(&new_block, &buffer_block[0], 4);
+        printf("[findBlock] Buffer lido: %d\n", new_block);
+
+        return new_block;
     }
     if(block_number >= 1026){
         int sector, start_sector, sector_in_block, position, i, second_block;
