@@ -1082,9 +1082,10 @@ int createNewBlockInListDouble(int block){
 int formatPointerBlock(int block){
     int sector, i, j, k;
     unsigned char buffer_sector[SECTOR_SIZE];
-    char buffer_pointer[4];
+    char buffer_pointer[4] = "abcd";
 
-    strcpy(buffer_pointer, (char*)INVALID_PTR);
+    strcpy(buffer_pointer, (char*)-1);
+
     if((block < 0)||(block >= blocks_total)){
         printf("[formatPointerBlock] Bloco informado inválido.\n");
         return ERRO;

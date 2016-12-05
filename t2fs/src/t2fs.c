@@ -629,6 +629,7 @@ int write2 (FILE2 handle, char *buffer, int size){
                 }
                 else{
                     buffer_sector[j] = buffer[buffer_index];
+                    current++;
 
                     if(current >= new_size){
                         printf("[write2] current = %d, new_size = %d\n", current, new_size);
@@ -649,7 +650,6 @@ int write2 (FILE2 handle, char *buffer, int size){
 
                         return size;
                     }
-                    current++;
                     buffer_index++;
                 }
             }
@@ -684,21 +684,113 @@ int truncate2 (FILE2 handle){
 
     aux = findHandle(handle, &handles[0]);
     if (aux == ERRO){
-        printf("[seek2] O arquivo especificado não está aberto.\n");
+        printf("[truncate2] O arquivo especificado não está aberto.\n");
         return ERRO;
     }
 
     file = (struct file_descriptor *)handle;
 
     if (file->record.TypeVal != TYPEVAL_REGULAR){
-        printf("[read2] Este arquivo não é um arquivo regular\n");
+        printf("[truncate2] Este arquivo não é um arquivo regular\n");
         return ERRO;
     }
 
-    //int bytes_to_remove = file->record.bytesFileSize - file->current_pointer;
+    if (file->record.bytesFileSize == 0){
+        printf("[truncate2] Arquivo vazio\n");
+        return ERRO;
+    }
 
+    /* Lê o i-node do arquivo */
+    struct t2fs_inode inode;
+    aux = readInode(&inode, file->record.inodeNumber);
+    if(aux != 0){
+        printf("[truncate2] i-node de diretório inválido\n");
+        return ERRO;
+    }
 
-    return SUCESSO;
+    int file_block = file->current_pointer / 4096; // Bloco, dentro do i-node, que o ponteiro aponta.
+
+    if (file->record.bytesFileSize < 4096){
+        /* Arquivo ocupa apenas o bloco apontado por dataPtr[0]*/
+        file->record.bytesFileSize = file->current_pointer;
+        file->current_pointer = 0;
+
+        /* Grava o novo tamanho no disco. */
+        aux = recordRecord(file);
+        if (aux == ERRO){
+            return ERRO;
+        }
+
+        printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
+        return SUCESSO;
+    }
+    else if (file->record.bytesFileSize < 4096 * 2){
+        /* Arquivo ocupa os blocos apontados por dataPtr[0] e dataPtr[1]*/
+        if (file->current_pointer > 4096){
+            /* O pointeiro está no segundo bloco, então, este não precisa ser desalocado.*/
+            file->record.bytesFileSize = file->current_pointer;
+            file->current_pointer = 0;
+
+            /* Grava o novo tamanho no disco. */
+            aux = recordRecord(file);
+            if (aux == ERRO){
+                return ERRO;
+            }
+
+            printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
+            return SUCESSO;
+        }
+        else{
+            /* O ponteiro está apenas no primeiro bloco. Desaloca o segundo bloco (apontado por dataPtr[1])*/
+            int block_number = findBlock(1, &inode);
+            aux = setBitmap2 (BITMAP_DADOS, block_number, LIVRE);
+
+            if (aux == ERRO){
+                return ERRO;
+            }
+
+            file->record.bytesFileSize = file->current_pointer;
+            file->current_pointer = 0;
+
+            /* Grava o novo tamanho no disco. */
+            aux = recordRecord(file);
+            if (aux == ERRO){
+                return ERRO;
+            }
+
+            printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
+            return SUCESSO;
+        }
+    }
+    else{
+        /* Arquivo ocupa os blocos apontados por dataPtr[0], dataPtr[1] e pelo menos um bloco apontado pelo bloco de índices.
+        Ou, arquivo ocupa os todos os blocos dos ponteiros diretos, ponteiros de indireção simples e pelo menos um bloco apontado
+        pelos ponteiros de indireção dupla */
+            int blocks_to_free = file->record.blocksFileSize - file_block;
+            int i;
+            for (i = 1; i <= blocks_to_free; i++){
+                /* Desaloca os blocos restantes, utilizados pelo arquivo, que estão depois de current_pointer */
+                int block = findBlock(file_block + i, &inode);
+                aux = setBitmap2(BITMAP_DADOS, block, LIVRE);
+
+                if (aux == ERRO){
+                    return ERRO;
+                }
+            }
+            file->record.bytesFileSize = file->current_pointer;
+            file->current_pointer = 0;
+
+            /* Grava o novo tamanho no disco. */
+            aux = recordRecord(file);
+            if (aux == ERRO){
+                return ERRO;
+            }
+
+            printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
+            return SUCESSO;
+    }
+
+    return ERRO;
 }
 
 
