@@ -145,11 +145,18 @@ FILE2 create2 (char *filename){
         printf("[create2] Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
     }
 
-    aux = readRecord(&location, &parent_record);
-
-    if (aux == ERRO){
-        printf("[create2] Erro ao ler registro do diretório pai.\n");
-        return ERRO;
+    /* Se o arquivo estiver num subdiretório, o registro existe
+    Senão, vamos criar um registro temporário para o raiz */
+    if(location.sector != INVALID_PTR){
+        aux = readRecord(&location, &parent_record);
+        if (aux == ERRO){
+            printf("[create2] Erro ao ler registro do diretório pai.\n");
+            return ERRO;
+        }
+    }
+    else{
+        parent_record.TypeVal = TYPEVAL_DIRETORIO;
+        parent_record.inodeNumber = 0;
     }
 
     int inode = findFreeINode();
@@ -488,7 +495,7 @@ int read2 (FILE2 handle, char *buffer, int size){
 
         current_block = current % 4096;
 
-        block_number = FindBlock(file_block, &inode);
+        block_number = findBlock(file_block, &inode);
         if(block_number == ERRO){
             printf("[read2] Erro ao procurar os blocos do arquivo.\n");
             return ERRO;
@@ -583,6 +590,7 @@ int write2 (FILE2 handle, char *buffer, int size){
     /* 4096 bytes por bloco. Logo, achamos pra qual bloco o current apontada
         P.S: não é o número do bloco no disco, mas referente aos blocos do arquivo */
     file_block = current / 4096;
+    printf("[write2] Current = %d, file_block = %d\n", current, file_block);
     blocks_start_sector = (int)superblock.superblockSize + (int)superblock.freeBlocksBitmapSize + (int)superblock.freeInodeBitmapSize + (int)superblock.inodeAreaSize;
 
     while (buffer_index < size) {
@@ -592,7 +600,7 @@ int write2 (FILE2 handle, char *buffer, int size){
 
         current_block = current % 4096;
 
-        block_number = FindBlock(file_block, &inode);
+        block_number = findBlock(file_block, &inode);
         //printf("[write2] Acessando o bloco: %d\n", block_number);
 
         if(block_number == ERRO){
@@ -623,6 +631,7 @@ int write2 (FILE2 handle, char *buffer, int size){
                     buffer_sector[j] = buffer[buffer_index];
 
                     if(current >= new_size){
+                        printf("[write2] current = %d, new_size = %d\n", current, new_size);
                         //printf("[write2] Chegou ao final do buffer.\n");
                         file->current_pointer = current;
                         file->record.blocksFileSize = file->record.blocksFileSize + blocks_count;
@@ -788,8 +797,19 @@ int mkdir2 (char *pathname){
         // printf("Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
     }
 
-    /* Lê registro do diretório pai para escrever dentro dele. */
-    aux = readRecord(&location, &parent_record);
+    /* Se o diretório criado estiver num subdiretório, o registro existe
+    Senão, vamos criar um registro temporário para o raiz */
+    if(location.sector != INVALID_PTR){
+        aux = readRecord(&location, &parent_record);
+        if (aux == ERRO){
+            printf("[mkdir2] Erro ao ler registro do diretório pai.\n");
+            return ERRO;
+        }
+    }
+    else{
+        parent_record.TypeVal = TYPEVAL_DIRETORIO;
+        parent_record.inodeNumber = 0;
+    }
 
     if (aux == ERRO){
         printf("[mkdir2] Erro ao ler registro do diretório pai.\n");

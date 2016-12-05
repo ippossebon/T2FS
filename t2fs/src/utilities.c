@@ -328,6 +328,14 @@ int findRecord(char *name, struct record_location* location){
         return ERRO;
     }
 
+    /* Testa se o arquivo está na raiz ou um subdiretório */
+    int i, root = 1;
+    for(i = 1; i < strlen(name); i++){
+        if(name[i] == '/'){
+            root = 0;
+        }
+    }
+
     char *token = strtok(name, "/");
     while(token) {
         /* Confere se os subdiretórios são de fato diretórios */
@@ -343,6 +351,11 @@ int findRecord(char *name, struct record_location* location){
             }
             /* O caminho absoluto é válido, mas o arquivo informado não existe */
             else if((token == 0)&&(inode_number == ERRO)){
+                /* Se o arquivo estiver no root, vamos setar a localização do registro pai como inválido */
+                if(root == 1){
+                    location->sector = INVALID_PTR;
+                    location->position = INVALID_PTR;
+                }
                 return SUCESSO;
             }
         }
@@ -1444,7 +1457,7 @@ int readNthEntry(int block, int entry, struct t2fs_record* record){
 }
 /* Recebe uma posição do bloco do arquivo e o i-node
 Retorna o número do bloco se achou o bloco ou -1 em caso de erro */
-int FindBlock(int block_number, struct t2fs_inode* inode){
+int findBlock(int block_number, struct t2fs_inode* inode){
     if(block_number == 0){
         return inode->dataPtr[0];
     }
@@ -1463,7 +1476,7 @@ int FindBlock(int block_number, struct t2fs_inode* inode){
         char buffer_block[4];
 
         if (read_sector(sector, &buffer_sector[0]) != 0){
-            printf("[writeRecord] Erro ao ler setor do registro inválido no diretório pai.\n");
+            printf("[findBlock] Erro ao ler setor do registro inválido no diretório pai.\n");
             return ERRO;
         }
 
@@ -1540,6 +1553,10 @@ int addHandle(FILE2 handle, FILE2 *handles){
 
 int rmvHandle(FILE2 handle, FILE2 *handles){
     int i;
+
+    if(handle == INVALID_PTR)
+        return ERRO;
+
     for(i = 0; i < 20; i++){
         if(handles[i] == handle){
             handles[i] = INVALID_PTR;
@@ -1574,6 +1591,7 @@ int findHandleDir(DIR2 handle, DIR2 *handles){
 
 int addHandleDir(DIR2 handle, DIR2 *handles){
     int i;
+
     for(i = 0; i < 20; i++){
         if(handles[i] == INVALID_PTR){
             handles[i] = handle;
@@ -1585,6 +1603,10 @@ int addHandleDir(DIR2 handle, DIR2 *handles){
 
 int rmvHandleDir(DIR2 handle, DIR2 *handles){
     int i;
+
+    if(handle == INVALID_PTR)
+        return ERRO;
+
     for(i = 0; i < 20; i++){
         if(handles[i] == handle){
             handles[i] = INVALID_PTR;

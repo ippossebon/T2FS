@@ -23,9 +23,9 @@ int main()
     }
 
     aux = read2(file, &buffer[0], 63);
-    buffer[aux] = '\0';
 
-    if(aux >= 0){
+    if(aux != -1){
+        buffer[aux] = '\0';
         printf("[test_write] %d bytes lidos do arquivo %s.\n", aux, file_name);
         printf("[test_write] Buffer lido: %s\n", buffer);
     }
@@ -33,6 +33,7 @@ int main()
         printf("[test_write] Erro ao ler o arquivo %s.\n", file_name);
     }
 
+    printf("teste1\n");
     aux = close2(file);
     if(aux == 0){
         printf("[test_write] Arquivo %s fechado corretamente\n", file_name);
@@ -40,6 +41,8 @@ int main()
     else{
         printf("[test_write] Erro ao fechar o arquivo %s.\n", file_name);
     }
+
+    printf("teste1\n");
 
     file = open2(&file_name[0]);
     if(file == -1){
@@ -78,9 +81,9 @@ int main()
 
 
     aux = read2(file, &buffer[0], 63);
-    buffer[aux] = '\0';
 
-    if(aux >= 0){
+    if(aux != -1){
+        buffer[aux] = '\0';
         printf("[test_write] %d bytes lidos do arquivo %s.\n", aux, file_name);
         printf("[test_write] Buffer lido: %s.\n", buffer);
     }

@@ -1,0 +1,1164 @@
+Informe o nome do arquivo a ser criado e escrito: [create2] filename = /kkkkk
+[create2] Caminho informado válido = /kkkkk
+[create2] Setor do diretório-pai = -1, posição no setor = -1
+[test_write2] Aberto o arquivo = /kkkkk, com o handle = 144167448.
+[write2] Novo tamanho do arquivo após escrita: 64
+[write2] Current = 0, file_block = 0
+[write2] Criado novo bloco: 24
+[write2] current = 64, new_size = 64
+[test_write2] write for 0.
+[write2] Novo tamanho do arquivo após escrita: 128
+[write2] Current = 64, file_block = 0
+[write2] current = 128, new_size = 128
+[test_write2] write for 1.
+[write2] Novo tamanho do arquivo após escrita: 192
+[write2] Current = 128, file_block = 0
+[write2] current = 192, new_size = 192
+[test_write2] write for 2.
+[write2] Novo tamanho do arquivo após escrita: 256
+[write2] Current = 192, file_block = 0
+[write2] current = 256, new_size = 256
+[test_write2] write for 3.
+[write2] Novo tamanho do arquivo após escrita: 320
+[write2] Current = 256, file_block = 0
+[write2] current = 320, new_size = 320
+[test_write2] write for 4.
+[write2] Novo tamanho do arquivo após escrita: 384
+[write2] Current = 320, file_block = 0
+[write2] current = 384, new_size = 384
+[test_write2] write for 5.
+[write2] Novo tamanho do arquivo após escrita: 448
+[write2] Current = 384, file_block = 0
+[write2] current = 448, new_size = 448
+[test_write2] write for 6.
+[write2] Novo tamanho do arquivo após escrita: 512
+[write2] Current = 448, file_block = 0
+[write2] current = 512, new_size = 512
+[test_write2] write for 7.
+[write2] Novo tamanho do arquivo após escrita: 576
+[write2] Current = 512, file_block = 0
+[write2] current = 576, new_size = 576
+[test_write2] write for 8.
+[write2] Novo tamanho do arquivo após escrita: 640
+[write2] Current = 576, file_block = 0
+[write2] current = 640, new_size = 640
+[test_write2] write for 9.
+[write2] Novo tamanho do arquivo após escrita: 704
+[write2] Current = 640, file_block = 0
+[write2] current = 704, new_size = 704
+[test_write2] write for 10.
+[write2] Novo tamanho do arquivo após escrita: 768
+[write2] Current = 704, file_block = 0
+[write2] current = 768, new_size = 768
+[test_write2] write for 11.
+[write2] Novo tamanho do arquivo após escrita: 832
+[write2] Current = 768, file_block = 0
+[write2] current = 832, new_size = 832
+[test_write2] write for 12.
+[write2] Novo tamanho do arquivo após escrita: 896
+[write2] Current = 832, file_block = 0
+[write2] current = 896, new_size = 896
+[test_write2] write for 13.
+[write2] Novo tamanho do arquivo após escrita: 960
+[write2] Current = 896, file_block = 0
+[write2] current = 960, new_size = 960
+[test_write2] write for 14.
+[write2] Novo tamanho do arquivo após escrita: 1024
+[write2] Current = 960, file_block = 0
+[write2] current = 1024, new_size = 1024
+[test_write2] write for 15.
+[write2] Novo tamanho do arquivo após escrita: 1088
+[write2] Current = 1024, file_block = 0
+[write2] current = 1088, new_size = 1088
+[test_write2] write for 16.
+[write2] Novo tamanho do arquivo após escrita: 1152
+[write2] Current = 1088, file_block = 0
+[write2] current = 1152, new_size = 1152
+[test_write2] write for 17.
+[write2] Novo tamanho do arquivo após escrita: 1216
+[write2] Current = 1152, file_block = 0
+[write2] current = 1216, new_size = 1216
+[test_write2] write for 18.
+[write2] Novo tamanho do arquivo após escrita: 1280
+[write2] Current = 1216, file_block = 0
+[write2] current = 1280, new_size = 1280
+[test_write2] write for 19.
+[write2] Novo tamanho do arquivo após escrita: 1344
+[write2] Current = 1280, file_block = 0
+[write2] current = 1344, new_size = 1344
+[test_write2] write for 20.
+[write2] Novo tamanho do arquivo após escrita: 1408
+[write2] Current = 1344, file_block = 0
+[write2] current = 1408, new_size = 1408
+[test_write2] write for 21.
+[write2] Novo tamanho do arquivo após escrita: 1472
+[write2] Current = 1408, file_block = 0
+[write2] current = 1472, new_size = 1472
+[test_write2] write for 22.
+[write2] Novo tamanho do arquivo após escrita: 1536
+[write2] Current = 1472, file_block = 0
+[write2] current = 1536, new_size = 1536
+[test_write2] write for 23.
+[write2] Novo tamanho do arquivo após escrita: 1600
+[write2] Current = 1536, file_block = 0
+[write2] current = 1600, new_size = 1600
+[test_write2] write for 24.
+[write2] Novo tamanho do arquivo após escrita: 1664
+[write2] Current = 1600, file_block = 0
+[write2] current = 1664, new_size = 1664
+[test_write2] write for 25.
+[write2] Novo tamanho do arquivo após escrita: 1728
+[write2] Current = 1664, file_block = 0
+[write2] current = 1728, new_size = 1728
+[test_write2] write for 26.
+[write2] Novo tamanho do arquivo após escrita: 1792
+[write2] Current = 1728, file_block = 0
+[write2] current = 1792, new_size = 1792
+[test_write2] write for 27.
+[write2] Novo tamanho do arquivo após escrita: 1856
+[write2] Current = 1792, file_block = 0
+[write2] current = 1856, new_size = 1856
+[test_write2] write for 28.
+[write2] Novo tamanho do arquivo após escrita: 1920
+[write2] Current = 1856, file_block = 0
+[write2] current = 1920, new_size = 1920
+[test_write2] write for 29.
+[write2] Novo tamanho do arquivo após escrita: 1984
+[write2] Current = 1920, file_block = 0
+[write2] current = 1984, new_size = 1984
+[test_write2] write for 30.
+[write2] Novo tamanho do arquivo após escrita: 2048
+[write2] Current = 1984, file_block = 0
+[write2] current = 2048, new_size = 2048
+[test_write2] write for 31.
+[write2] Novo tamanho do arquivo após escrita: 2112
+[write2] Current = 2048, file_block = 0
+[write2] current = 2112, new_size = 2112
+[test_write2] write for 32.
+[write2] Novo tamanho do arquivo após escrita: 2176
+[write2] Current = 2112, file_block = 0
+[write2] current = 2176, new_size = 2176
+[test_write2] write for 33.
+[write2] Novo tamanho do arquivo após escrita: 2240
+[write2] Current = 2176, file_block = 0
+[write2] current = 2240, new_size = 2240
+[test_write2] write for 34.
+[write2] Novo tamanho do arquivo após escrita: 2304
+[write2] Current = 2240, file_block = 0
+[write2] current = 2304, new_size = 2304
+[test_write2] write for 35.
+[write2] Novo tamanho do arquivo após escrita: 2368
+[write2] Current = 2304, file_block = 0
+[write2] current = 2368, new_size = 2368
+[test_write2] write for 36.
+[write2] Novo tamanho do arquivo após escrita: 2432
+[write2] Current = 2368, file_block = 0
+[write2] current = 2432, new_size = 2432
+[test_write2] write for 37.
+[write2] Novo tamanho do arquivo após escrita: 2496
+[write2] Current = 2432, file_block = 0
+[write2] current = 2496, new_size = 2496
+[test_write2] write for 38.
+[write2] Novo tamanho do arquivo após escrita: 2560
+[write2] Current = 2496, file_block = 0
+[write2] current = 2560, new_size = 2560
+[test_write2] write for 39.
+[write2] Novo tamanho do arquivo após escrita: 2624
+[write2] Current = 2560, file_block = 0
+[write2] current = 2624, new_size = 2624
+[test_write2] write for 40.
+[write2] Novo tamanho do arquivo após escrita: 2688
+[write2] Current = 2624, file_block = 0
+[write2] current = 2688, new_size = 2688
+[test_write2] write for 41.
+[write2] Novo tamanho do arquivo após escrita: 2752
+[write2] Current = 2688, file_block = 0
+[write2] current = 2752, new_size = 2752
+[test_write2] write for 42.
+[write2] Novo tamanho do arquivo após escrita: 2816
+[write2] Current = 2752, file_block = 0
+[write2] current = 2816, new_size = 2816
+[test_write2] write for 43.
+[write2] Novo tamanho do arquivo após escrita: 2880
+[write2] Current = 2816, file_block = 0
+[write2] current = 2880, new_size = 2880
+[test_write2] write for 44.
+[write2] Novo tamanho do arquivo após escrita: 2944
+[write2] Current = 2880, file_block = 0
+[write2] current = 2944, new_size = 2944
+[test_write2] write for 45.
+[write2] Novo tamanho do arquivo após escrita: 3008
+[write2] Current = 2944, file_block = 0
+[write2] current = 3008, new_size = 3008
+[test_write2] write for 46.
+[write2] Novo tamanho do arquivo após escrita: 3072
+[write2] Current = 3008, file_block = 0
+[write2] current = 3072, new_size = 3072
+[test_write2] write for 47.
+[write2] Novo tamanho do arquivo após escrita: 3136
+[write2] Current = 3072, file_block = 0
+[write2] current = 3136, new_size = 3136
+[test_write2] write for 48.
+[write2] Novo tamanho do arquivo após escrita: 3200
+[write2] Current = 3136, file_block = 0
+[write2] current = 3200, new_size = 3200
+[test_write2] write for 49.
+[write2] Novo tamanho do arquivo após escrita: 3264
+[write2] Current = 3200, file_block = 0
+[write2] current = 3264, new_size = 3264
+[test_write2] write for 50.
+[write2] Novo tamanho do arquivo após escrita: 3328
+[write2] Current = 3264, file_block = 0
+[write2] current = 3328, new_size = 3328
+[test_write2] write for 51.
+[write2] Novo tamanho do arquivo após escrita: 3392
+[write2] Current = 3328, file_block = 0
+[write2] current = 3392, new_size = 3392
+[test_write2] write for 52.
+[write2] Novo tamanho do arquivo após escrita: 3456
+[write2] Current = 3392, file_block = 0
+[write2] current = 3456, new_size = 3456
+[test_write2] write for 53.
+[write2] Novo tamanho do arquivo após escrita: 3520
+[write2] Current = 3456, file_block = 0
+[write2] current = 3520, new_size = 3520
+[test_write2] write for 54.
+[write2] Novo tamanho do arquivo após escrita: 3584
+[write2] Current = 3520, file_block = 0
+[write2] current = 3584, new_size = 3584
+[test_write2] write for 55.
+[write2] Novo tamanho do arquivo após escrita: 3648
+[write2] Current = 3584, file_block = 0
+[write2] current = 3648, new_size = 3648
+[test_write2] write for 56.
+[write2] Novo tamanho do arquivo após escrita: 3712
+[write2] Current = 3648, file_block = 0
+[write2] current = 3712, new_size = 3712
+[test_write2] write for 57.
+[write2] Novo tamanho do arquivo após escrita: 3776
+[write2] Current = 3712, file_block = 0
+[write2] current = 3776, new_size = 3776
+[test_write2] write for 58.
+[write2] Novo tamanho do arquivo após escrita: 3840
+[write2] Current = 3776, file_block = 0
+[write2] current = 3840, new_size = 3840
+[test_write2] write for 59.
+[write2] Novo tamanho do arquivo após escrita: 3904
+[write2] Current = 3840, file_block = 0
+[write2] current = 3904, new_size = 3904
+[test_write2] write for 60.
+[write2] Novo tamanho do arquivo após escrita: 3968
+[write2] Current = 3904, file_block = 0
+[write2] current = 3968, new_size = 3968
+[test_write2] write for 61.
+[write2] Novo tamanho do arquivo após escrita: 4032
+[write2] Current = 3968, file_block = 0
+[write2] current = 4032, new_size = 4032
+[test_write2] write for 62.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 63.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 64.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 65.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 66.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 67.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 68.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 69.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 70.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 71.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 72.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 73.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 74.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 75.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 76.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 77.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 78.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 79.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 80.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 81.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 82.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 83.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 84.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 85.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 86.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 87.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 88.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 89.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 90.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 91.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 92.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 93.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 94.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 95.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 96.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 97.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 98.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 99.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 100.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 101.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 102.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 103.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 104.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 105.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 106.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 107.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 108.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 109.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 110.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 111.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 112.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 113.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 114.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 115.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 116.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 117.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 118.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 119.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 120.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 121.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 122.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 123.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 124.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 125.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 126.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 127.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 128.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 129.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 130.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 131.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 132.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 133.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 134.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 135.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 136.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 137.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 138.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 139.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 140.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 141.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 142.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 143.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 144.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 145.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 146.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 147.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 148.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 149.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 150.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 151.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 152.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 153.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 154.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 155.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 156.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 157.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 158.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 159.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 160.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 161.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 162.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 163.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 164.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 165.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 166.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 167.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 168.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 169.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 170.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 171.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 172.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 173.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 174.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 175.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 176.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 177.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 178.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 179.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 180.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 181.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 182.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 183.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 184.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 185.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 186.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 187.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 188.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 189.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 190.
+[write2] Novo tamanho do arquivo após escrita: 4096
+[write2] Current = 4032, file_block = 0
+[test_write2] Erro no write for 191.
+[close2] Fechando o arquivo com o handle número = 144167448
+[test_write2] Arquivo /kkkkk fechado corretamente
+[open2] filename = /kkkkk
+[open2] Localizado arquivo com o nome informado = /kkkkk
+[test_write2] Aberto o arquivo = /kkkkk, com o handle = 144167448.
+[test_write2] read for 0.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 1.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 2.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 3.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 4.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 5.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 6.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 7.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 8.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 9.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 10.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 11.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 12.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 13.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 14.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 15.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 16.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 17.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 18.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 19.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 20.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 21.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 22.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 23.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 24.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 25.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 26.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 27.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 28.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 29.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 30.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 31.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 32.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 33.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 34.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 35.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 36.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 37.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 38.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 39.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 40.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 41.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 42.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 43.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 44.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 45.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 46.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 47.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 48.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 49.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 50.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 51.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 52.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 53.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 54.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 55.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 56.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 57.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 58.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 59.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 60.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 61.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[test_write2] read for 62.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 63.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 64.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 65.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 66.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 67.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 68.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 69.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 70.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 71.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 72.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 73.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 74.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 75.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 76.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 77.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 78.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 79.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 80.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 81.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 82.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 83.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 84.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 85.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 86.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 87.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 88.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 89.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 90.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 91.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 92.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 93.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 94.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 95.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 96.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 97.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 98.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 99.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 100.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 101.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 102.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 103.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 104.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 105.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 106.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 107.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 108.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 109.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 110.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 111.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 112.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 113.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 114.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 115.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 116.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 117.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 118.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 119.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 120.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 121.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 122.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 123.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 124.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 125.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 126.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 127.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 128.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 129.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 130.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 131.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 132.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 133.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 134.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 135.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 136.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 137.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 138.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 139.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 140.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 141.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 142.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 143.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 144.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 145.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 146.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 147.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 148.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 149.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 150.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 151.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 152.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 153.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 154.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 155.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 156.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 157.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 158.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 159.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 160.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 161.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 162.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 163.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 164.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 165.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 166.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 167.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 168.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 169.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 170.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 171.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 172.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 173.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 174.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 175.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 176.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 177.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 178.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 179.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 180.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 181.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 182.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 183.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 184.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 185.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 186.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 187.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 188.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 189.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 190.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.
+[test_write2] read for 191.
+[test_write] Buffer lido: Este e um buffer de 64 caracteres para teste! 11223344556677889.
+[close2] Fechando o arquivo com o handle número = 144167448
+[test_write] Arquivo /kkkkk fechado corretamente
