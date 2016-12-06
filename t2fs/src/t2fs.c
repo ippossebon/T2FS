@@ -515,14 +515,14 @@ int read2 (FILE2 handle, char *buffer, int size){
                 else{
                     buffer[buffer_index] = buffer_sector[j];
                     //printf("[read2] Current do arquivo: %d\n", current);
+                    current++;
+                    buffer_index++;
 
                     if(current >= read_limit){
                         file->current_pointer = current;
                         //printf("[read2] Current do descritor: %d\n", file->current_pointer);
                         return bytes_to_read;
                     }
-                    current++;
-                    buffer_index++;
                 }
             }
         }
@@ -630,7 +630,7 @@ int write2 (FILE2 handle, char *buffer, int size){
                 }
                 else{
                     buffer_sector[j] = buffer[buffer_index];
-                    
+
                     current++;
                     buffer_index++;
 

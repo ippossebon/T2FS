@@ -684,7 +684,6 @@ int findInvalidRecordInList(int block, struct record_location* location){
     unsigned char buffer_sector[SECTOR_SIZE];
     char buffer_pointer[4];
 
-
     sector = blocks_start_sector + block * sectors_by_block;
 
     /* Irá varrer os setores do bloco, lendo um por vez */
@@ -695,12 +694,11 @@ int findInvalidRecordInList(int block, struct record_location* location){
         }
 
         /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
-        for(j=0; j < SECTOR_SIZE / 4; j++){
-            for(k = 0; k < 4; k++){
-                buffer_pointer[k] = buffer_sector[k + j*4];
-            }
+        for(j=0; j < SECTOR_SIZE; j = j + 4){
+            memcpy(&buffer_pointer[0], &buffer_sector[j], 4);
+
             pointer = *(int *)buffer_pointer;
-            if(pointer == TYPEVAL_INVALIDO){
+            if(pointer == INVALID_PTR){
 
                 /* Aqui devemos acrescentar mais um bloco para ponteiros */
                 int new_block = allocNewBlock(TYPEVAL_DIRETORIO);
@@ -767,7 +765,7 @@ int findInvalidRecordInListDouble(int block, struct record_location* location){
                     buffer_sector[k + j*4] = buffer_pointer[k];
                 }
                 if (write_sector(sector + i, &buffer_sector[0]) != 0){
-                    printf("[findInvalidRecordInList] Erro ao gravar setor %d\n", sector);
+                    printf("[findInvalidRecordInList] Erro ao gravar setor %d\n", sector + i);
                     return ERRO;
                 }
                 aux = findInvalidRecordInList(new_block, location);
@@ -884,7 +882,7 @@ int createNewRegistersBlock(struct t2fs_inode* inode, struct record_location* lo
 
 /* Cria um novo bloco para um arquivo aberto. Retorna o número do bloco no disco */
 int createNewBlock(struct t2fs_inode* inode, struct t2fs_record* parent_record){
-    int new_block, aux;
+    int new_block, aux, new_block2;
 
     if (inode->dataPtr[0] == INVALID_PTR){
         new_block = allocNewBlock(TYPEVAL_REGULAR);
@@ -920,12 +918,12 @@ int createNewBlock(struct t2fs_inode* inode, struct t2fs_record* parent_record){
             printf("[createNewBlock] Erro ao escrever no i-node.\n");
         }
 
-        aux = createNewBlockInList(new_block);
-        if(aux == ERRO){
+        new_block2 = createNewBlockInList(new_block);
+        if(new_block2 == ERRO){
             printf("[createNewBlock] Erro no createNewBlockInList.\n");
             return ERRO;
         }
-        return new_block;
+        return new_block2;
     }
 
     /* Cria novo bloco em indireção simples */
@@ -997,11 +995,11 @@ int createNewBlockInList(int block){
         }
 
         /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
-        for(j=0; j < SECTOR_SIZE / 4; j++){
-            for(k = 0; k < 4; k++){
-                buffer_pointer[k] = buffer_sector[k + j*4];
-            }
-            pointer = *(int *)buffer_pointer;
+        for(j=0; j < SECTOR_SIZE; j = j + 4){
+            memcpy(&buffer_pointer[0], &buffer_sector[j], 4);
+
+            memcpy((char*)&pointer, &buffer_pointer[0], 4);
+
             if(pointer == INVALID_PTR){
                 new_block = allocNewBlock(TYPEVAL_REGULAR);
                 memcpy(&buffer_pointer[0], (char*)&new_block, 4);
@@ -1014,7 +1012,7 @@ int createNewBlockInList(int block){
                     printf("[createNewBlockInList] Erro ao gravar setor %d\n", sector);
                     return ERRO;
                 }
-
+                printf("[createNewBlockInList] bloco novo: %d\n", new_block);
                 return new_block;
             }
         }
@@ -1080,29 +1078,23 @@ int createNewBlockInListDouble(int block){
 }
 
 int formatPointerBlock(int block){
-    int sector, i, j, k;
+    int sector, i, j;
     unsigned char buffer_sector[SECTOR_SIZE];
-    unsigned char buffer_pointer[4];
-    int invalid = -1;
-
-    memcpy(&buffer_pointer[0], (char*)&invalid, 4);
 
     if((block < 0)||(block >= blocks_total)){
         printf("[formatPointerBlock] Bloco informado inválido.\n");
         return ERRO;
     }
-    for(j=0; j < SECTOR_SIZE / 4; j++){
-        for(k = 0; k < 4; k++){
-            buffer_sector[k + j*4] = buffer_pointer[k];
-        }
+
+    for(j=0; j < SECTOR_SIZE; j++){
+        buffer_sector[j] = 0xFF;
     }
     sector = blocks_start_sector + block * sectors_by_block;
     for(i = 0; i < sectors_by_block; i++){
-        if (write_sector(sector, &buffer_sector[0]) != 0){
-            printf("[formatPointerBlock] Erro ao gravar setor %d\n", sector);
+        if (write_sector(sector + i, &buffer_sector[0]) != 0){
+            printf("[formatPointerBlock] Erro ao gravar setor %d\n", sector + i);
             return ERRO;
         }
-        sector++;
     }
     return SUCESSO;
 }
