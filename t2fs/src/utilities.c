@@ -360,7 +360,7 @@ int findRecord(char *name, struct record_location* location){
             }
         }
         else{
-            printf("[findRecord] Caminho informado não é válido.\n");
+            //printf("[findRecord] Caminho informado não é válido.\n");
             return ERRO;
         }
     }
@@ -1008,7 +1008,7 @@ int createNewBlockInList(int block){
                     printf("[createNewBlockInList] Erro ao gravar setor %d\n", sector);
                     return ERRO;
                 }
-                printf("[createNewBlockInList] bloco novo: %d\n", new_block);
+                //printf("[createNewBlockInList] bloco novo: %d\n", new_block);
                 return new_block;
             }
         }
@@ -1456,7 +1456,7 @@ int findBlock(int block_number, struct t2fs_inode* inode){
         unsigned char buffer_sector[SECTOR_SIZE];
         unsigned char buffer_block[4];
 
-        printf("[findBlock] inode->singleIndPtr: %d\n", inode->singleIndPtr);
+        //printf("[findBlock] inode->singleIndPtr: %d\n", inode->singleIndPtr);
         if (read_sector(sector, &buffer_sector[0]) != 0){
             printf("[findBlock] Erro ao ler setor do registro inválido no diretório pai.\n");
             return ERRO;
@@ -1468,7 +1468,7 @@ int findBlock(int block_number, struct t2fs_inode* inode){
 
         int new_block;
         memcpy(&new_block, &buffer_block[0], 4);
-        printf("[findBlock] Buffer lido: %d\n", new_block);
+        //printf("[findBlock] Buffer lido: %d\n", new_block);
 
         return new_block;
     }
@@ -1513,6 +1513,7 @@ int findBlock(int block_number, struct t2fs_inode* inode){
     return ERRO;
 }
 
+/* Funções para lidar com os arrays de handles */
 int findHandle(FILE2 handle, FILE2 *handles){
     int i;
 

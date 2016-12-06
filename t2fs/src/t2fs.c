@@ -15,7 +15,6 @@ Universidade Federal do Rio Grande do Sul - UFRGS */
 int initialized = 0;
 int opened_files_count = 0;
 int opened_dirs_count = 0;
-
 struct t2fs_superbloco superblock;
 FILE2 handles[20];
 DIR2 dir_handles[20];
@@ -141,8 +140,8 @@ FILE2 create2 (char *filename){
         return ERRO;
     }
     else if(aux == 0){
-        printf("[create2] Caminho informado válido = %s\n", filename);
-        printf("[create2] Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
+        // printf("[create2] Caminho informado válido = %s\n", filename);
+        // printf("[create2] Setor do diretório-pai = %d, posição no setor = %d\n", location.sector, location.position);
     }
 
     /* Se o arquivo estiver num subdiretório, o registro existe
@@ -174,11 +173,11 @@ FILE2 create2 (char *filename){
 
     /* Seleciona o nome do arquivo, sem o caminho absoluto */
     strcpy(filename_copy, filename);
-    char *token = strtok(filename_copy, "//0");
+    char *token = strtok(filename_copy, "/");
     char name[32];
     while(token) {
         strcpy(name, token);
-        token = strtok(NULL, "//0");
+        token = strtok(NULL, "/");
     }
     // printf("name = %s\n", name);
 
@@ -289,7 +288,7 @@ int delete2 (char *filename){
         return ERRO;
     }
 
-    printf("[delete2] Arquivo %s apagado com sucesso.\n", filename);
+    //printf("[delete2] Arquivo %s apagado com sucesso.\n", filename);
     return SUCESSO;
 }
 
@@ -342,7 +341,7 @@ FILE2 open2 (char *filename){
         return ERRO;
     }
     else if(aux == 1){
-        printf("[open2] Localizado arquivo com o nome informado = %s\n", filename);
+        //printf("[open2] Localizado arquivo com o nome informado = %s\n", filename);
     }
 
     /* Lê o registro do arquivo que será aberto */
@@ -408,7 +407,7 @@ int close2 (FILE2 handle){
         return ERRO;
     }
 
-    printf("[close2] Fechando o arquivo com o handle número = %d\n", handle);
+    //printf("[close2] Fechando o arquivo com o handle número = %d\n", handle);
     free(file);
     file = NULL;
 
@@ -472,7 +471,7 @@ int read2 (FILE2 handle, char *buffer, int size){
     /* teste para ver se a quantidade de bytes do arquivo é maior que o tamanho solicitado
     Se for, diminui a quantidade de bytes a serem lidos */
     if (file_size < read_limit){
-        printf("[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.\n");
+        //printf("[read2] Você deseja ler mais bytes do que existem a partir da posição atual do arquivo.\n");
         read_limit = file_size;
     }
     bytes_to_read = read_limit - current;
@@ -578,7 +577,7 @@ int write2 (FILE2 handle, char *buffer, int size){
     /* tamanho do arquivo após a escrita dos bytes */
     new_size = size + current;
 
-    printf("[write2] Novo tamanho do arquivo após escrita: %d\n", new_size);
+    //printf("[write2] Novo tamanho do arquivo após escrita: %d\n", new_size);
 
     /* Lê o i-node do arquivo */
     aux = readInode(&inode, file->record.inodeNumber);
@@ -723,7 +722,7 @@ int truncate2 (FILE2 handle){
             return ERRO;
         }
 
-        printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
+        //printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
         return SUCESSO;
     }
     else if (file->record.bytesFileSize < 4096 * 2){
@@ -739,7 +738,7 @@ int truncate2 (FILE2 handle){
                 return ERRO;
             }
 
-            printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
+            //printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
             return SUCESSO;
         }
         else{
@@ -760,7 +759,7 @@ int truncate2 (FILE2 handle){
                 return ERRO;
             }
 
-            printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
+            //printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
             return SUCESSO;
         }
     }
@@ -788,7 +787,7 @@ int truncate2 (FILE2 handle){
                 return ERRO;
             }
 
-            printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
+            //printf("[truncate2] Novo tamanho do arquivo: %d\n", file->record.bytesFileSize);
             return SUCESSO;
     }
 
@@ -872,7 +871,7 @@ int mkdir2 (char *pathname){
         return ERRO;
     }
 
-    printf("[mkdir2] pathname = %s\n", pathname);
+    //printf("[mkdir2] pathname = %s\n", pathname);
 
     /* Verifica se o caminho em questão existe e, se existe,
     se já existe um diretório com o mesmo nome.*/
@@ -883,7 +882,7 @@ int mkdir2 (char *pathname){
     }
     else if(aux == 1){
         printf("[mkdir2] Já existe diretório com o nome especificado = %s\n", copy);
-        printf("[mkdir2] Setor do diretório = %d, posição no setor = %d\n", location.sector, location.position);
+        //printf("[mkdir2] Setor do diretório = %d, posição no setor = %d\n", location.sector, location.position);
         return ERRO;
     }
     else if(aux == 0){
@@ -933,11 +932,11 @@ int mkdir2 (char *pathname){
     }
 
     /* Seleciona o nome do diretório, sem o caminho absoluto */
-    char *token = strtok(copy, "//0");
+    char *token = strtok(copy, "/\0");
     char name[32];
     while(token) {
         strcpy(name, token);
-        token = strtok(NULL, "//0");
+        token = strtok(NULL, "/\0");
     }
     // printf("name = %s\n", name);
 
@@ -967,7 +966,7 @@ int mkdir2 (char *pathname){
     descriptor->sector_record = new_dir_location.sector;
     descriptor->record_index_in_sector = new_dir_location.position;
 
-    printf("[mkdir] Diretório criado com sucesso\n");
+    //printf("[mkdir] Diretório criado com sucesso\n");
     return SUCESSO;
 }
 
@@ -1002,7 +1001,7 @@ int rmdir2 (char *pathname){
         return ERRO;
     }
 
-    printf("[rmdir2] pathname = %s\n", pathname);
+    //printf("[rmdir2] pathname = %s\n", pathname);
 
     /* Verifica se o caminho em questão existe e, se existe,
     se já existe um diretório com o mesmo nome.*/
@@ -1016,7 +1015,7 @@ int rmdir2 (char *pathname){
         return ERRO;
     }
     else if(aux == 1){
-        printf("[rmdir2] O subdiretório %s está no setor %d, posição %d\n", copy, location.sector, location.position);
+        //printf("[rmdir2] O subdiretório %s está no setor %d, posição %d\n", copy, location.sector, location.position);
     }
 
     /* Lê o registro do diretório que será apagado */
@@ -1053,7 +1052,7 @@ int rmdir2 (char *pathname){
         return ERRO;
     }
 
-    printf("[rmdir2] Arquivo %s apagado com sucesso.\n", pathname);
+    //printf("[rmdir2] Diretório %s apagado com sucesso.\n", pathname);
     return SUCESSO;
 }
 
@@ -1093,7 +1092,7 @@ DIR2 opendir2 (char *pathname){
         return ERRO;
     }
 
-    printf("[opendir2] pathname = %s\n", pathname);
+    //printf("[opendir2] pathname = %s\n", pathname);
 
     /* Verifica se o caminho em questão existe e se existe um diretório com o nome informado.*/
     aux = findRecord(pathname_copy, &location);
@@ -1106,7 +1105,7 @@ DIR2 opendir2 (char *pathname){
         return ERRO;
     }
     else if(aux == 1){
-        printf("[opendir2] Localizado diretório com o nome informado = %s\n", pathname);
+        //printf("[opendir2] Localizado diretório com o nome informado = %s\n", pathname);
     }
 
     /* Lê o registro do arquivo que será aberto */
@@ -1324,7 +1323,7 @@ int closedir2 (DIR2 handle){
         return ERRO;
     }
 
-    printf("[closedir2] Fechando o diretório com o handle número = %d\n", handle);
+    //printf("[closedir2] Fechando o diretório com o handle número = %d\n", handle);
     free(dir);
     dir = NULL;
 
