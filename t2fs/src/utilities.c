@@ -1292,10 +1292,7 @@ int testEmpty(int inode_number){
                 return ERRO;
             }
 
-            if ((unsigned char)buffer[64] == TYPEVAL_INVALIDO){
-                return SUCESSO;
-            }
-            else{
+            if ((unsigned char)buffer[64] != TYPEVAL_INVALIDO){
                 return ERRO;
             }
         }
@@ -1311,10 +1308,7 @@ int testEmpty(int inode_number){
                 printf("[testEmpty] Erro ao ler setor %d\n", sector + b);
                 return ERRO;
             }
-            if ((unsigned char)buffer[64] == TYPEVAL_INVALIDO){
-                return SUCESSO;
-            }
-            else{
+            if ((unsigned char)buffer[64] != TYPEVAL_INVALIDO){
                 return ERRO;
             }
         }
