@@ -127,7 +127,7 @@ FILE2 create2 (char *filename){
         return ERRO;
     }
 
-    printf("[create2] filename = %s\n", filename);
+    //printf("[create2] filename = %s\n", filename);
 
     /* Verifica se o caminho em questão existe e, se existe, se já existe um arquivo com o mesmo nome.*/
     aux = findRecord(filename_copy, &location);
@@ -244,7 +244,7 @@ int delete2 (char *filename){
         return ERRO;
     }
 
-    printf("[delete2] filename = %s\n", filename);
+    //printf("[delete2] filename = %s\n", filename);
 
     /* Verifica se o caminho em questão existe e se existe um arquivo com o nome informado.*/
     aux = findRecord(filename_copy, &location);
@@ -257,7 +257,7 @@ int delete2 (char *filename){
         return ERRO;
     }
     else if(aux == 1){
-        printf("[delete2] Localizado arquivo com o nome informado = %s\n", filename);
+        //printf("[delete2] Localizado arquivo com o nome informado = %s\n", filename);
     }
 
     /* Lê o registro do arquivo que será apagado */
@@ -329,7 +329,7 @@ FILE2 open2 (char *filename){
         return ERRO;
     }
 
-    printf("[open2] filename = %s\n", filename);
+    //printf("[open2] filename = %s\n", filename);
 
     /* Verifica se o caminho em questão existe e se existe um arquivo com o nome informado.*/
     aux = findRecord(filename_copy, &location);
@@ -590,7 +590,7 @@ int write2 (FILE2 handle, char *buffer, int size){
     /* 4096 bytes por bloco. Logo, achamos pra qual bloco o current apontada
         P.S: não é o número do bloco no disco, mas referente aos blocos do arquivo */
     file_block = current / 4096;
-    printf("[write2] Current = %d, file_block = %d\n", current, file_block);
+    //printf("[write2] Current = %d, file_block = %d\n", current, file_block);
     blocks_start_sector = (int)superblock.superblockSize + (int)superblock.freeBlocksBitmapSize + (int)superblock.freeInodeBitmapSize + (int)superblock.inodeAreaSize;
 
     while (buffer_index < size) {
@@ -606,7 +606,7 @@ int write2 (FILE2 handle, char *buffer, int size){
         if(block_number == ERRO){
             /* Não tem bloco livre, é necessário alocar um novo */
             block_number = createNewBlock(&inode, &record2);
-            printf("[write2] Criado novo bloco: %d\n", block_number);
+            //printf("[write2] Criado novo bloco: %d\n", block_number);
             if(block_number == ERRO){
                 printf("[write2] Erro ao criar novo bloco\n");
                 return ERRO;
@@ -618,7 +618,7 @@ int write2 (FILE2 handle, char *buffer, int size){
         //printf("[write2] Setor = %d\n", sector);
         /* Vai ler os 16 setores do bloco */
         for(i = 0; i < 16; i++){
-            printf("sector = %d\n", sector + i);
+            //printf("sector = %d\n", sector + i);
             if (read_sector(sector + i, &buffer_sector[0]) != 0){
                 printf("[write2] Erro ao ler setor do bloco do arquivo.\n");
                 return ERRO;
@@ -635,7 +635,7 @@ int write2 (FILE2 handle, char *buffer, int size){
                     buffer_index++;
 
                     if(current >= new_size){
-                        printf("[write2] current = %d, new_size = %d\n", current, new_size);
+                        //printf("[write2] current = %d, new_size = %d\n", current, new_size);
                         //printf("[write2] Chegou ao final do buffer.\n");
                         file->current_pointer = current;
                         file->record.blocksFileSize = file->record.blocksFileSize + blocks_count;
@@ -866,7 +866,7 @@ int mkdir2 (char *pathname){
         initialize_data();
     }
 
-    printf("pathname = %s\n", pathname);
+    //printf("pathname = %s\n", pathname);
     if(isFileNameValid(pathname) == ERRO){
         printf("[mkdir2] O nome informado para o diretório não é válido.\n");
         return ERRO;

@@ -467,7 +467,7 @@ int findInBlock(int block, char *name, int *dir, struct record_location* locatio
 }
 
 int findInList(int block, char* name, int* dir, struct record_location* location){
-    int sector, i, j, k, file_inode, pointer;
+    int sector, i, j, file_inode, pointer;
     unsigned char buffer_sector[SECTOR_SIZE];
     unsigned char buffer_pointer[4];
 
@@ -481,12 +481,11 @@ int findInList(int block, char* name, int* dir, struct record_location* location
         }
 
         /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
-        for(j=0; j < SECTOR_SIZE / 4; j++){
-            for(k = 0; k < 4; k++){
-                buffer_pointer[k] = buffer_sector[k + j*4];
-            }
+        for(j=0; j < SECTOR_SIZE; j = j + 4){
+            memcpy(&buffer_pointer[0], &buffer_sector[j], 4);
+
             pointer = *(int *)buffer_pointer;
-            if(pointer == TYPEVAL_INVALIDO){
+            if(pointer == INVALID_PTR){
                 return ERRO;
             }
             else{
@@ -501,7 +500,7 @@ int findInList(int block, char* name, int* dir, struct record_location* location
 }
 
 int findInListDouble(int block, char* name, int* dir, struct record_location* location){
-    int sector, i, j, k, file_inode, pointer;
+    int sector, i, j, file_inode, pointer;
     unsigned char buffer_sector[SECTOR_SIZE];
     unsigned char buffer_pointer[4];
 
@@ -515,12 +514,11 @@ int findInListDouble(int block, char* name, int* dir, struct record_location* lo
         }
 
         /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
-        for(j=0; j < SECTOR_SIZE / 4; j++){
-            for(k = 0; k < 4; k++){
-                buffer_pointer[k] = buffer_sector[k + j*4];
-            }
+        for(j=0; j < SECTOR_SIZE; j = j + 4){
+            memcpy(&buffer_pointer[0], &buffer_sector[j], 4);
+
             pointer = *(int *)buffer_pointer;
-            if(pointer == TYPEVAL_INVALIDO){
+            if(pointer == INVALID_PTR){
                 return ERRO;
             }
             else{
@@ -748,12 +746,11 @@ int findInvalidRecordInListDouble(int block, struct record_location* location){
         }
 
         /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
-        for(j=0; j < SECTOR_SIZE / 4; j++){
-            for(k = 0; k < 4; k++){
-                buffer_pointer[k] = buffer_sector[k + j*4];
-            }
+        for(j=0; j < SECTOR_SIZE; j = j + 4){
+            memcpy(&buffer_pointer[0], &buffer_sector[j], 4);
+
             pointer = *(int *)buffer_pointer;
-            if(pointer == TYPEVAL_INVALIDO){
+            if(pointer == INVALID_PTR){
                 /* Aqui devemos acrescentar mais um bloco para ponteiros */
                 int new_block = allocNewBlock(TYPEVAL_DIRETORIO);
                 aux = formatPointerBlock(new_block);
@@ -984,7 +981,6 @@ int createNewBlockInList(int block){
     unsigned char buffer_sector[SECTOR_SIZE];
     unsigned char buffer_pointer[4];
 
-
     sector = blocks_start_sector + block * sectors_by_block;
 
     /* Irá varrer os setores do bloco, lendo um por vez */
@@ -1021,10 +1017,9 @@ int createNewBlockInList(int block){
 }
 
 int createNewBlockInListDouble(int block){
-    int sector, i, j, k, pointer, new_block, aux, new_block2;
+    int sector, i, j, pointer, new_block, aux, new_block2;
     unsigned char buffer_sector[SECTOR_SIZE];
-    char buffer_pointer[4];
-
+    unsigned char buffer_pointer[4];
 
     sector = blocks_start_sector + block * sectors_by_block;
 
@@ -1036,11 +1031,10 @@ int createNewBlockInListDouble(int block){
         }
 
         /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
-        for(j=0; j < SECTOR_SIZE / 4; j++){
-            for(k = 0; k < 4; k++){
-                buffer_pointer[k] = buffer_sector[k + j*4];
-            }
-            pointer = *(int *)buffer_pointer;
+        for(j=0; j < SECTOR_SIZE; j = j + 4){
+            memcpy(&buffer_pointer[0], &buffer_sector[j], 4);
+
+            memcpy((char*)&pointer, &buffer_pointer[0], 4);
 
             if(pointer != INVALID_PTR){
                 new_block = createNewBlockInList(pointer);
@@ -1051,11 +1045,9 @@ int createNewBlockInListDouble(int block){
 
             else if(pointer == INVALID_PTR){
                 new_block = allocNewBlock(TYPEVAL_REGULAR);
-                memcpy(buffer_pointer, (char*)new_block, 4);
+                memcpy(&buffer_pointer[0], (char*)&new_block, 4);
 
-                for(k = 0; k < 4; k++){
-                    buffer_sector[k + j*4] = buffer_pointer[k];
-                }
+                memcpy(&buffer_sector[j], &buffer_pointer[0], 4);
 
                 if (write_sector(sector + i, &buffer_sector[0]) != 0){
                     printf("[createNewBlockInListDouble] Erro ao gravar setor %d\n", sector);
@@ -1213,7 +1205,7 @@ int freeBlocks(int inode_number){
 
 /* Recebe um bloco que é uma lista de ponteiros para outros blocos */
 int freeListBlock(int block){
-    int sector, i, j, k, pointer;
+    int sector, i, j, pointer;
     unsigned char buffer_sector[SECTOR_SIZE];
     char buffer_pointer[4];
 
@@ -1228,12 +1220,11 @@ int freeListBlock(int block){
         }
 
         /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
-        for(j=0; j < SECTOR_SIZE / 4; j++){
-            for(k = 0; k < 4; k++){
-                buffer_pointer[k] = buffer_sector[k + j*4];
-            }
+        for(j=0; j < SECTOR_SIZE; j = j + 4){
+            memcpy(&buffer_pointer[0], &buffer_sector[j], 4);
+
             pointer = *(int *)buffer_pointer;
-            if(pointer == TYPEVAL_INVALIDO){
+            if(pointer == INVALID_PTR){
                 return SUCESSO;
             }
             else{
@@ -1246,7 +1237,7 @@ int freeListBlock(int block){
 
 /* Recebe um bloco que é uma lista de ponteiros para uma lista de blocos */
 int freeDoubleListBlock(int block){
-    int sector, i, j, k, pointer, aux;
+    int sector, i, j, pointer, aux;
     unsigned char buffer_sector[SECTOR_SIZE];
     char buffer_pointer[4];
 
@@ -1261,12 +1252,11 @@ int freeDoubleListBlock(int block){
         }
 
         /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
-        for(j=0; j < SECTOR_SIZE / 4; j++){
-            for(k = 0; k < 4; k++){
-                buffer_pointer[k] = buffer_sector[k + j*4];
-            }
+        for(j=0; j < SECTOR_SIZE; j = j + 4){
+            memcpy(&buffer_pointer[0], &buffer_sector[j], 4);
+
             pointer = *(int *)buffer_pointer;
-            if(pointer == TYPEVAL_INVALIDO){
+            if(pointer == INVALID_PTR){
                 return SUCESSO;
             }
             else{
@@ -1395,7 +1385,7 @@ int testEmptyBlock(int block){
 
 /* Recebe um bloco que é uma lista de ponteiros para uma lista de blocos */
 int testEmptyList(int block){
-    int sector, i, j, k, pointer, aux;
+    int sector, i, j, pointer, aux;
     unsigned char buffer_sector[SECTOR_SIZE];
     char buffer_pointer[4];
 
@@ -1410,12 +1400,11 @@ int testEmptyList(int block){
         }
 
         /* Cada setor possui 64 ponteiros blocos de arquivos e subdiretórios */
-        for(j=0; j < SECTOR_SIZE / 4; j++){
-            for(k = 0; k < 4; k++){
-                buffer_pointer[k] = buffer_sector[k + j*4];
-            }
+        for(j=0; j < SECTOR_SIZE; j = j + 4){
+            memcpy(&buffer_pointer[0], &buffer_sector[j], 4);
+
             pointer = *(int *)buffer_pointer;
-            if(pointer == TYPEVAL_INVALIDO){
+            if(pointer == INVALID_PTR){
                 return SUCESSO;
             }
             else{
