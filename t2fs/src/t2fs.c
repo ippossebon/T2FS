@@ -411,6 +411,8 @@ int close2 (FILE2 handle){
     free(file);
     file = NULL;
 
+    opened_files_count--;
+
     return SUCESSO;
 }
 
@@ -1283,6 +1285,10 @@ int readdir2 (DIR2 handle, DIRENT2 *dentry){
         return ERRO;
     }
 
+    if(entry_record.TypeVal == TYPEVAL_INVALIDO){
+        return ERRO;
+    }
+
     /* Copia os dados do registro para a estrutura de retorno. */
     strcpy(dentry->name, entry_record.name);
     dentry->fileType = entry_record.TypeVal;
@@ -1312,7 +1318,7 @@ int closedir2 (DIR2 handle){
 
     aux = rmvHandleDir((DIR2)handle, &dir_handles[0]);
     if (aux == ERRO){
-        printf("[closedir2] Erro ao remover o handle do diretório.\n");
+        printf("[closedir2] Handle fornecido inválido.\n");
         return ERRO;
     }
 

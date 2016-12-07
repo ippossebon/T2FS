@@ -25,13 +25,45 @@ int main()
 
     if(aux == ERRO){
         printf("[test_readdir2] Erro ao ler entrada do diretório.\n");
-
     }
 
-    printf("[test_readdir2] Entrada lida do diretóio %s :\n", pathname);
+    printf("[test_readdir2] Entrada lida do diretório %s :\n", pathname);
     printf("filename = %s\n", dentry.name);
     printf("file type = %d\n", dentry.fileType);
     printf("file size = %d\n", dentry.fileSize);
 
+    aux = readdir2(dir, &dentry);
+
+    if(aux == ERRO){
+        printf("[test_readdir2] Erro ao ler entrada do diretório.\n");
+    }
+
+    printf("[test_readdir2] Entrada lida do diretório %s :\n", pathname);
+    printf("filename = %s\n", dentry.name);
+    printf("file type = %d\n", dentry.fileType);
+    printf("file size = %d\n", dentry.fileSize);
+
+    aux = readdir2(dir, &dentry);
+
+    if(aux == ERRO){
+        printf("[test_readdir2] Erro ao ler entrada do diretório.\n");
+    }
+
+    printf("[test_readdir2] Entrada lida do diretório %s :\n", pathname);
+    printf("filename = %s\n", dentry.name);
+    printf("file type = %d\n", dentry.fileType);
+    printf("file size = %d\n", dentry.fileSize);
+
+    aux = readdir2(dir, &dentry);
+
+    if(aux == ERRO){
+        printf("[test_readdir2] Erro ao ler entrada do diretório.\n");
+    }
+
+    printf("[test_readdir2] Entrada lida do diretório %s :\n", pathname);
+    printf("filename = %s\n", dentry.name);
+    printf("file type = %d\n", dentry.fileType);
+    printf("file size = %d\n", dentry.fileSize);
+    
     return 0;
 }

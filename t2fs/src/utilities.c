@@ -1158,7 +1158,7 @@ int eraseRecord(struct record_location* location){
         printf("[readRecord] Erro ao ler setor indicado\n");
         return ERRO;
     }
-    buffer_sector[location->position * DIR_SIZE] = INVALID_PTR;
+    buffer_sector[location->position * DIR_SIZE] = TYPEVAL_INVALIDO;
 
     if (write_sector(location->sector, &buffer_sector[0]) != 0){
         printf("[writeInode] Erro ao gravar setor %d\n", location->sector);
@@ -1291,8 +1291,16 @@ int testEmpty(int inode_number){
                 printf("[testEmpty] Erro ao ler setor %d\n", sector + b);
                 return ERRO;
             }
-
+            if ((unsigned char)buffer[0] != TYPEVAL_INVALIDO){
+                return ERRO;
+            }
             if ((unsigned char)buffer[64] != TYPEVAL_INVALIDO){
+                return ERRO;
+            }
+            if ((unsigned char)buffer[128] != TYPEVAL_INVALIDO){
+                return ERRO;
+            }
+            if ((unsigned char)buffer[192] != TYPEVAL_INVALIDO){
                 return ERRO;
             }
         }
@@ -1308,7 +1316,16 @@ int testEmpty(int inode_number){
                 printf("[testEmpty] Erro ao ler setor %d\n", sector + b);
                 return ERRO;
             }
+            if ((unsigned char)buffer[0] != TYPEVAL_INVALIDO){
+                return ERRO;
+            }
             if ((unsigned char)buffer[64] != TYPEVAL_INVALIDO){
+                return ERRO;
+            }
+            if ((unsigned char)buffer[128] != TYPEVAL_INVALIDO){
+                return ERRO;
+            }
+            if ((unsigned char)buffer[192] != TYPEVAL_INVALIDO){
                 return ERRO;
             }
         }
@@ -1367,7 +1384,16 @@ int testEmptyBlock(int block){
                         return ERRO;
                     }
 
+                    if ((unsigned char)buffer[0] != TYPEVAL_INVALIDO){
+                        return ERRO;
+                    }
                     if ((unsigned char)buffer[64] != TYPEVAL_INVALIDO){
+                        return ERRO;
+                    }
+                    if ((unsigned char)buffer[128] != TYPEVAL_INVALIDO){
+                        return ERRO;
+                    }
+                    if ((unsigned char)buffer[192] != TYPEVAL_INVALIDO){
                         return ERRO;
                     }
                 }
